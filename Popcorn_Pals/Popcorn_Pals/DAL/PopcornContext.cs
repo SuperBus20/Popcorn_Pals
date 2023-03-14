@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Popcorn_Pals.Models;
 
 
 namespace Popcorn_Pals
