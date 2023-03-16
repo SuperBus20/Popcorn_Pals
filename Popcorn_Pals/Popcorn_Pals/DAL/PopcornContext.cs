@@ -17,6 +17,9 @@ namespace Popcorn_Pals
 
     }
 
+    public DbSet<User> Users { get; set; }
+    public DbSet<UserReview> Reviews { get; set; }
+
 
     private static IConfigurationRoot _configuration;
 
@@ -34,5 +37,13 @@ namespace Popcorn_Pals
       }
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.Entity<Source>().HasNoKey();
+      modelBuilder.Entity<Movie>().Ignore(x => x.genres);
+      modelBuilder.Entity<Movie>().Ignore(x => x.sources);
+      modelBuilder.Entity<Show>().Ignore(x => x.genres);
+      modelBuilder.Entity<Show>().Ignore(x => x.sources);
+    }
   }
 }
