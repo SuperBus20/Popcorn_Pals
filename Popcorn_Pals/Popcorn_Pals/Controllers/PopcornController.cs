@@ -2,6 +2,8 @@ using Flurl.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Popcorn_Pals.Models;
+using System.Drawing.Text;
+using System.Text;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Popcorn_Pals.Controllers
@@ -10,14 +12,17 @@ namespace Popcorn_Pals.Controllers
   [ApiController]
   public class PopcornController : ControllerBase
   {
+    string juneKey = "4fc1bbfbfamsh918f184e4f2d29cp13265ajsnad0c24e96d2b";
+    string anhKey = "75b89c1e52msh391d45bf48da45bp1a0f89jsnf24f7bad2b61";
+    string lisaKey = "15728bb747mshb12d9318d06a090p16bcc7jsnf46cf1933827";
     [HttpGet("search")]
-    public List<Search> SearchByTitle(string query, string type)
+    public List<Search> SearchByTitle(string title, string type)
     {
-      string apiUri = $"https://streamlinewatch-streaming-guide.p.rapidapi.com/search?type={type}&query={query}";
+      string apiUri = $"https://streamlinewatch-streaming-guide.p.rapidapi.com/search?type={type}&query={title}";
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = "4fc1bbfbfamsh918f184e4f2d29cp13265ajsnad0c24e96d2b"
+        x_rapidapi_key = juneKey
 
       }).GetJsonAsync<List<Search>>();
       apiTask.Wait();
@@ -38,7 +43,7 @@ namespace Popcorn_Pals.Controllers
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = "4fc1bbfbfamsh918f184e4f2d29cp13265ajsnad0c24e96d2b"
+        x_rapidapi_key = juneKey
 
       }).GetJsonAsync<List<Movie>>();
       apiTask.Wait();
@@ -53,7 +58,8 @@ namespace Popcorn_Pals.Controllers
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = "4fc1bbfbfamsh918f184e4f2d29cp13265ajsnad0c24e96d2b"
+
+        x_rapidapi_key = juneKey
 
       }).GetJsonAsync<List<Show>>();
       apiTask.Wait();
