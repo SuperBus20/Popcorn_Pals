@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Popcorn_Pals;
 
@@ -11,9 +12,10 @@ using Popcorn_Pals;
 namespace Popcorn_Pals.Migrations
 {
     [DbContext(typeof(PopcornContext))]
-    partial class PopcornContextModelSnapshot : ModelSnapshot
+    [Migration("20230317000155_made show and movie nullable")]
+    partial class madeshowandmovienullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace Popcorn_Pals.Migrations
 
                     b.HasKey("_id");
 
-                    b.ToTable("Movie", (string)null);
+                    b.ToTable("Movie");
                 });
 
             modelBuilder.Entity("Popcorn_Pals.Models.Show", b =>
@@ -79,7 +81,7 @@ namespace Popcorn_Pals.Migrations
 
                     b.HasKey("_id");
 
-                    b.ToTable("Show", (string)null);
+                    b.ToTable("Show");
                 });
 
             modelBuilder.Entity("Popcorn_Pals.Models.Source", b =>
@@ -96,7 +98,7 @@ namespace Popcorn_Pals.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Source", (string)null);
+                    b.ToTable("Source");
                 });
 
             modelBuilder.Entity("Popcorn_Pals.Models.User", b =>
@@ -126,7 +128,7 @@ namespace Popcorn_Pals.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Popcorn_Pals.Models.UserReview", b =>
@@ -164,7 +166,7 @@ namespace Popcorn_Pals.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("UserUser", b =>
@@ -179,7 +181,7 @@ namespace Popcorn_Pals.Migrations
 
                     b.HasIndex("FollowingUserId");
 
-                    b.ToTable("UserUser", (string)null);
+                    b.ToTable("UserUser");
                 });
 
             modelBuilder.Entity("Popcorn_Pals.Models.UserReview", b =>
