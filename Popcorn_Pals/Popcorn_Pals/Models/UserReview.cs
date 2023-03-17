@@ -6,8 +6,8 @@ namespace Popcorn_Pals.Models
     public int UserId { get; set; }
     public virtual User User { get; set; }
     public int MediaId { get; set; }
-    public Movie Movie { get; set; }
-    public Show Show { get; set; }
+    public virtual Movie? Movie { get; set; }
+    public virtual Show? Show { get; set; }
     public string Review { get; set; }
     public int Rating { get; set; }
   }

@@ -25,5 +25,17 @@ namespace Popcorn_Pals.Controllers
       }
       return user;
     }
+
+    [HttpPost("AddMovieReview")]
+    public UserReview AddMovieReview(int userId, int mediaId, string review, int rating)
+    {
+      return _popRepo.AddMovieReview(userId, mediaId, review, rating);
+    }
+    [HttpPost("AddShowReview")]
+    public UserReview AddShowReview(int userId, int mediaId, string review, int rating)
+    {
+      return _popRepo.AddShowReview(userId, mediaId, review, rating);
+    }
+
   }
 }
