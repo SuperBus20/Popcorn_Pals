@@ -19,6 +19,7 @@ namespace Popcorn_Pals
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserReview> Reviews { get; set; }
+    public DbSet<Follow> Follows { get; set; }
 
 
     private static IConfigurationRoot _configuration;

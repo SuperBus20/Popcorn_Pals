@@ -1,0 +1,16 @@
+<form *ngIf="!loggedInUser" #login="ngForm">
+  <label for="userName">User Name</label><br>
+  <input name="userName" [ngModel] /><br>
+  <label for="password">Password</label><br>
+  <input name="password" type="password" [ngModel] /><br>
+  <label for="submit"></label><br>
+  <button class="button" type="submit" (click)="onLogin(login)"> Login </button><br><br>
+  <button class="button" type="button" (click)="newUser(login)"> Create Login </button>
+
+  <h1 class="Login-error" *ngIf="loginError">{{displayErrorMessage()}}</h1>
+
+</form>
+<div *ngIf="loggedInUser">
+  <h4>{{loggedInUser.User.UserName}} is logged in!</h4>
+  <!-- <button class="bunton" (click)="onLogout()">Logout</button> -->
+</div>
