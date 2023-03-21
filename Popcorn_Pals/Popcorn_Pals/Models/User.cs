@@ -11,7 +11,7 @@ namespace Popcorn_Pals.Models
     public int UserRating { get; set; }
     public string? UserPic { get; set; }
     public string? UserBio { get; set; }
-    public List<User> Followers { get; set; }
-    public List<User> Following { get; set; }
+    //public virtual List<Follow> Followers { get; set; }
+    //public virtual List<Follow> Following { get; set; }
   }
 }

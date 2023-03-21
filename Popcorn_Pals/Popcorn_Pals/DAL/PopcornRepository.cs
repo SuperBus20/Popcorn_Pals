@@ -87,6 +87,44 @@ namespace Popcorn_Pals.DAL
 
     }
 
+    public Follow FollowUser(int user, int userToFollow)
+    {
+      Follow follow = new Follow
+      {
+        UserId = user,
+        FollowingId = userToFollow
+      };
+      Follow follow2 = new Follow
+      {
+        FollowerId = user,
+        UserId = userToFollow
+      };
+      _popContext.Follows.Add(follow);
+      _popContext.Follows.Add(follow2);
+      _popContext.SaveChanges();
+      return follow;
+    }
+
+    
+
+    public List<Follow> GetFollowers(int userId)
+    {
+      List<Follow> Followers = _popContext.Follows
+        .Where(x => x.UserId == userId)
+        .Where(x => x.FollowerId != null)
+        .ToList();
+      return Followers;
+    }
+
+    public List<Follow> GetFollowing(int userId)
+    {
+      List<Follow> Followers = _popContext.Follows
+        .Where(x => x.UserId == userId)
+        .Where(x => x.FollowingId != null)
+        .ToList();
+      return Followers;
+    }
+
 
 #pragma warning disable CS8600
     public User GetUserById(int id)

@@ -36,6 +36,23 @@ namespace Popcorn_Pals.Controllers
     {
       return _popRepo.AddShowReview(userId, mediaId, review, rating);
     }
+    [HttpPost("FollowUser")]
+    public Follow FollowUser(int userId, int userToFollow)
+    {
+      return _popRepo.FollowUser(userId, userToFollow);
+    }
+
+    [HttpPost("GetFollowers")]
+    public List<Follow> GetFollowers(int userId)
+    {
+      return _popRepo.GetFollowers(userId);
+    }
+    [HttpPost("GetFollowing")]
+    public List<Follow> GetFollowing(int userId)
+    {
+      return _popRepo.GetFollowing(userId);
+    }
+
 
   }
 }
