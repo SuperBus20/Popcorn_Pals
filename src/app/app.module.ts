@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserLoginComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ReviewsComponent
   ],
   imports: [
     BrowserModule,

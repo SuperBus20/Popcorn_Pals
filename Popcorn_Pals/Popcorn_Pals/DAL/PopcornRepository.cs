@@ -83,8 +83,16 @@ namespace Popcorn_Pals.DAL
       _popContext.Reviews.Add(reviewToAdd);
       _popContext.SaveChanges();
       return reviewToAdd;
+    }
 
+    public List<UserReview> GetMediaReview(int mediaId)
+    {
+      _popContext.Reviews.ToList();
 
+      List<UserReview> Reviews = _popContext.Reviews
+        .Where(x => x.MediaId == mediaId)
+        .ToList();
+      return Reviews;
     }
 
     public Follow FollowUser(int user, int userToFollow)
@@ -104,8 +112,6 @@ namespace Popcorn_Pals.DAL
       _popContext.SaveChanges();
       return follow;
     }
-
-    
 
     public List<Follow> GetFollowers(int userId)
     {
