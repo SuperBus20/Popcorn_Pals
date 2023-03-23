@@ -1,0 +1,20 @@
+<!-- <label>{{userProfile.UserId}}</label>
+<label>{{userProfile.UserName}}</label>
+<label>{{userProfile.Password}}</label>
+<label>{{userProfile.UserPic}}</label>
+<label>{{userProfile.UserBio}}</label> -->
+<!-- 
+<form #updateProfile="ngForm" (ngSubmit)="updateProfile()">
+    <p><label for="UserName">UserName:</label> <input name="UserName" id="UserName" ngModel /> </p>
+    <p><button>Update Profile</button></p>
+  </form> -->
+
+  <form #updateUser="ngForm" (ngSubmit)="updateProfile(userName, updateUser)">
+    <label for="userName">Username:</label>
+    <input type="text" id="userName" name="UserName" [(ngModel)]="userName" required>
+  
+    <!-- <label for="searchType">Search Type:</label>
+    <input type="text" id="searchType" name="searchType" [(ngModel)]="searchType" required> -->
+  
+    <button type="submit">Update</button>
+  </form>

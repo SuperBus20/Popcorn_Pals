@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 
 import { UserLoginComponent } from './user-login/user-login.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
