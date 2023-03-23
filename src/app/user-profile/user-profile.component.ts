@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IUser } from '../Interfaces/user';
 import { IUserReview } from '../Interfaces/user-review';
@@ -18,22 +18,27 @@ export class UserProfileComponent {
   users: any;
   userProfile: any;
   userName: any;
+  userId: any;
+  userRating: any;
   password: any;
-  userpic: any;
-  userbio: any;
+  userPic: any;
+  userBio: any;
 
- getProfile(User: IUser) {
-    this.userProfile.getUser();
+  getProfile(User: IUser) {
+    this.Api.getUser(User); 
  } 
+
+ ngOnInit(): void { this.getProfile
+ }
  
  updateProfile(UserName: string, form: NgForm) {
   let newUser: IUser = {
     UserName: form.value.userName,
-    UserId: 0,
-    Password: '',
-    UserRating: 0,
-    UserPic: '',
-    UserBio: ''
+    UserId: this.userId.disable,
+    Password: form.value.userPassword,
+    UserRating: this.userRating.disable,
+    UserPic: form.value.userPic,
+    UserBio: form.value.userBio,
   }
 
   this.users.updateProfile(form).subscribe(
