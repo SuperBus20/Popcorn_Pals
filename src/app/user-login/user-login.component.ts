@@ -9,11 +9,13 @@ import { NgForm } from '@angular/forms';
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css'],
 })
-export class UserLoginComponent {
+export class UserLoginComponent implements OnInit {
   static onLogout() {
     throw new Error('Method not implemented.');
   }
+
   id: number = 0;
+
 
   loginError: boolean = false;
   errorMessage: string = '';
@@ -55,7 +57,6 @@ export class UserLoginComponent {
       this.loginError = true;
       return;
     }
-    console.log('User logged in I guess');
 
     this.api.setUser(user);
     return;
@@ -86,10 +87,10 @@ export class UserLoginComponent {
     });
   }
 
-  // onLogout() {
-  //   this.api.onLogout();
-  //   this.loginError = false;
-  // }
+  onLogout() {
+    this.api.onLogout();
+    this.loginError = false;
+  }
 
   onLogin(form: NgForm) {
     let name = form.form.value.userName;
@@ -136,7 +137,7 @@ export class UserLoginComponent {
     this.api.createUser({
       UserName: name,
       Password: pass,
-      UserId: 0,
+      UserId: -1,
       UserRating: 0,
       UserPic: '',
       UserBio: '',
@@ -144,17 +145,17 @@ export class UserLoginComponent {
     this.api.setUser({
       UserName: name,
       Password: pass,
-      UserId: 0,
+      UserId: -1,
       UserRating: 0,
       UserPic: '',
       UserBio: '',
     }); // passing the currently logged in user back to service so it is globally available, has to be done this way...
   }
 
-  // ngOnInit(): void {
-  //   this.api.getAllUsers().subscribe((x) => this.users = x);
-  //   this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
-  // }
+  ngOnInit(): void {
+    this.api.getAllUsers().subscribe((x) => this.users = x);
+    this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+  }
 
   updateProfile(form: NgForm) {
     let newUser: IUser = {

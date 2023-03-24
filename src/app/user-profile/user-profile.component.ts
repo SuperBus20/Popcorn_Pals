@@ -30,6 +30,7 @@ export class UserProfileComponent {
     this.getProfile;
   }
 
+
   updateProfile(form: NgForm) {
     let newUser: IUser = {
       UserName: form.value.userName,

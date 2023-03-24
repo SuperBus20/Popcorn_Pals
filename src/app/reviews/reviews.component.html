@@ -1,0 +1,10 @@
+<form #newReview="ngForm" (ngSubmit)="addReview(newReview)">
+
+    <label for="reviewText">Review:</label>
+    <input type="text" id="review" name="Review" [(ngModel)]="review" required>
+
+    <label for="userRating">Rating:</label>
+    <input type="text" id="rating" name="userRating" [(ngModel)]="rating" required>
+
+    <button type="submit">Add Review</button>
+  </form>

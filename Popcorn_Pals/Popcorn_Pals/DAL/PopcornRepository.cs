@@ -1,7 +1,11 @@
 using Popcorn_Pals.Models;
 using Popcorn_Pals.DAL;
 using Popcorn_Pals.Controllers;
+
+using System;
+
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Popcorn_Pals.DAL
 {
@@ -9,6 +13,17 @@ namespace Popcorn_Pals.DAL
   {
     private PopcornController _controller = new PopcornController();
     private PopcornContext _popContext = new PopcornContext();
+
+
+
+    public List<UserReview> GetMediaReview(int mediaId)
+    {
+      _popContext.Reviews.ToList();
+      List<UserReview> Reviews = _popContext.Reviews
+        .Where(x => x.MediaId == mediaId)
+        .ToList();
+      return Reviews;
+    }
 
     public List<User> GetUsers()
     {
@@ -96,8 +111,16 @@ namespace Popcorn_Pals.DAL
       _popContext.Reviews.Add(reviewToAdd);
       _popContext.SaveChanges();
       return reviewToAdd;
+    }
 
+    public List<UserReview> GetMediaReview(int mediaId)
+    {
+      _popContext.Reviews.ToList();
 
+      List<UserReview> Reviews = _popContext.Reviews
+        .Where(x => x.MediaId == mediaId)
+        .ToList();
+      return Reviews;
     }
 
     public Follow FollowUser(int user, int userToFollow)
@@ -117,8 +140,6 @@ namespace Popcorn_Pals.DAL
       _popContext.SaveChanges();
       return follow;
     }
-
-
 
     public List<Follow> GetFollowers(int userId)
     {
@@ -144,4 +165,7 @@ namespace Popcorn_Pals.DAL
     }
 
   }
+
+
+
 }
