@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { RouterModule } from '@angular/router';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 <<<<<<< HEAD
@@ -41,7 +41,8 @@ import { MediaComponent } from './media/media.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

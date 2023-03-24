@@ -21,6 +21,21 @@ export class ApiService {
   @Output() loggedInEvent: EventEmitter<ILoggedInUser> = new EventEmitter<ILoggedInUser>();
 
 
+  updateProfile(userToUpdate:IUser)
+  {
+    let userId = userToUpdate.UserId
+    let userName = userToUpdate.UserName
+    let password = userToUpdate.Password
+    let userRating = userToUpdate.UserRating
+    let userPic = userToUpdate.UserPic
+    let userBio = userToUpdate.UserBio
+    return this.http.post(
+      this.userURI + `UpdateUser?UserId=${userId}&newUserName=${userName}&newPassword=${password}&newUserRating=${userRating}&newUserPic=${userPic}&newUserBio=${userBio}`
+    ,userToUpdate).subscribe(() => {});
+    
+  }
+
+
   searchMedia(searchTitle: string, type: string) {
 
     // return this.http.get<IMovie[]>(

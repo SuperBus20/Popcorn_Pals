@@ -1,7 +1,11 @@
 using Popcorn_Pals.Models;
 using Popcorn_Pals.DAL;
 using Popcorn_Pals.Controllers;
+
 using System;
+
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Popcorn_Pals.DAL
 {
@@ -57,6 +61,18 @@ namespace Popcorn_Pals.DAL
       });
       _popContext.SaveChanges();
       return GetUser(userName);
+    }
+
+    public bool UpdateUser(User userToUpdate)
+    {
+      if (GetUserById(userToUpdate.UserId) == null)
+      {
+        return false;
+      }
+
+      _popContext.Users.Update(userToUpdate);
+      _popContext.SaveChanges();
+      return true;
     }
 
     public UserReview AddMovieReview(int userId, int mediaId, string review, int rating)
@@ -143,20 +159,10 @@ namespace Popcorn_Pals.DAL
       return Followers;
     }
 
-
-#pragma warning disable CS8600
     public User GetUserById(int id)
     {
-      User user = GetUsers()
-        .FirstOrDefault(x => x.UserId == id);
-      if (user == null)
-      {
-        return null;
-      }
-      return user;
+      return _popContext.Users.AsNoTracking().FirstOrDefault(x => x.UserId == id);
     }
-#pragma warning restore CS8600
-
 
   }
 

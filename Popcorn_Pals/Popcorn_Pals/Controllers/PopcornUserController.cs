@@ -2,7 +2,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Popcorn_Pals.Models;
 using Popcorn_Pals.DAL;
+
 using System;
+
+using System.Net;
+
 
 namespace Popcorn_Pals.Controllers
 {
@@ -17,22 +21,12 @@ namespace Popcorn_Pals.Controllers
       return _popRepo.AddUser(userName, password);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-
->>>>>>> 097fa5dd06e13b093caef3d18aa2a30a3fdf3b40
     [HttpGet]
     public List<User> Get()
     {
       return _popRepo.GetUsers();
     }
-<<<<<<< HEAD
->>>>>>> 0359a16609a61fd508feb9d6e17dc01ebb441f36
-=======
-
->>>>>>> 097fa5dd06e13b093caef3d18aa2a30a3fdf3b40
+    
     [HttpGet("Login")]
     public User Login(string userName, string password)
     {
@@ -42,6 +36,35 @@ namespace Popcorn_Pals.Controllers
         return null;
       }
       return user;
+    }
+    [HttpPost("UpdateUser")]
+    public HttpResponseMessage UpdateUser(int UserId, string newUserName, string newPassword, int newUserRating, string newUserPic, string newUserBio)
+    {
+      User userToUpdate = new User
+      {
+        UserId = UserId,
+        UserName = newUserName,
+        Password = newPassword,
+        UserRating = newUserRating,
+        UserPic = newUserPic,
+        UserBio = newUserBio
+      };
+
+      try
+      {
+        if (_popRepo.UpdateUser(userToUpdate))
+        {
+          return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+        else
+        {
+          return new HttpResponseMessage(HttpStatusCode.NotFound);
+        }
+      }
+      catch (Exception)
+      {
+        return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+      }
     }
 
     [HttpPost("AddMovieReview")]

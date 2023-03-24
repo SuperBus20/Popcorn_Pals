@@ -1,16 +1,89 @@
-<form *ngIf="!loggedInUser" #login="ngForm">
-  <label for="userName">User Name</label><br>
-  <input name="userName" [ngModel] /><br>
-  <label for="password">Password</label><br>
-  <input name="password" type="password" [ngModel] /><br>
-  <label for="submit"></label><br>
-  <button class="button" type="submit" (click)="onLogin(login)"> Login </button><br><br>
-  <button class="button" type="button" (click)="newUser(login)"> Create Login </button>
+<head>
+  <title>Login Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: "Open Sans", sans-serif;
+    }
+  </style>
+</head>
 
-  <h1 class="Login-error" *ngIf="loginError">{{displayErrorMessage()}}</h1>
+<body class="w3-theme-l5">
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+        href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>
+        Popcorn Logo</a>
+      <a *ngIf="loggedInUser" href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+        title="Account Settings"><i class="fa fa-user"></i></a>
+      <a *ngIf="loggedInUser" href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+        title="Search"><i class="fa fa-search"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white"
+        title="My Account">
+        <img src="/w3images/avatar2.png" class="w3-circle" style="height: 23px; width: 23px" alt="User Image" />
+      </a>
+    </div>
+  </div>
 
-</form>
-<div *ngIf="loggedInUser">
-  <h4>{{loggedInUser.User.UserName}} is logged in!</h4>
-  <button class="button" (click)="onLogout()">Logout</button>
-</div>
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">User Name</a>
+  </div>
+
+
+  <br>
+  <br>
+  <br>
+  <div *ngIf="!loggedInUser">
+    <form #login="ngForm" class="w3-container">
+      <label for="userName">User Name</label><br />
+      <input class="w3-input" name="userName" ngModel /><br />
+      <label for="password">Password</label><br />
+      <input class="w3-input" name="password" type="password" ngModel /><br />
+
+      <button class="w3-btn w3-blue-grey" type="submit" (click)="onLogin(login)">Login</button>
+      <br>
+      <br>
+      <button class="w3-btn w3-blue-grey" type="button" (click)="newUser(login)">Create Login</button>
+
+      <h1 class="Login-error" *ngIf="loginError">{{ displayErrorMessage() }}</h1>
+    </form>
+  </div>
+  <div *ngIf="!loggedInUser">
+    <form #updateUser="ngForm" (ngSubmit)="updateProfile(updateUser)" class="w3-container">
+      <label for="userName">Update Username:</label>
+      <input class="w3-input" type="text" id="userName" name="UserName" [(ngModel)]="userName" required>
+
+      <label for="password">Update Password:</label>
+      <input class="w3-input" type="text" id="password" name="Password" [(ngModel)]="password" required>
+
+      <label for="userBio">Update Bio:</label>
+      <input class="w3-input" type="text" id="userBio" name="UserBio" [(ngModel)]="userBio" required>
+
+      <label for="UserPic">Update Profile Picture(Url):</label>
+      <input class="w3-input" type="text" id="UserPic" name="Picture" [(ngModel)]="password" required>
+      <br>
+      <button class="w3-btn w3-blue-grey" type="submit">Update Profile</button>
+    </form>
+  </div>
+  <div *ngIf="loggedInUser">
+    <h4>{{ loggedInUser.User.UserName }} is logged in!</h4>
+    <!-- <button class="bunton" (click)="onLogout()">Logout</button> -->
+  </div>
+</body>
