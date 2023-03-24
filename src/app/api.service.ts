@@ -52,6 +52,7 @@ export class ApiService {
       )
       .subscribe(() => {Response});
   }
+
   addShowReview(showReview: IUserReview) {
     let userId = showReview.UserId;
     let mediaId = showReview.MediaId;
@@ -80,6 +81,11 @@ export class ApiService {
     return this.loggedInUser as ILoggedInUser;
   }
 
+
+  getMediaReview(mediaId: number)
+  {
+    return this.http.get<IUserReview>(this.userURI+`GetMediaReview?mediaId=${mediaId}`)
+  }
 
   createUser(user: IUser) {
     // api call to add the newly registered user, only used by login component

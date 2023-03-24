@@ -1,0 +1,21 @@
+<label>{{userProfile.userName}}</label>
+<label>{{userProfile.password}}</label>
+<label>{{userProfile.userBio}}</label>
+<label>{{userProfile.profilePic}}</label>
+<label>{{userProfile.userRating}}</label>
+
+<form #updateUser="ngForm" (ngSubmit)="updateProfile(userName, updateUser)">
+    <label for="userName">Username:</label>
+    <input type="text" id="userName" name="UserName" [(ngModel)]="userName" required>
+
+    <label for="password">Password:</label>
+    <input type="text" id="password" name="Password" [(ngModel)]="password" required>
+
+    <label for="userBio">About Me:</label>
+    <input type="text" id="userBio" name="UserBio" [(ngModel)]="userBio" required>
+  
+    <label for="UserPic">Profile Picture:</label>
+    <input type="text" id="UserPic" name="Picture" [(ngModel)]="password" required>
+
+    <button type="submit">Update Profile</button>
+  </form>
