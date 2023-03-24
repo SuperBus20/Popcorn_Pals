@@ -1,30 +1,69 @@
-<form #searchForm="ngForm" (ngSubmit)="searchMovie(searchForm)">
-  <label for="searchString">Search:</label>
-  <input type="text" id="searchString" placeholder="Title" [(ngModel)]="searchString" required>
-  <input type="text" id="searchType" placeholder="Type" [(ngModel)]="searchType" required>
-  <!-- <select name="searchType" ngModel>
+<form #searchForm="ngForm" (ngSubmit)="searchMedia(searchForm)">
+  <label for="searchString">Search Title:</label>
+  <input type="text" id="searchString" name="searchString" placeholder="Title" [(ngModel)]="searchString" required>
+
+  <!-- <label for="searchType">Search Type:</label> -->
+  <!-- <input type="text" id="searchType" name="searchType" [(ngModel)]="searchType" required> -->
+    <select name="searchType" ngModel>
+    <option value="">--Type--</option>
     <option value="movie">Movie</option>
     <option value="show">TV Show</option>
-  </select> -->
+  </select>
 
   <button type="submit">Search</button>
 </form>
 
 <h2>Search Results</h2>
+<ng-container *ngIf="movie">
 <ul>
   <li *ngFor="let result of movieResults">
-    <img src="https://image.tmdb.org/t/p/original{{result.poster_path}}" alt="{{result.title}}">
-    <h3>{{result.title}}</h3>
-    <p>{{result.overview}}</p>
+    <h3  (click)="selectId(result._id, result.type)">{{result.title}}</h3>
+    <!-- <button (click)="selectId(result._id, result.type)">Select</button> -->
   </li>
 </ul>
+</ng-container>
 
-<!-- <h2>Movies</h2>
-<ul>
-  <li *ngFor="let movie of movies">{{ movie.title }}</li>
+<ng-container *ngIf="show">
+  <ul>
+  <li *ngFor="let result of showResults">
+     <h3 (click)="selectId(result._id, result.type)" >{{result.title}}</h3>
+    <!-- <button (click)="selectId(result._id, result.type)">Select</button> -->
+  </li>
 </ul>
+</ng-container>
 
-<h2>Shows</h2>
-<ul>
-  <li *ngFor="let show of shows">{{ show.title }}</li>
-</ul> -->
+<div *ngIf="selectedMovie" >
+  <div *ngFor="let info of selectedMovie">
+  <h3>{{ info.title }}</h3>
+  <p>overview: {{ info.overview }}</p>
+  <p>poster: <img src="https://image.tmdb.org/t/p/original{{ info.poster_path }}" width="500" height="600"></p>
+  <p>Genre: {{ info.genres }}</p>
+  <p>Release Date: {{ info.release_date  }}</p>
+  <p>youtube Trailer: <iframe width="420" height="315"
+    src="https://www.youtube.com/embed/{{ info.youtube_trailer }}">
+    </iframe></p>
+    <p>Sources:</p>
+    <div *ngFor="let source of info.sources">
+      <p>{{ source.source }}: <a href="{{ source.link }}">link</a> type: {{ source.type }} </p>
+    </div>
+</div>
+<div *ngIf="selectedShow" >
+  <div *ngFor="let info of selectedShow">
+  <h3>{{ info.title }}</h3>
+  <p>overview: {{ info.overview }}</p>
+  <p>poster: <img src="https://image.tmdb.org/t/p/original{{ info.poster_path }}" width="500" height="600"></p>
+  <p>Genre: {{ info.genres }}</p>
+  <p>First Aired: {{ info.first_aired  }}</p>
+  <p>youtube Trailer: <iframe width="420" height="315"
+    src="https://www.youtube.com/embed/{{ info.youtube_trailer }}">
+    </iframe></p>
+  <p>Sources:</p>
+  <div *ngFor="let source of info.sources">
+    <p>{{ source.source }}: <a href="{{ source.link }}">link</a> type: {{ source.type }} </p>
+  </div>
+  </div>
+  </div>
+</div>
+<!-- <p> {{info.sources.source}}</p>
+<p> {{info.sources.link}}</p>
+<p> {{info.sources.type}}</p> -->

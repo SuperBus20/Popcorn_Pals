@@ -14,30 +14,24 @@ export class ApiService {
   constructor(private http: HttpClient) {}
   userURI: string = 'https://localhost:7035/api/PopcornUser/';
 
-  movieUri: string = 'https://localhost:7035/api/Popcorn/';
+  popCornUri: string = 'https://localhost:7035/api/Popcorn/';
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
   loggedInUser: ILoggedInUser | null = null;
   @Output() loggedInEvent: EventEmitter<ILoggedInUser> = new EventEmitter<ILoggedInUser>();
 
 
-//   searchMedia(searchTitle: string, type: string) {
-
-//     // return this.http.get<IMovie[]>(
-//     //   this.movieUri + `search?title=${searchTitle}&type=${type}`
-//     // ).subscribe(response => {
-//     //   this.searchResult = response;
-//     // });
-//   }
-//  searchMovies(query: string): Observable<IMovie[]> {
-//     return this.http.get<IMovie[]>(this.movieUri+`search?title=${query}&type=movie`);
-//   }
-
-//   searchShows(query: string): Observable<IShow[]> {
-//     return this.http.get<IShow[]>(this.movieUri+`search?title=${query}&type=show`);
-//   }
 
 
+ getMovieByID(media_id:number)
+ {
+  return this.http.get<IMovie>(this.popCornUri+`movie?_id=${media_id}`);
+ }
+
+ getShowByID(media_id:number)
+ {
+  return this.http.get<IShow>(this.popCornUri+`show?_id=${media_id}`);
+ }
 
   addMovieReview(movieReview: IUserReview) {
     let userId = movieReview.UserId;
