@@ -15,7 +15,7 @@ export class UserLoginComponent implements OnInit {
   }
 id:number=0;
   @Input() userName: string = '';
-  @Input()password: string = '';
+  @Input() password: string = '';
 
   loginError: boolean = false;
   errorMessage:string = ''
@@ -38,11 +38,11 @@ id:number=0;
       return undefined;
     }
     return this.users
-      .filter(x => x.UserName === userName)[0];
+      .filter(x => x.userName === userName)[0];
   }
   isPassword(user:IUser, password:string) {
 
-    return user.Password === password;
+    return user.password === password;
   }
   getUser(userName: string, password: string) {
     let user = this.isRegistered(userName);
@@ -56,35 +56,35 @@ id:number=0;
     }
 
 
-    this.api.setUser(user);
+    this.api.setUser(user)
     return;
   }
   displayErrorMessage() {
     return this.errorMessage;
   }
-  addUser(userName: string, password: string) {
-    if (!this.isUsers()) {
-      return;
-    }
+  // addUser(userName: string, password: string) {
+  //   if (!this.isUsers()) {
+  //     return;
+  //   }
 
-    if(this.users.filter(x=> x.UserName === userName)[0]){
-      this.errorMessage = 'That username already exists...'
-      this.loginError = true;
-      this.userName = '';
-      this.password = '';
-      console.log(this.errorMessage);
-      return;
-    }
-    this.api.createUser({
-      UserName: userName,
-      Password: password,
-      UserId: 0,
-      UserRating: 0,
-      UserPic: '',
-      UserBio: ''
-    });
+  //   if(this.users.filter(x=> x.userName === userName)[0]){
+  //     this.errorMessage = 'That username already exists...'
+  //     this.loginError = true;
+  //     this.userName = '';
+  //     this.password = '';
+  //     console.log(this.errorMessage);
+  //     return;
+  //   }
+  //   this.api.createUser({
+  //     userName: userName,
+  //     password: password,
+  //     UserId: 0,
+  //     UserRating: 0,
+  //     UserPic: '',
+  //     UserBio: ''
+  //   });
 
-  }
+  // }
 
   onLogout() {
     this.api.onLogout();
@@ -95,7 +95,7 @@ id:number=0;
     let name = form.form.value.userName;
     let pass = form.form.value.password;
 
-    if(!name || !pass || !this.users.some(x=> x.UserName === name && x.Password === pass)){
+    if(!name || !pass || !this.users.some(x=> x.userName === name && x.password === pass)){
       this.loginError = true;
       this.errorMessage = 'Incorrect username or password...';
       form.resetForm()
@@ -121,26 +121,26 @@ id:number=0;
     if(!name || !pass){
       this.clearForm(form)
       this.loginError = true;
-      this.errorMessage = ""
+      this.errorMessage = ''
       return;
     }
-    if(this.users.filter(x=> x.UserName === name)[0]){
+    if(this.users.filter(x=> x.userName === name)[0]){
       this.errorMessage = 'that username already exists...'
       this.loginError = true;
       this.clearForm(form)
       return;
     }
     this.api.createUser({
-      UserName: name,
-      Password: pass,
+      userName: name,
+      password: pass,
       UserId: -1,
       UserRating: 0,
       UserPic: '',
       UserBio: ''
     })
     this.api.setUser({
-      UserName: name,
-      Password: pass,
+      userName: name,
+      password: pass,
       UserId: -1,
       UserRating: 0,
       UserPic: '',
