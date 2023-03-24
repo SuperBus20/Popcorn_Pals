@@ -22,7 +22,7 @@ namespace Popcorn_Pals.Controllers
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = juneKey
+        x_rapidapi_key = anhKey
 
       }).GetJsonAsync<List<Search>>();
       apiTask.Wait();
