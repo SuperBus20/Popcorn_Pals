@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { IUser } from './Interfaces/user';
 import { ILoggedInUser } from './Interfaces/LoggedinUser';
 import { IUserReview } from './Interfaces/user-review';
+import { IMovie, IShow ,ISource} from './Interfaces/Media';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +18,26 @@ export class ApiService {
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
   loggedInUser: ILoggedInUser | null = null;
+  @Output() loggedInEvent: EventEmitter<ILoggedInUser> = new EventEmitter<ILoggedInUser>();
+
 
   searchMedia(searchTitle: string, type: string) {
-    return this.http.get(
-      this.movieUri + `search?title=${searchTitle}&type=${type}`
-    );
+
+    // return this.http.get<IMovie[]>(
+    //   this.movieUri + `search?title=${searchTitle}&type=${type}`
+    // ).subscribe(response => {
+    //   this.searchResult = response;
+    // });
   }
+ searchMovies(query: string): Observable<IMovie[]> {
+    return this.http.get<IMovie[]>(this.movieUri+`search?title=${query}&type=movie`);
+  }
+
+  searchShows(query: string): Observable<IShow[]> {
+    return this.http.get<IShow[]>(this.movieUri+`search?title=${query}&type=show`);
+  }
+
+
 
   addMovieReview(movieReview: IUserReview) {
     let userId = movieReview.UserId;
@@ -34,7 +50,7 @@ export class ApiService {
           `AddMovieReview?userId=${userId}&mediaId=${mediaId}&review=${review}&rating=${rating}`,
         movieReview
       )
-      .subscribe(() => {});
+      .subscribe(() => {Response});
   }
   addShowReview(showReview: IUserReview) {
     let userId = showReview.UserId;
@@ -49,6 +65,21 @@ export class ApiService {
       )
       .subscribe(() => {});
   }
+  getAllUsers() {
+    return this.http.get<IUser[]>(this.userURI, {});
+  }
+
+  onComponentLoad() {
+    return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+  }
+  onLogout() {
+    this.loggedInUser = null;
+    this.onComponentLoad();
+  }
+  giveCurrentUser() { // provides the currently logged in user or null to components so they can provide the appropriate functionality, used by any component that needs this data
+    return this.loggedInUser as ILoggedInUser;
+  }
+
 
   createUser(user: IUser) {
     // api call to add the newly registered user, only used by login component
@@ -61,11 +92,11 @@ export class ApiService {
       )
       .subscribe((x) => {
         this.loggedInUser = {
-          User: x,
-          UserReview: [],
+          User: x ,
+          UserReview: []
           //Favorites: []
         };
-        //this.onComponentLoad()
+        this.onComponentLoad()
       });
   }
 

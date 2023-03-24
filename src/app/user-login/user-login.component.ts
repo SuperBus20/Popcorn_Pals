@@ -9,13 +9,13 @@ import { NgForm } from '@angular/forms';
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css']
 })
-export class UserLoginComponent {
+export class UserLoginComponent implements OnInit {
   static onLogout() {
     throw new Error('Method not implemented.');
   }
 id:number=0;
-  userName: string = '';
-  password: string = '';
+  @Input() userName: string = '';
+  @Input()password: string = '';
 
   loginError: boolean = false;
   errorMessage:string = ''
@@ -54,7 +54,7 @@ id:number=0;
       this.loginError = true;
       return;
     }
-    console.log("User logged in I guess");
+
 
     this.api.setUser(user);
     return;
@@ -86,10 +86,10 @@ id:number=0;
 
   }
 
-  // onLogout() {
-  //   this.api.onLogout();
-  //   this.loginError = false;
-  // }
+  onLogout() {
+    this.api.onLogout();
+    this.loginError = false;
+  }
 
   onLogin(form: NgForm) {
     let name = form.form.value.userName;
@@ -133,7 +133,7 @@ id:number=0;
     this.api.createUser({
       UserName: name,
       Password: pass,
-      UserId: 0,
+      UserId: -1,
       UserRating: 0,
       UserPic: '',
       UserBio: ''
@@ -141,7 +141,7 @@ id:number=0;
     this.api.setUser({
       UserName: name,
       Password: pass,
-      UserId: 0,
+      UserId: -1,
       UserRating: 0,
       UserPic: '',
       UserBio: ''
@@ -149,9 +149,9 @@ id:number=0;
 
   }
 
-  // ngOnInit(): void {
-  //   this.api.getAllUsers().subscribe((x) => this.users = x);
-  //   this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
-  // }
+  ngOnInit(): void {
+    this.api.getAllUsers().subscribe((x) => this.users = x);
+    this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+  }
 
 }
