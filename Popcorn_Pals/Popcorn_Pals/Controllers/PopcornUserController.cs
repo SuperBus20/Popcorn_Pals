@@ -18,13 +18,21 @@ namespace Popcorn_Pals.Controllers
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> 097fa5dd06e13b093caef3d18aa2a30a3fdf3b40
     [HttpGet]
     public List<User> Get()
     {
       return _popRepo.GetUsers();
     }
+<<<<<<< HEAD
 >>>>>>> 0359a16609a61fd508feb9d6e17dc01ebb441f36
+=======
+
+>>>>>>> 097fa5dd06e13b093caef3d18aa2a30a3fdf3b40
     [HttpGet("Login")]
     public User Login(string userName, string password)
     {
