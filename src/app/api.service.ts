@@ -36,7 +36,7 @@ export class ApiService {
       )
       .subscribe(() => {});
   }
-  
+
   addShowReview(showReview: IUserReview) {
     let userId = showReview.UserId;
     let mediaId = showReview.MediaId;
@@ -49,6 +49,11 @@ export class ApiService {
         showReview
       )
       .subscribe(() => {});
+  }
+
+  getMediaReview(mediaId: number)
+  {
+    return this.http.get<IUserReview>(this.userURI+`GetMediaReview?mediaId=${mediaId}`)
   }
 
   createUser(user: IUser) {

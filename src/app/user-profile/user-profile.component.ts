@@ -47,6 +47,14 @@ export class UserProfileComponent {
   form.resetForm();
  }
 
+ followUser() {
+
+ }
+
+ userStatus(){
+  
+ }
+
 
 
 }
