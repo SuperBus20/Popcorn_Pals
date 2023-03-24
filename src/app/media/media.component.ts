@@ -22,6 +22,7 @@ export class MediaComponent  {
   show: boolean = false;
   selectedMovie!:any ;
   selectedShow!:any;
+  selectedMedia:boolean=false;
 
 
 
@@ -55,12 +56,14 @@ export class MediaComponent  {
   selectId(mediaId:number, mediaType:string) {
 if(mediaType="movie")
 {
+  this.selectedMedia=true;
    this.api.getMovieByID(mediaId).subscribe((response) => {
     this.selectedMovie = response;
   });
 }
 if(mediaType="show")
 {
+  this.selectedMedia=true;
   this.api.getShowByID(mediaId).subscribe((response) => {
     this.selectedShow = response;
   });
