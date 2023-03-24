@@ -8,12 +8,10 @@ import { ApiService } from '../api.service';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.css'],
 })
-
 export class UserProfileComponent {
-
-  constructor(private Api:ApiService){}
+  constructor(private Api: ApiService) {}
 
   users: any;
   userProfile: any;
@@ -25,29 +23,25 @@ export class UserProfileComponent {
   userBio: any;
 
   getProfile(User: IUser) {
-    this.Api.getUser(User); 
- } 
-
- ngOnInit(): void { this.getProfile
- }
- 
- updateProfile(UserName: string, form: NgForm) {
-  let newUser: IUser = {
-    UserName: form.value.userName,
-    UserId: this.userId.disable,
-    Password: form.value.userPassword,
-    UserRating: this.userRating.disable,
-    UserPic: form.value.userPic,
-    UserBio: form.value.userBio,
+    this.Api.getUser(User);
   }
 
-  this.users.updateProfile(form).subscribe(
-  () => {});
+  ngOnInit(): void {
+    this.getProfile;
+  }
 
-  form.resetForm();
- }
+  updateProfile(form: NgForm) {
+    let newUser: IUser = {
+      UserName: form.value.userName,
+      UserId: this.userId.disable,
+      Password: form.value.userPassword,
+      UserRating: this.userRating.disable,
+      UserPic: form.value.userPic,
+      UserBio: form.value.userBio,
+    };
 
+    this.Api.updateProfile(newUser);
 
-
+    form.resetForm();
+  }
 }
-

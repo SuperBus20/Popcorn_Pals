@@ -1,208 +1,189 @@
-<label>{{userProfile.userName}}</label>
-<label>{{userProfile.password}}</label>
-<label>{{userProfile.userBio}}</label>
-<label>{{userProfile.profilePic}}</label>
-<label>{{userProfile.userRating}}</label>
+<head>
+  <title>Login Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: "Open Sans", sans-serif;
+    }
+  </style>
+</head>
 
-<form #updateUser="ngForm" (ngSubmit)="updateProfile(userName, updateUser)">
-    <label for="userName">Username:</label>
-    <input type="text" id="userName" name="UserName" [(ngModel)]="userName" required>
+<body class="w3-theme-l5">
+  <!-- Navbar -->
 
-    <label for="password">Password:</label>
-    <input type="text" id="password" name="Password" [(ngModel)]="password" required>
+  <div class="w3-top">
+    <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+        href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>
+        Popcorn Logo</a>
 
-    <label for="userBio">About Me:</label>
-    <input type="text" id="userBio" name="UserBio" [(ngModel)]="userBio" required>
-  
-    <label for="UserPic">Profile Picture:</label>
-    <input type="text" id="UserPic" name="Picture" [(ngModel)]="password" required>
+      <a routerLink="/userlogin" routerLinkActive="active"
+        class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Account Settings">
+        <i class="fa fa-user"></i>
+      </a>
+      <router-outlet></router-outlet>
 
-    <button type="submit">Update Profile</button>
-  </form>
 
-  <head>
-    <title>Login Page</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <style>
-      html,
-      body,
-      h1,
-      h2,
-      h3,
-      h4,
-      h5 {
-        font-family: "Open Sans", sans-serif;
-      }
-    </style>
-  </head>
-  
-  <body class="w3-theme-l5">
-    <!-- Navbar -->
-    <nav>
-    <div class="w3-top">
-      <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
-          href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>
-          Popcorn Logo</a>
+      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Search"><i
+          class="fa fa-search"></i></a>
 
-        <a routerLink="login" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-          title="Account Settings"><i class="fa fa-user"></i> login</a>
-
-        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Search"><i
-            class="fa fa-search"></i></a>
-
-        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white"
-          title="My Account">
-          <img src="/w3images/avatar2.png" class="w3-circle" style="height: 23px; width: 23px" alt="User Image" />
-        </a>
-      </div>
+      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white"
+        title="My Account">
+        <img src="/w3images/avatar2.png" class="w3-circle" style="height: 23px; width: 23px" alt="User Image" />
+      </a>
     </div>
-  </nav>
-  <router-outlet></router-outlet>
-  
-    <!-- Page Container -->
-    <div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
-      <!-- The Grid -->
-      <div class="w3-row">
-        <!-- Left Column -->
-        <div class="w3-col m3">
-          <!-- Profile -->
-          <div class="w3-card w3-round w3-white">
-            <div class="w3-container">
-              <h4 class="w3-center">{{userName}}</h4>
-              <p class="w3-center">
-                <img src="{{userPic}}" class="w3-circle" style="height: 106px; width: 106px" alt="Avatar" />
-              </p>
-              <hr />
-              <p>
-                <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
-                {{userBio}}
-              </p>
-            </div>
+  </div>
+
+
+  <!-- Page Container -->
+  <div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
+    <!-- The Grid -->
+    <div class="w3-row">
+      <!-- Left Column -->
+      <div class="w3-col m3">
+        <!-- Profile -->
+        <div class="w3-card w3-round w3-white">
+          <div class="w3-container">
+            <h4 class="w3-center">{{userName}}</h4>
+            <p class="w3-center">
+              <img src="{{userPic}}" class="w3-circle" style="height: 106px; width: 106px" alt="Avatar" />
+            </p>
+            <hr />
+            <p>
+              <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
+              {{userBio}}
+            </p>
           </div>
-          <br />
-  
-          <!-- Accordion -->
-          <div class="w3-card w3-round">
-            <div class="w3-white">
-              <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align">
-                <i class="fa fa-users fa-fw w3-margin-right"></i> Followers
-              </button>
-              <div id="Demo3" class="w3-hide w3-container">
-                <div class="w3-row-padding">
-                  <br />
-                  <div class="w3-half">
-                    <img src="/w3images/lights.jpg" style="width: 100%" class="w3-margin-bottom" />
-                  </div>
-                  <div class="w3-half">
-                    <img src="/w3images/nature.jpg" style="width: 100%" class="w3-margin-bottom" />
-                  </div>
-                  <div class="w3-half">
-                    <img src="/w3images/mountains.jpg" style="width: 100%" class="w3-margin-bottom" />
-                  </div>
-                  <div class="w3-half">
-                    <img src="/w3images/forest.jpg" style="width: 100%" class="w3-margin-bottom" />
-                  </div>
-                  <div class="w3-half">
-                    <img src="/w3images/nature.jpg" style="width: 100%" class="w3-margin-bottom" />
-                  </div>
-                  <div class="w3-half">
-                    <img src="/w3images/snow.jpg" style="width: 100%" class="w3-margin-bottom" />
-                  </div>
+        </div>
+        <br />
+
+        <!-- Accordion -->
+        <div class="w3-card w3-round">
+          <div class="w3-white">
+            <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+              <i class="fa fa-users fa-fw w3-margin-right"></i> Followers
+            </button>
+            <div id="Demo3" class="w3-hide w3-container">
+              <div class="w3-row-padding">
+                <br />
+                <div class="w3-half">
+                  <img src="/w3images/lights.jpg" style="width: 100%" class="w3-margin-bottom" />
+                </div>
+                <div class="w3-half">
+                  <img src="/w3images/nature.jpg" style="width: 100%" class="w3-margin-bottom" />
+                </div>
+                <div class="w3-half">
+                  <img src="/w3images/mountains.jpg" style="width: 100%" class="w3-margin-bottom" />
+                </div>
+                <div class="w3-half">
+                  <img src="/w3images/forest.jpg" style="width: 100%" class="w3-margin-bottom" />
+                </div>
+                <div class="w3-half">
+                  <img src="/w3images/nature.jpg" style="width: 100%" class="w3-margin-bottom" />
+                </div>
+                <div class="w3-half">
+                  <img src="/w3images/snow.jpg" style="width: 100%" class="w3-margin-bottom" />
                 </div>
               </div>
             </div>
           </div>
-          <br />
-  
-          <!-- Interests -->
-          <div class="w3-card w3-round w3-white w3-hide-small">
-            <div class="w3-container">
-              <p>Favorite Genres</p>
-              <p>
-                <span class="w3-tag w3-small w3-theme-d4">Comedy</span>
-                <span class="w3-tag w3-small w3-theme-d3">Action</span>
-              </p>
-            </div>
-          </div>
-          <br />
-  
-          <!-- End Left Column -->
         </div>
-  
-        <!-- Middle Column -->
-        <div class="w3-col m7">
-          <div class="w3-row-padding">
-            <div class="w3-col m12">
-              <div class="w3-card w3-round w3-white">
-                <div class="w3-container w3-padding">
-                  <h6 class="w3-opacity">Review a Popcorn</h6>
-                  <p contenteditable="true" class="w3-border w3-padding">
-                    Input search here
-                  </p>
-                  <button type="button" class="w3-button w3-theme">
-                    <i class="fa fa-search"></i>  Search
-                  </button>
-                </div>
-              </div>
-            </div>
+        <br />
+
+        <!-- Interests -->
+        <div class="w3-card w3-round w3-white w3-hide-small">
+          <div class="w3-container">
+            <p>Favorite Genres</p>
+            <p>
+              <span class="w3-tag w3-small w3-theme-d4">Comedy</span>
+              <span class="w3-tag w3-small w3-theme-d3">Action</span>
+            </p>
           </div>
-  
-          <div class="w3-container w3-card w3-white w3-round w3-margin">
-            <br />
-            <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width: 60px" />
-            <span class="w3-right w3-opacity">Rating Goes Here/5</span>
-            <h4>Media Title</h4>
-            <br />
-            <hr class="w3-clear" />
-            <p>Review Goes Here</p>
-            <div class="w3-row-padding" style="margin: 0 -16px">
-              <div class="w3-half">
-                <img src="/w3images/lights.jpg" style="width: 100%" alt="Media Poster" class="w3-margin-bottom" />
-              </div>
-            </div>
-          </div>
-  
-          <!-- End Middle Column -->
         </div>
-  
-        <!-- Right Column -->
-        <div class="w3-col m2">
-          <div class="w3-card w3-round w3-white w3-center">
-            <div class="w3-container">
-              <p>Upcoming Watch Party:</p>
-              <img src="/w3images/forest.jpg" alt="Media Poster" style="width: 100%" />
-              <p><strong>movie or show</strong></p>
-              <p>April 5th 15:00</p>
-              <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
-            </div>
-          </div>
-          <br />
-  
-          <!-- End Right Column -->
-        </div>
-  
-        <!-- End Grid -->
+        <br />
+
+        <!-- End Left Column -->
       </div>
-  
-      <!-- End Page Container -->
+
+      <!-- Middle Column -->
+      <div class="w3-col m7">
+        <div class="w3-row-padding">
+          <div class="w3-col m12">
+            <div class="w3-card w3-round w3-white">
+              <div class="w3-container w3-padding">
+                <h6 class="w3-opacity">Review a Popcorn</h6>
+                <p contenteditable="true" class="w3-border w3-padding">
+                  Input search here
+                </p>
+                <button type="button" class="w3-button w3-theme">
+                  <i class="fa fa-search"></i>  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w3-container w3-card w3-white w3-round w3-margin">
+          <br />
+          <img src="/w3images/avatar2.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width: 60px" />
+          <span class="w3-right w3-opacity">Rating Goes Here/5</span>
+          <h4>Media Title</h4>
+          <br />
+          <hr class="w3-clear" />
+          <p>Review Goes Here</p>
+          <div class="w3-row-padding" style="margin: 0 -16px">
+            <div class="w3-half">
+              <img src="/w3images/lights.jpg" style="width: 100%" alt="Media Poster" class="w3-margin-bottom" />
+            </div>
+          </div>
+        </div>
+
+        <!-- End Middle Column -->
+      </div>
+
+      <!-- Right Column -->
+      <div class="w3-col m2">
+        <div class="w3-card w3-round w3-white w3-center">
+          <div class="w3-container">
+            <p>Upcoming Watch Party:</p>
+            <img src="/w3images/forest.jpg" alt="Media Poster" style="width: 100%" />
+            <p><strong>movie or show</strong></p>
+            <p>April 5th 15:00</p>
+            <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
+          </div>
+        </div>
+        <br />
+
+        <!-- End Right Column -->
+      </div>
+
+      <!-- End Grid -->
     </div>
-    <br />
-  
-    <!-- Footer -->
-    <footer class="w3-container w3-theme-d3 w3-padding-16">
-      <h5>Footer</h5>
-    </footer>
-  
-    <footer class="w3-container w3-theme-d5">
-      <p>
-        Powered by
-        <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-      </p>
-    </footer>
+
+    <!-- End Page Container -->
+  </div>
+  <br />
+
+  <!-- Footer -->
+  <footer class="w3-container w3-theme-d3 w3-padding-16">
+    <h5>Footer</h5>
+  </footer>
+
+  <footer class="w3-container w3-theme-d5">
+    <p>
+      Powered by
+      <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
+    </p>
+  </footer>

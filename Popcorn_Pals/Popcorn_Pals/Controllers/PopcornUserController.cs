@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Popcorn_Pals.Models;
 using Popcorn_Pals.DAL;
+using System.Net;
 
 namespace Popcorn_Pals.Controllers
 {
@@ -24,6 +25,35 @@ namespace Popcorn_Pals.Controllers
         return null;
       }
       return user;
+    }
+    [HttpPost("UpdateUser")]
+    public HttpResponseMessage UpdateUser(int UserId, string newUserName, string newPassword, int newUserRating, string newUserPic, string newUserBio)
+    {
+      User userToUpdate = new User
+      {
+        UserId = UserId,
+        UserName = newUserName,
+        Password = newPassword,
+        UserRating = newUserRating,
+        UserPic = newUserPic,
+        UserBio = newUserBio
+      };
+
+      try
+      {
+        if (_popRepo.UpdateUser(userToUpdate))
+        {
+          return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+        else
+        {
+          return new HttpResponseMessage(HttpStatusCode.NotFound);
+        }
+      }
+      catch (Exception)
+      {
+        return new HttpResponseMessage(HttpStatusCode.ServiceUnavailable);
+      }
     }
 
     [HttpPost("AddMovieReview")]
