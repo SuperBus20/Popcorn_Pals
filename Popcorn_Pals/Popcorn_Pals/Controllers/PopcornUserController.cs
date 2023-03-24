@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Popcorn_Pals.Models;
 using Popcorn_Pals.DAL;
+using System;
 
 namespace Popcorn_Pals.Controllers
 {
@@ -16,6 +17,14 @@ namespace Popcorn_Pals.Controllers
       return _popRepo.AddUser(userName, password);
     }
 
+<<<<<<< HEAD
+=======
+    [HttpGet]
+    public List<User> Get()
+    {
+      return _popRepo.GetUsers();
+    }
+>>>>>>> 0359a16609a61fd508feb9d6e17dc01ebb441f36
     [HttpGet("Login")]
     public User Login(string userName, string password)
     {
@@ -61,6 +70,12 @@ namespace Popcorn_Pals.Controllers
     public List<Follow> GetFollowing(int userId)
     {
       return _popRepo.GetFollowing(userId);
+    }
+
+    [HttpPost("GetMediaReview")]
+    public List<UserReview> GetMediaReview(int mediaId)
+    {
+      return _popRepo.GetMediaReview(mediaId);
     }
 
 

@@ -1,6 +1,7 @@
 using Popcorn_Pals.Models;
 using Popcorn_Pals.DAL;
 using Popcorn_Pals.Controllers;
+using System;
 
 namespace Popcorn_Pals.DAL
 {
@@ -8,6 +9,17 @@ namespace Popcorn_Pals.DAL
   {
     private PopcornController _controller = new PopcornController();
     private PopcornContext _popContext = new PopcornContext();
+
+
+
+    public List<UserReview> GetMediaReview(int mediaId)
+    {
+      _popContext.Reviews.ToList();
+      List<UserReview> Reviews = _popContext.Reviews
+        .Where(x => x.MediaId == mediaId)
+        .ToList();
+      return Reviews;
+    }
 
     public List<User> GetUsers()
     {
@@ -147,4 +159,7 @@ namespace Popcorn_Pals.DAL
 
 
   }
+
+
+
 }
