@@ -10,17 +10,6 @@ namespace Popcorn_Pals.DAL
     private PopcornController _controller = new PopcornController();
     private PopcornContext _popContext = new PopcornContext();
 
-
-
-    public List<UserReview> GetMediaReview(int mediaId)
-    {
-      _popContext.Reviews.ToList();
-      List<UserReview> Reviews = _popContext.Reviews
-        .Where(x => x.MediaId == mediaId)
-        .ToList();
-      return Reviews;
-    }
-
     public List<User> GetUsers()
     {
       return _popContext.Users.ToList();
@@ -75,8 +64,6 @@ namespace Popcorn_Pals.DAL
       _popContext.Reviews.Add(reviewToAdd);
       _popContext.SaveChanges();
       return reviewToAdd;
-
-
     }
 
     public UserReview AddShowReview(int userId, int mediaId, string review, int rating)
@@ -95,16 +82,6 @@ namespace Popcorn_Pals.DAL
       _popContext.Reviews.Add(reviewToAdd);
       _popContext.SaveChanges();
       return reviewToAdd;
-    }
-
-    public List<UserReview> GetMediaReview(int mediaId)
-    {
-      _popContext.Reviews.ToList();
-
-      List<UserReview> Reviews = _popContext.Reviews
-        .Where(x => x.MediaId == mediaId)
-        .ToList();
-      return Reviews;
     }
 
     public Follow FollowUser(int user, int userToFollow)
@@ -143,6 +120,15 @@ namespace Popcorn_Pals.DAL
       return Followers;
     }
 
+    public List<UserReview> GetMediaReview(int mediaId)
+    {
+      _popContext.Reviews.ToList();
+
+      List<UserReview> Reviews = _popContext.Reviews
+        .Where(x => x.MediaId == mediaId)
+        .ToList();
+      return Reviews;
+    }
 
 #pragma warning disable CS8600
     public User GetUserById(int id)
@@ -156,10 +142,5 @@ namespace Popcorn_Pals.DAL
       return user;
     }
 #pragma warning restore CS8600
-
-
   }
-
-
-
 }

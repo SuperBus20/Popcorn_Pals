@@ -17,22 +17,12 @@ namespace Popcorn_Pals.Controllers
       return _popRepo.AddUser(userName, password);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-
->>>>>>> 097fa5dd06e13b093caef3d18aa2a30a3fdf3b40
     [HttpGet]
     public List<User> Get()
     {
       return _popRepo.GetUsers();
     }
-<<<<<<< HEAD
->>>>>>> 0359a16609a61fd508feb9d6e17dc01ebb441f36
-=======
 
->>>>>>> 097fa5dd06e13b093caef3d18aa2a30a3fdf3b40
     [HttpGet("Login")]
     public User Login(string userName, string password)
     {
@@ -54,12 +44,6 @@ namespace Popcorn_Pals.Controllers
     public UserReview AddShowReview(int userId, int mediaId, string review, int rating)
     {
       return _popRepo.AddShowReview(userId, mediaId, review, rating);
-    }
-
-    [HttpPost("GetMediaReview")]
-    public List <UserReview> GetMediaReview(int mediaId)
-    {
-      return _popRepo.GetMediaReview(mediaId);
     }
 
     [HttpPost("FollowUser")]
