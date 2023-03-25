@@ -4,5 +4,5 @@ import { IUserReview } from "./user-review";
 export interface ILoggedInUser{
   User: IUser;
   UserReview:  IUserReview[];
-  //Favorites : IFavorites[];
+
 }

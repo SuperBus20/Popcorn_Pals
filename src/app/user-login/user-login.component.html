@@ -11,6 +11,7 @@
 
 </form>
 <div *ngIf="loggedInUser">
-  <h4>{{loggedInUser.User.UserName}} is logged in!</h4>
+  <h4>{{loggedInUser.User.userName}} is logged in!</h4>
   <button class="button" (click)="onLogout()">Logout</button>
 </div>
+

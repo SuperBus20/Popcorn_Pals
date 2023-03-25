@@ -1,0 +1,7 @@
+.title:hover {
+  text-decoration: line-through;
+  pointer-events: pointer;
+}
+.title{
+  display: inline;
+}
