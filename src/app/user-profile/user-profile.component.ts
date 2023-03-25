@@ -33,9 +33,9 @@ export class UserProfileComponent {
  
  updateProfile(UserName: string, form: NgForm) {
   let newUser: IUser = {
-    UserName: form.value.userName,
+    userName: form.value.userName,
     UserId: this.userId.disable,
-    Password: form.value.userPassword,
+    password: form.value.userPassword,
     UserRating: this.userRating.disable,
     UserPic: form.value.userPic,
     UserBio: form.value.userBio,

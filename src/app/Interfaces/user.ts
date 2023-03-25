@@ -6,5 +6,4 @@ export interface IUser {
   UserPic: string;
   UserBio:string;
 
-
 }
