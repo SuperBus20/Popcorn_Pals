@@ -69,7 +69,5 @@ namespace Popcorn_Pals.Controllers
     {
       return _popRepo.GetMediaReview(mediaId);
     }
-
-
   }
 }
