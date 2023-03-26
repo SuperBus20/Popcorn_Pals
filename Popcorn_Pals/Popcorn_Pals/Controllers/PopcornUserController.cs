@@ -11,7 +11,9 @@ namespace Popcorn_Pals.Controllers
   public class PopcornUserController : ControllerBase
   {
     PopcornRepository _popRepo = new PopcornRepository();
-    [HttpPost("createUser")]
+
+  // User Endpoints
+    [HttpPost("CreateUser")]
     public User CreateUser(string userName, string password)
     {
       return _popRepo.AddUser(userName, password);
@@ -34,6 +36,10 @@ namespace Popcorn_Pals.Controllers
       return user;
     }
 
+
+    
+    // Review Endpoints
+
     [HttpPost("AddMovieReview")]
     public UserReview AddMovieReview(int userId, int mediaId, string review, int rating)
     {
@@ -45,6 +51,29 @@ namespace Popcorn_Pals.Controllers
     {
       return _popRepo.AddShowReview(userId, mediaId, review, rating);
     }
+
+    [HttpPost("GetReviewByMediaId")]
+    public List<UserReview> GetReviewByMediaId(int mediaId)
+    {
+      return _popRepo.GetReviewByMediaId(mediaId);
+    }
+
+    [HttpPost("GetReviewByUserId")]
+    public List<UserReview> GetReviewByUserId(int userId)
+    {
+      return _popRepo.GetReviewByUserId(userId);
+    }
+
+    [HttpPost("GetReviewByReviewId")]
+    public List<UserReview> GetReviewByReviewId(int reviewId)
+    {
+      return _popRepo.GetReviewByReviewId(reviewId);
+    }
+
+    // ADD EDIT REVIEW
+
+
+    // Follow Endpoints
 
     [HttpPost("FollowUser")]
     public Follow FollowUser(int userId, int userToFollow)
@@ -64,10 +93,5 @@ namespace Popcorn_Pals.Controllers
       return _popRepo.GetFollowing(userId);
     }
 
-    [HttpPost("GetMediaReview")]
-    public List<UserReview> GetMediaReview(int mediaId)
-    {
-      return _popRepo.GetMediaReview(mediaId);
-    }
   }
 }
