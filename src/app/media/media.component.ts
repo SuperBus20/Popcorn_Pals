@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgForm } from '@angular/forms';
 import { IMovie, IShow, ISource } from '../Interfaces/Media';
@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.css'],
 })
-export class MediaComponent {
-  constructor(private api: ApiService, private http: HttpClient) { }
+export class MediaComponent  {
+  constructor(private api: ApiService, private http: HttpClient) {}
   // ngOnInit(): void {
   // }
 
@@ -20,10 +20,12 @@ export class MediaComponent {
   showResults!: IShow[];
   movie: boolean = false;
   show: boolean = false;
-  selectedMovie!: any;
-  selectedShow!: any;
-  selectedMedia: boolean = false;
-  //MediaId: number = 1; //testing?
+  selectedMovie!:any ;
+  selectedShow!:any;
+  selectedMedia:boolean=false;
+
+
+
 
   searchMedia(form: NgForm) {
     this.searchString = form.value.searchString;
@@ -51,26 +53,28 @@ export class MediaComponent {
     }
   }
 
-  selectId(mediaId: number, mediaType: string) {
-    if (mediaType = "movie") {
-      this.selectedMedia = true;
-      this.api.getMovieByID(mediaId).subscribe((response) => {
-        this.selectedMovie = response;
-      });
-    }
-    if (mediaType = "show") {
-      this.selectedMedia = true;
-      this.api.getShowByID(mediaId).subscribe((response) => {
-        this.selectedShow = response;
-      });
+  selectId(mediaId:number, mediaType:string) {
+if(mediaType="movie")
+{
+  this.selectedMedia=true;
+   this.api.getMovieByID(mediaId).subscribe((response) => {
+    this.selectedMovie = response;
+  });
+}
+if(mediaType="show")
+{
+  this.selectedMedia=true;
+  this.api.getShowByID(mediaId).subscribe((response) => {
+    this.selectedShow = response;
+  });
 
-    }
-    // this.http.get<IMovie>(this.api.popCornUri+`movie?_id=${movieId}`)
-    // .subscribe(response => {
-    //   this.selectedMedia = response;
-    // });
-    // this.selectedMedia=movieId;
-    // console.log(this.selectedMedia);
+}
+  // this.http.get<IMovie>(this.api.popCornUri+`movie?_id=${movieId}`)
+  // .subscribe(response => {
+  //   this.selectedMedia = response;
+  // });
+  // this.selectedMedia=movieId;
+  // console.log(this.selectedMedia);
 
   }
 

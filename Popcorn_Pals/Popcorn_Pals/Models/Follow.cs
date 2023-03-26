@@ -3,8 +3,7 @@ namespace Popcorn_Pals.Models
 {
   public class Follow
   {
-    //Basically ID for follow relationship
-    public int Id { get; set; } 
+    public int Id { get; set; }
 
     //You
     public int UserId { get; set; }
