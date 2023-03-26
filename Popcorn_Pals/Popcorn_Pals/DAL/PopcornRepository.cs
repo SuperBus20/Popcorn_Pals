@@ -90,6 +90,7 @@ namespace Popcorn_Pals.DAL
       {
         UserId = userId,
         MediaId = showToReview._id,
+        Show = showToReview,
         Review = review,
         Rating = rating
       };
