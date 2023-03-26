@@ -10,6 +10,8 @@ namespace Popcorn_Pals.DAL
     private PopcornController _controller = new PopcornController();
     private PopcornContext _popContext = new PopcornContext();
 
+
+// User Methods //
     public List<User> GetUsers()
     {
       return _popContext.Users.ToList();
@@ -48,15 +50,30 @@ namespace Popcorn_Pals.DAL
       return GetUser(userName);
     }
 
+#pragma warning disable CS8600
+    public User GetUserById(int id)
+    {
+      User user = GetUsers()
+        .FirstOrDefault(x => x.UserId == id);
+      if (user == null)
+      {
+        return null;
+      }
+      return user;
+    }
+#pragma warning restore CS8600
+
+
+
+// Review Methods //
     public UserReview AddMovieReview(int userId, int mediaId, string review, int rating)
     {
-      User newUser = GetUserById(userId);
-      Movie newMovie = _controller.GetMovieById(mediaId).FirstOrDefault(x => x._id == mediaId);
+      Movie movieToReview = _controller.GetMovieById(mediaId).FirstOrDefault(x => x._id == mediaId);
       UserReview reviewToAdd = new UserReview()
       {
-        UserId = newUser.UserId,
-        Movie = newMovie,
-        MediaId = newMovie._id,
+        UserId = userId,
+        MediaId = movieToReview._id,
+        Movie = movieToReview,
         Review = review,
         Rating = rating
       };
@@ -68,13 +85,12 @@ namespace Popcorn_Pals.DAL
 
     public UserReview AddShowReview(int userId, int mediaId, string review, int rating)
     {
-      User newUser = GetUserById(userId);
-      Show newShow = _controller.GetShowById(mediaId).FirstOrDefault(x => x._id == mediaId);
+      Show showToReview = _controller.GetShowById(mediaId).FirstOrDefault(x => x._id == mediaId);
       UserReview reviewToAdd = new UserReview()
       {
-        UserId = newUser.UserId,
-        MediaId = newShow._id,
-        Show = newShow,
+        UserId = userId,
+        MediaId = showToReview._id,
+        Show = showToReview,
         Review = review,
         Rating = rating
       };
@@ -84,23 +100,95 @@ namespace Popcorn_Pals.DAL
       return reviewToAdd;
     }
 
-    public Follow FollowUser(int user, int userToFollow)
+    // public UserReview EditReview(int userId, int Id, string review, int rating) // Non-MVP
+    // {
+    //   Goal of method: Pass in Id of Review to be edited and save changes 
+    //   UserReview reviewEdit = 
+
+
+    //   _popContext.Reviews.Add(reviewToEdit);
+    //   _popContext.SaveChanges();
+    //   return reviewToEdit;
+    // }
+
+    public List<UserReview> GetReviewByMediaId(int mediaId)
+    {
+      List<UserReview> Reviews = _popContext.Reviews
+        .Where(x => x.MediaId == mediaId)
+        .ToList();
+      return Reviews;
+    }
+
+    public List<UserReview> GetReviewByUserId(int userId)
+    {
+      List<UserReview> Reviews = _popContext.Reviews
+        .Where(x => x.UserId == userId)
+        .ToList();
+      return Reviews;
+    }
+
+    public List<UserReview> GetReviewByReviewId(int id) //updated
+    {
+      List<UserReview> Reviews = _popContext.Reviews
+        .Where(x => x.Id == id)
+        .ToList();
+      return Reviews;
+    }
+
+
+
+// Follow Methods //
+    public Follow FollowUser(int user, int userToFollow) // Working as of last change to method
     {
       Follow follow = new Follow
       {
         UserId = user,
         FollowingId = userToFollow
       };
+
       Follow follow2 = new Follow
       {
         FollowerId = user,
         UserId = userToFollow
       };
+
       _popContext.Follows.Add(follow);
       _popContext.Follows.Add(follow2);
       _popContext.SaveChanges();
+
       return follow;
     }
+
+    // public Follow Follow/UnfollowUser(int user, int userToFollow) //!!Untested - attempt to remove follow - Non-MVP
+    // {
+    //   Follow follow = _popContext.Follows.FirstOrDefault(x => x.UserId == user && x.UserId == userToFollow);
+
+    //   if (follow != null)
+    //   {
+    //     _popContext.Follows.Remove(follow);
+    //     _popContext.SaveChanges();
+    //     return follow;
+    //   }
+    //   else
+    //   {
+    //     follow = new Follow
+    //     {
+    //       UserId = user,
+    //       FollowingId = userToFollow
+    //     };
+
+    //     Follow follow2 = new Follow
+    //     {
+    //       FollowerId = user,
+    //       UserId = userToFollow
+    //     };
+
+    //     _popContext.Follows.Add(follow);
+    //     _popContext.Follows.Add(follow2);
+    //     _popContext.SaveChanges();
+    //     return follow;
+    //   }
+    // }
 
     public List<Follow> GetFollowers(int userId)
     {
@@ -120,27 +208,7 @@ namespace Popcorn_Pals.DAL
       return Followers;
     }
 
-    public List<UserReview> GetMediaReview(int mediaId)
-    {
-      _popContext.Reviews.ToList();
 
-      List<UserReview> Reviews = _popContext.Reviews
-        .Where(x => x.MediaId == mediaId)
-        .ToList();
-      return Reviews;
-    }
 
-#pragma warning disable CS8600
-    public User GetUserById(int id)
-    {
-      User user = GetUsers()
-        .FirstOrDefault(x => x.UserId == id);
-      if (user == null)
-      {
-        return null;
-      }
-      return user;
-    }
-#pragma warning restore CS8600
   }
 }

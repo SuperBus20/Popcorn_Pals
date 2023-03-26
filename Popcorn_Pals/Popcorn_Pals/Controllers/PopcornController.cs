@@ -16,6 +16,8 @@ namespace Popcorn_Pals.Controllers
     string anhKey = "75b89c1e52msh391d45bf48da45bp1a0f89jsnf24f7bad2b61";
     string anhKey2 = "a65344b23bmsha856fb6240b15a7p1d2d1fjsnfa7c96c9d518";
     string lisaKey = "15728bb747mshb12d9318d06a090p16bcc7jsnf46cf1933827";
+    string ninaKey = "c3c31804a0msh549c51f669d98abp177bbcjsn8d40f5869cfb";
+
     [HttpGet("search")]
     public List<Search> SearchByTitle(string title, string type)
     {
@@ -23,7 +25,7 @@ namespace Popcorn_Pals.Controllers
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = anhKey2
+        x_rapidapi_key = ninaKey
 
       }).GetJsonAsync<List<Search>>();
       apiTask.Wait();
@@ -33,9 +35,7 @@ namespace Popcorn_Pals.Controllers
         search.type = type;
       }
       return (searches);
-
     }
-
 
     [HttpGet("movie")]
     public List<Movie> GetMovieById(int _id)
@@ -44,7 +44,7 @@ namespace Popcorn_Pals.Controllers
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = anhKey2
+        x_rapidapi_key = ninaKey
 
       }).GetJsonAsync<List<Movie>>();
       apiTask.Wait();
@@ -60,15 +60,12 @@ namespace Popcorn_Pals.Controllers
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
 
-        x_rapidapi_key = anhKey2
+        x_rapidapi_key = ninaKey
 
       }).GetJsonAsync<List<Show>>();
       apiTask.Wait();
       List<Show> show = apiTask.Result;
       return (show);
     }
-
-
-
   }
 }
