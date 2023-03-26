@@ -70,7 +70,7 @@ namespace Popcorn_Pals.Controllers
       return _popRepo.GetReviewByReviewId(reviewId);
     }
 
-    // ADD EDIT REVIEW
+    // TODO: Add Edit Review
 
 
     // Follow Endpoints
@@ -79,6 +79,7 @@ namespace Popcorn_Pals.Controllers
     public Follow FollowUser(int userId, int userToFollow)
     {
       return _popRepo.FollowUser(userId, userToFollow);
+      // TODO: Need to add logic to make sure user is not already following another user - Non-MVP
     }
 
     [HttpPost("GetFollowers")]
