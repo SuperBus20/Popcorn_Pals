@@ -1,7 +1,9 @@
-export interface IUserReview {
-    Id: number; //updated
-    UserId: number;
-    MediaId: number;
-    Review: string;
-    Rating: number;
+export interface IUserReview{
+id:number;
+UserId:number;
+MediaId:number;
+Review:string;
+Rating:number;
+
+
 }

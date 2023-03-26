@@ -56,6 +56,7 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("poster_path")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("release_date")
@@ -67,6 +68,7 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("youtube_trailer")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("_id");
@@ -88,6 +90,7 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("poster_path")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("title")
@@ -95,6 +98,7 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("youtube_trailer")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("_id");

@@ -13,49 +13,47 @@ import { ApiService } from '../api.service';
 
 export class UserProfileComponent {
 
-  constructor(private Api: ApiService) { }
+  constructor(private Api:ApiService){}
 
   users: any;
   userProfile: any;
-  userName: string = "";
-  userId: number = -1;
-  password: string = "";
-  userPic: string = "";
-  userBio: string = "";
-  userToFollow: any;
-  follower: any;
+  userName: any;
+  userId: any;
+  userRating: any;
+  password: any;
+  userPic: any;
+  userBio: any;
 
   getProfile(User: IUser) {
-    this.Api.getUser(User);
+    this.Api.getUser(User); 
+ } 
+
+ ngOnInit(): void { this.getProfile
+ }
+ 
+ updateProfile(UserName: string, form: NgForm) {
+  let newUser: IUser = {
+    userName: form.value.userName,
+    UserId: this.userId.disable,
+    password: form.value.userPassword,
+    UserRating: this.userRating.disable,
+    UserPic: form.value.userPic,
+    UserBio: form.value.userBio,
   }
 
-  ngOnInit(): void {
-    this.getProfile;
-    this.follow(4,5); //TEST DATA
-  }
+  this.users.updateProfile(form).subscribe(
+  () => {});
 
-// Profile Mgmt //
-  // updateProfile(form: NgForm) {
-  //   let newUser: IUser = {
-  //     userName: form.value.userName,
-  //     password: form.value.userPassword,
-  //     UserRating: this.userRating.disable,
-  //     UserPic: form.value.userPic,
-  //     UserBio: form.value.userBio,
-  //   }
+  form.resetForm();
+ }
 
-  //   this.users.updateProfile(form).subscribe(
-  //     () => { });
+ followUser() {
 
-  //   form.resetForm();
-  // }
+ }
 
-// Follow Profiles //
-  follow(userToFollow: number, follower:number) {
-    this.Api.followUser(userToFollow, follower).subscribe(
-      () => {}
-    )
-  }
+ userStatus(){
+  
+ }
 
 
 
