@@ -13,47 +13,68 @@ import { ApiService } from '../api.service';
 
 export class UserProfileComponent {
 
-  constructor(private Api:ApiService){}
+  constructor(private Api: ApiService) { }
 
   users: any;
   userProfile: any;
-  userName: any;
-  userId: any;
-  userRating: any;
-  password: any;
-  userPic: any;
-  userBio: any;
+  userName: string = "";
+  userId: number = -1;
+  password: string = "";
+  userPic: string = "";
+  userBio: string = "";
+  userToFollow: any;
+  follower: any;
 
   getProfile(User: IUser) {
-    this.Api.getUser(User); 
- } 
-
- ngOnInit(): void { this.getProfile
- }
- 
- updateProfile(UserName: string, form: NgForm) {
-  let newUser: IUser = {
-    userName: form.value.userName,
-    UserId: this.userId.disable,
-    password: form.value.userPassword,
-    UserRating: this.userRating.disable,
-    UserPic: form.value.userPic,
-    UserBio: form.value.userBio,
+    this.Api.getUser(User);
   }
 
-  this.users.updateProfile(form).subscribe(
-  () => {});
+      // newUser1: IUser = {
+      // userName: "NLycette",
+      // UserId: 3,
+      // password: "password",
+      // UserRating: 4,
+      // UserPic: "string",
+      // UserBio: "bio"
+      // }
 
-  form.resetForm();
- }
+      // newUser2: IUser = {
+      //   userName: "NLycette",
+      //   UserId: 4,
+      //   password: "Pass",
+      //   UserRating: 3,
+      //   UserPic: "string2",
+      //   UserBio: "bio2"
+      //   }
+    
 
- followUser() {
 
- }
+  ngOnInit(): void {
+    this.getProfile;
+    this.follow(4,5);
+  }
 
- userStatus(){
-  
- }
+
+  // updateProfile(form: NgForm) {
+  //   let newUser: IUser = {
+  //     userName: form.value.userName,
+  //     password: form.value.userPassword,
+  //     UserRating: this.userRating.disable,
+  //     UserPic: form.value.userPic,
+  //     UserBio: form.value.userBio,
+  //   }
+
+  //   this.users.updateProfile(form).subscribe(
+  //     () => { });
+
+  //   form.resetForm();
+  // }
+
+  follow(userToFollow: number, follower:number) {
+    this.Api.followUser(userToFollow, follower).subscribe(
+      () => {}
+    )
+  }
 
 
 

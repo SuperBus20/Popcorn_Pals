@@ -129,7 +129,7 @@ export class ApiService {
     return this.http.get<IUserReview>(this.userURI + `GetReviewByUserId?userId=${userId}`)
   }
 
-  getReviewByReviewId(reviewId: number) {
+  getReviewByReviewId(reviewId: number) { //update
     return this.http.get<IUserReview>(this.userURI + `GetReviewByReviewId?mediaId=${reviewId}`)
   }
 
@@ -146,10 +146,12 @@ export class ApiService {
     return this.http.get<IUser>(this.userURI + `GetFollowing?userId=${id}`);
   }
 
-  followUser(user: IUser, toFollow: IUser) {
-    let userId = user.UserId;
-    let userToFollow = toFollow.UserId
-    return this.http.get<IUser>(
+  followUser(userId: number, userToFollow: number) { //SOMETHING ISN'T WORKING HERE
+    
+    // let userId = user.UserId;
+    // let userToFollow = toFollow.UserId
+    
+    return this.http.get(
       this.userURI +
       `FollowUser?userId=${userId}&userToFollow=${userToFollow}`
     );

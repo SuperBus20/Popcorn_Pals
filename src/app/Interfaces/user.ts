@@ -4,6 +4,5 @@ export interface IUser {
   password: string;
   UserRating: number;
   UserPic: string;
-  UserBio:string;
-
+  UserBio: string;
 }
