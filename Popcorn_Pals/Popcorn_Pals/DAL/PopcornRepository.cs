@@ -11,7 +11,7 @@ namespace Popcorn_Pals.DAL
     private PopcornContext _popContext = new PopcornContext();
 
 
-    // User Methods
+// User Methods //
     public List<User> GetUsers()
     {
       return _popContext.Users.ToList();
@@ -65,7 +65,7 @@ namespace Popcorn_Pals.DAL
 
 
 
-    // Review Methods
+// Review Methods //
     public UserReview AddMovieReview(int userId, int mediaId, string review, int rating)
     {
       Movie movieToReview = _controller.GetMovieById(mediaId).FirstOrDefault(x => x._id == mediaId);
@@ -99,9 +99,9 @@ namespace Popcorn_Pals.DAL
       return reviewToAdd;
     }
 
-    // public UserReview EditReview(int userId, int reviewId, string review, int rating)
+    // public UserReview EditReview(int userId, int Id, string review, int rating) // Non-MVP
     // {
-
+    //   Goal of method: Pass in Id of Review to be edited and save changes 
     //   UserReview reviewEdit = 
 
 
@@ -126,18 +126,18 @@ namespace Popcorn_Pals.DAL
       return Reviews;
     }
 
-    public List<UserReview> GetReviewByReviewId(int reviewId)
+    public List<UserReview> GetReviewByReviewId(int id) //updated
     {
       List<UserReview> Reviews = _popContext.Reviews
-        .Where(x => x.UserId == reviewId)
+        .Where(x => x.Id == id)
         .ToList();
       return Reviews;
     }
 
 
 
-    // Follow Methods
-    public Follow FollowUser(int user, int userToFollow)
+// Follow Methods //
+    public Follow FollowUser(int user, int userToFollow) // Working as of last change to method
     {
       Follow follow = new Follow
       {
@@ -158,7 +158,7 @@ namespace Popcorn_Pals.DAL
       return follow;
     }
 
-    // public Follow FollowUser(int user, int userToFollow) //!!Untested - attempt to remove follow
+    // public Follow Follow/UnfollowUser(int user, int userToFollow) //!!Untested - attempt to remove follow - Non-MVP
     // {
     //   Follow follow = _popContext.Follows.FirstOrDefault(x => x.UserId == user && x.UserId == userToFollow);
 
@@ -189,26 +189,25 @@ namespace Popcorn_Pals.DAL
     //   }
     // }
 
+    public List<Follow> GetFollowers(int userId)
+    {
+      List<Follow> Followers = _popContext.Follows
+        .Where(x => x.UserId == userId)
+        .Where(x => x.FollowerId != null)
+        .ToList();
+      return Followers;
+    }
 
-  public List<Follow> GetFollowers(int userId)
-  {
-    List<Follow> Followers = _popContext.Follows
-      .Where(x => x.UserId == userId)
-      .Where(x => x.FollowerId != null)
-      .ToList();
-    return Followers;
+    public List<Follow> GetFollowing(int userId)
+    {
+      List<Follow> Followers = _popContext.Follows
+        .Where(x => x.UserId == userId)
+        .Where(x => x.FollowingId != null)
+        .ToList();
+      return Followers;
+    }
+
+
+
   }
-
-  public List<Follow> GetFollowing(int userId)
-  {
-    List<Follow> Followers = _popContext.Follows
-      .Where(x => x.UserId == userId)
-      .Where(x => x.FollowingId != null)
-      .ToList();
-    return Followers;
-  }
-
-
-
-}
 }

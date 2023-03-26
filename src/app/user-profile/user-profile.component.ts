@@ -29,32 +29,12 @@ export class UserProfileComponent {
     this.Api.getUser(User);
   }
 
-      // newUser1: IUser = {
-      // userName: "NLycette",
-      // UserId: 3,
-      // password: "password",
-      // UserRating: 4,
-      // UserPic: "string",
-      // UserBio: "bio"
-      // }
-
-      // newUser2: IUser = {
-      //   userName: "NLycette",
-      //   UserId: 4,
-      //   password: "Pass",
-      //   UserRating: 3,
-      //   UserPic: "string2",
-      //   UserBio: "bio2"
-      //   }
-    
-
-
   ngOnInit(): void {
     this.getProfile;
-    this.follow(4,5);
+    this.follow(4,5); //TEST DATA
   }
 
-
+// Profile Mgmt //
   // updateProfile(form: NgForm) {
   //   let newUser: IUser = {
   //     userName: form.value.userName,
@@ -70,6 +50,7 @@ export class UserProfileComponent {
   //   form.resetForm();
   // }
 
+// Follow Profiles //
   follow(userToFollow: number, follower:number) {
     this.Api.followUser(userToFollow, follower).subscribe(
       () => {}

@@ -1,5 +1,5 @@
 export interface IUserReview {
-    ReviewId: number; //update
+    Id: number; //updated
     UserId: number;
     MediaId: number;
     Review: string;

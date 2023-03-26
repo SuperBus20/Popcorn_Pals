@@ -92,7 +92,7 @@ export class ApiService {
 
 
 
-// Review //
+/// Review //
   addMovieReview(movieReview: IUserReview) {
     let userId = movieReview.UserId;
     let mediaId = movieReview.MediaId;
@@ -129,8 +129,8 @@ export class ApiService {
     return this.http.get<IUserReview>(this.userURI + `GetReviewByUserId?userId=${userId}`)
   }
 
-  getReviewByReviewId(reviewId: number) { //update
-    return this.http.get<IUserReview>(this.userURI + `GetReviewByReviewId?mediaId=${reviewId}`)
+  getReviewByReviewId(id: number) { //updated
+    return this.http.get<IUserReview>(this.userURI + `GetReviewByReviewId?id=${id}`) //updated
   }
 
 
@@ -146,7 +146,7 @@ export class ApiService {
     return this.http.get<IUser>(this.userURI + `GetFollowing?userId=${id}`);
   }
 
-  followUser(userId: number, userToFollow: number) { //SOMETHING ISN'T WORKING HERE
+  followUser(userId: number, userToFollow: number) { //SOMETHING ISN'T WORKING IN THIS METHOD - Come back to fix
     
     // let userId = user.UserId;
     // let userToFollow = toFollow.UserId
