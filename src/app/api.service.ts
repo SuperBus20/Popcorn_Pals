@@ -31,6 +31,23 @@ export class ApiService {
 
 
 
+  updateProfile(userToUpdate:IUser)
+  {
+    let userId = userToUpdate.UserId
+    let userName = userToUpdate.UserName
+    let password = userToUpdate.Password
+    let userRating = userToUpdate.UserRating
+    let userPic = userToUpdate.UserPic
+    let userBio = userToUpdate.UserBio
+    return this.http.post(
+      this.userURI + `UpdateUser?UserId=${userId}&newUserName=${userName}&newPassword=${password}&newUserRating=${userRating}&newUserPic=${userPic}&newUserBio=${userBio}`
+    ,userToUpdate).subscribe(() => {});
+    
+  }
+
+
+  searchMedia(searchTitle: string, type: string) {
+
 // User //
   createUser(user: IUser) {
     // api call to add the newly registered user, only used by login component
