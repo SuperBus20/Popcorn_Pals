@@ -14,7 +14,7 @@ namespace Popcorn_Pals.Controllers
   {
     string juneKey = "4fc1bbfbfamsh918f184e4f2d29cp13265ajsnad0c24e96d2b";
     string anhKey = "75b89c1e52msh391d45bf48da45bp1a0f89jsnf24f7bad2b61";
-    string anhKey2 = "b2f985562amsh9ea369258704508p17e603jsnc19236cf310d";
+    string anhKey2 = "a65344b23bmsha856fb6240b15a7p1d2d1fjsnfa7c96c9d518";
     string lisaKey = "15728bb747mshb12d9318d06a090p16bcc7jsnf46cf1933827";
     [HttpGet("search")]
     public List<Search> SearchByTitle(string title, string type)
