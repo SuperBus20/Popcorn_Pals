@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Popcorn_Pals.Models;
 using Popcorn_Pals.DAL;
 using System;
+using Popcorn_Pals.Services.Interfaces;
+using Popcorn_Pals.DAL.Interfaces;
 
 namespace Popcorn_Pals.Controllers
 {
@@ -10,25 +12,32 @@ namespace Popcorn_Pals.Controllers
   [ApiController]
   public class PopcornUserController : ControllerBase
   {
-    PopcornRepository _popRepo = new PopcornRepository();
+    private readonly IPopcornService _popcornService;
+    private readonly IPopcornRepository _popcornRepository;
+
+    public PopcornUserController(IPopcornService popcornService, IPopcornRepository popcornRepository)
+    {
+      _popcornService = popcornService;
+      _popcornRepository = popcornRepository;
+    }
 
   // User Endpoints
     [HttpPost("CreateUser")]
     public User CreateUser(string userName, string password)
     {
-      return _popRepo.AddUser(userName, password);
+      return _popcornRepository.AddUser(userName, password);
     }
 
     [HttpGet]
     public List<User> Get()
     {
-      return _popRepo.GetUsers();
+      return _popcornRepository.GetUsers();
     }
 
     [HttpGet("Login")]
     public User Login(string userName, string password)
     {
-      User user = _popRepo.GetUser(userName);
+      User user = _popcornRepository.GetUser(userName);
       if (user == null || user.Password != password)
       {
         return null;
@@ -43,31 +52,31 @@ namespace Popcorn_Pals.Controllers
     [HttpPost("AddMovieReview")]
     public UserReview AddMovieReview(int userId, int mediaId, string review, int rating)
     {
-      return _popRepo.AddMovieReview(userId, mediaId, review, rating);
+      return _popcornService.AddMovieReview(userId, mediaId, review, rating);
     }
 
     [HttpPost("AddShowReview")]
     public UserReview AddShowReview(int userId, int mediaId, string review, int rating)
     {
-      return _popRepo.AddShowReview(userId, mediaId, review, rating);
+      return _popcornService.AddShowReview(userId, mediaId, review, rating);
     }
 
     [HttpPost("GetReviewByMediaId")]
     public List<UserReview> GetReviewByMediaId(int mediaId)
     {
-      return _popRepo.GetReviewByMediaId(mediaId);
+      return _popcornRepository.GetReviewByMediaId(mediaId);
     }
 
     [HttpPost("GetReviewByUserId")]
     public List<UserReview> GetReviewByUserId(int userId)
     {
-      return _popRepo.GetReviewByUserId(userId);
+      return _popcornRepository.GetReviewByUserId(userId);
     }
 
     [HttpPost("GetReviewByReviewId")]
     public List<UserReview> GetReviewByReviewId(int reviewId)
     {
-      return _popRepo.GetReviewByReviewId(reviewId);
+      return _popcornRepository.GetReviewByReviewId(reviewId);
     }
 
     // ADD EDIT REVIEW
@@ -78,19 +87,19 @@ namespace Popcorn_Pals.Controllers
     [HttpPost("FollowUser")]
     public Follow FollowUser(int userId, int userToFollow)
     {
-      return _popRepo.FollowUser(userId, userToFollow);
+      return _popcornRepository.FollowUser(userId, userToFollow);
     }
 
     [HttpPost("GetFollowers")]
     public List<Follow> GetFollowers(int userId)
     {
-      return _popRepo.GetFollowers(userId);
+      return _popcornRepository.GetFollowers(userId);
     }
 
     [HttpPost("GetFollowing")]
     public List<Follow> GetFollowing(int userId)
     {
-      return _popRepo.GetFollowing(userId);
+      return _popcornRepository.GetFollowing(userId);
     }
 
   }
