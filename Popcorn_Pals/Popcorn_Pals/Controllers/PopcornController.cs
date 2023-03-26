@@ -49,7 +49,7 @@ namespace Popcorn_Pals.Controllers
       }).GetJsonAsync<List<Movie>>();
       apiTask.Wait();
       List<Movie> movie = apiTask.Result;
-      return (movie);
+      return movie;
     }
 
     [HttpGet("show")]
@@ -68,7 +68,6 @@ namespace Popcorn_Pals.Controllers
       return (show);
     }
 
-
-
+  
   }
 }

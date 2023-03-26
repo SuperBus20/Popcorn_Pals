@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgForm } from '@angular/forms';
 import { IMovie, IShow, ISource } from '../Interfaces/Media';
@@ -13,13 +13,15 @@ export class MediaComponent  {
   constructor(private api: ApiService, private http: HttpClient) {}
   // ngOnInit(): void {
   // }
-
+  @Input() movie: IMovie | null = null;
+  @Input() show: IShow | null = null;
+  @Output() clicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   searchString!: string;
   searchType!: string;
   movieResults!: IMovie[];
   showResults!: IShow[];
-  movie: boolean = false;
-  show: boolean = false;
+  isMovie: boolean = false;
+  isShow: boolean = false;
   selectedMovie!:any ;
   selectedShow!:any;
   selectedMedia:boolean=false;
@@ -32,7 +34,7 @@ export class MediaComponent  {
     this.searchType = form.value.searchType;
 
     if ((this.searchType = 'movie')) {
-      this.movie = true;
+      this.isMovie = true;
       this.http
         .get<IMovie[]>(
           this.api.popCornUri + `search?title=${this.searchString}&type=movie`
@@ -42,7 +44,7 @@ export class MediaComponent  {
         });
     }
     if ((this.searchType = 'show')) {
-      this.show = true;
+      this.isShow = true;
       this.http
         .get<IShow[]>(
           this.api.popCornUri + `search?title=${this.searchString}&type=show`
@@ -78,4 +80,16 @@ if(mediaType="show")
 
   }
 
+  favoriteMovieClicked() {
+    this.movie = this.movie as IMovie
+    this.api.selectFavoriteMovie(this.movie._id);
+    return this.clicked.emit(true);
+
+  }
+  favoriteShowClicked() {
+    this.show = this.show as IShow
+    this.api.selectFavoriteMovie(this.show._id);
+    return this.clicked.emit(true);
+
+  }
 }

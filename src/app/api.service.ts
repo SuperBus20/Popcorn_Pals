@@ -20,8 +20,130 @@ export class ApiService {
   loggedInUser: ILoggedInUser | null = null;
   @Output() loggedInEvent: EventEmitter<ILoggedInUser> = new EventEmitter<ILoggedInUser>();
 
+  selectFavoriteMovie(movieId: number) {
+
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    if (user) {
+      userId = user.User.UserId;
+      let favorites = user.FavoriteMovies;
+      let movie = favorites.filter(x => x._id === movieId)[0];
+      let indexNumber = favorites.indexOf(movie);
+      let length = favorites.length;
+      if (user.FavoriteMovies.some(x => x._id === movieId)) {
+        favorites = favorites.slice(0, (Math.abs(indexNumber)))
+          .concat(favorites.slice(-Math.abs(length - indexNumber)));
+        this.removeFavoriteMovie(userId, movieId);
 
 
+      } else {
+        this.http.post<IMovie>(this.popCornUri + `FavoriteMovie/${movieId}/${userId}'`, {}).subscribe(
+          (x)=>{
+            if(x){
+              this.setUser(user.User)
+              return this.onComponentLoad()
+            }
+      });
+      }
+    }
+  }
+  removeFavoriteMovie(userId: number, movieId: number) {
+    return this.http.post<boolean>(this.popCornUri+ `DeleteFavoriteMovie/${userId}/${movieId}`, {})
+    .subscribe(
+      (x) => {
+        if(x) {
+          this.setUser(this.giveCurrentUser().User)
+          return this.onComponentLoad();
+        }
+    })
+  }
+
+
+  selectFavoriteShow(showId: number) {
+
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    if (user) {
+      userId = user.User.UserId;
+      let favorites = user.FavoriteShows;
+      let show = favorites.filter(x => x._id === showId)[0];
+      let indexNumber = favorites.indexOf(show);
+      let length = favorites.length;
+      if (user.FavoriteMovies.some(x => x._id === showId)) {
+        favorites = favorites.slice(0, (Math.abs(indexNumber)))
+          .concat(favorites.slice(-Math.abs(length - indexNumber)));
+        this.removeFavoriteShow(userId, showId);
+
+
+      } else {
+        this.http.post<IMovie>(this.popCornUri + `FavoriteShow/${showId}/${userId}'`, {}).subscribe(
+          (x)=>{
+            if(x){
+              this.setUser(user.User)
+              return this.onComponentLoad()
+            }
+      });
+      }
+    }
+  }
+
+  removeFavoriteShow(userId: number, showId: number) {
+    return this.http.post<boolean>(this.popCornUri+ `DeleteFavoriteShow/${userId}/${showId}`, {})
+    .subscribe(
+      (x) => {
+        if(x) {
+          this.setUser(this.giveCurrentUser().User)
+          return this.onComponentLoad();
+        }
+    })
+  }
+
+  getLoggedInUserFavoriteMovies(user:IUser) {
+
+    return this.http.get<IMovie[]>(this.popCornUri + `GetFavoriteMovies/${user.UserId}`)
+    .subscribe(
+      (x) => {
+        if(x){
+          this.loggedInUser = {
+            User: user ,
+            UserReview: [],
+            FavoriteMovies: [],
+            FavoriteShows: []
+          }
+        }else{
+          this.loggedInUser = {
+            User: user ,
+            UserReview: [],
+            FavoriteMovies: [],
+            FavoriteShows: []
+          }
+        }
+        return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+    });
+}
+getLoggedInUserFavoriteShows(user:IUser) {
+
+  return this.http.get<IMovie[]>(this.popCornUri + `GetFavoriteShows/${user.UserId}`)
+  .subscribe(
+    (x) => {
+      if(x){
+        this.loggedInUser = {
+          User: user ,
+          UserReview: [],
+          FavoriteMovies: [],
+          FavoriteShows: []
+        }
+      }else{
+        this.loggedInUser = {
+          User: user ,
+          UserReview: [],
+          FavoriteMovies: [],
+          FavoriteShows: []
+        }
+      }
+      return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+  });
+}
 
  getMovieByID(media_id:number)
  {
@@ -93,8 +215,10 @@ export class ApiService {
       .subscribe((x) => {
         this.loggedInUser = {
           User: x ,
-          UserReview: []
-          //Favorites: []
+          UserReview: [],
+          FavoriteMovies: [],
+          FavoriteShows: []
+
         };
         this.onComponentLoad()
       });
@@ -108,12 +232,39 @@ export class ApiService {
       .get<IUser>(this.userURI + `Login?userName=${userName}&password=${password}`)
       .subscribe((x) => { this.loggedInUser = {
         User: x ,
-        UserReview: []
+        UserReview: [],
+        FavoriteMovies: [],
+        FavoriteShows: []
+
 
       };
       this.onComponentLoad()
     });
   }
+
+
+
+
+  // getUser(user: IUser) {
+  //   // api call to get the user that logged in, only used by login component
+  //   let userName = user.userName;
+  //   let password = user.password;
+  //   return this.http
+  //     .get<IUser>(this.userURI + `Login?userName=${userName}&password=${password}`)
+  //     .subscribe((x) => {
+  //       let user:IUser;
+  //       if(x){
+  //         user=x;
+  //         this.getLoggedInUserFavoriteMovies(user)
+  //         this.getLoggedInUserFavoriteShows(user)
+  //       }
+
+  //     });
+  // }
+
+
+
+
 
   getFollowers(user: IUser) {
     let id=user.UserId

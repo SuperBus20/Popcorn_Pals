@@ -69,5 +69,47 @@ namespace Popcorn_Pals.Controllers
     {
       return _popRepo.GetMediaReview(mediaId);
     }
+
+    [HttpGet("GetFavoriteMovies/{userId}")]
+    public IEnumerable<Movie> GetUserFavoriteMovies(int userId)
+    {
+
+      return _popRepo.GetFavoriteMovies(userId);
+    }
+
+    [HttpGet("GetFavoriteShows/{userId}")]
+    public IEnumerable<Show> GetUserFavoriteShows(int userId)
+    {
+
+      return _popRepo.GetFavoriteShows(userId);
+    }
+
+    [HttpPost("FavoriteMovie/{movieId}/{userId}")]
+
+    public Movie FavoriteMovie(int movieId, int userId)
+    {
+      return _popRepo.FavoriteMovie(movieId, userId);
+    }
+    [HttpPost("DeleteFavoriteMovie/{userId}/{movieId}")]
+    public bool DeleteFavoriteMovie(int userId, int movieId)
+    {
+      return _popRepo.DeleteFavoriteMovieById(userId, movieId);
+    }
+
+    [HttpPost("DeleteFavoriteShow/{userId}/{showId}")]
+    public bool DeleteFavoriteShow(int userId, int showId)
+    {
+      return _popRepo.DeleteFavoriteShowById(userId, showId);
+    }
+
+
+    [HttpPost("FavoriteShow/{showId}/{userId}")]
+
+    public Show FavoriteShow(int showId, int userId)
+    {
+      return _popRepo.FavoriteShow(showId, userId);
+    }
+
+
   }
 }
