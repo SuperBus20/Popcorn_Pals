@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Popcorn_Pals;
 
@@ -11,9 +12,10 @@ using Popcorn_Pals;
 namespace Popcorn_Pals.Migrations
 {
     [DbContext(typeof(PopcornContext))]
-    partial class PopcornContextModelSnapshot : ModelSnapshot
+    [Migration("20230325212614_modify-movie-to-nullable-youtube-trailer")]
+    partial class modifymovietonullableyoutubetrailer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,6 +58,7 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("poster_path")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("release_date")
@@ -88,6 +91,7 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("poster_path")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("title")
@@ -95,6 +99,7 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("youtube_trailer")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("_id");

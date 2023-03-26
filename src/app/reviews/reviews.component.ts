@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IUserReview } from '../Interfaces/user-review';
+import { MediaComponent } from '../media/media.component';
+import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { ApiService } from '../api.service';
-import { IUser } from '../Interfaces/user';
 import { NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-reviews',
@@ -12,22 +14,54 @@ import { NgForm } from '@angular/forms';
 
 export class ReviewsComponent {
 
-review: IUserReview | undefined;
-rating: number = 0
+  //review: IUserReview | undefined;
+  //rating: number = 0
+  // Userid: number = 1
 
-constructor (private Api:ApiService) {}
+  constructor(private Api: ApiService) { }
+  Movie: any;
+  Show: any;
+  UserId: number = -1 ;
+  MediaId: number = -1 ;
+  Review: string = "" ;
+  Rating: number = -1 ;
+  ReviewId: number = -1;
 
-addReview(form: NgForm){
-let newReview : IUserReview = {
-  MediaId: form.value.MediaId,
-  id: form.value.id,
-  UserId: form.value.userId,
-  Review: form.value.review,
-  Rating: form.value.rating,
-}
-this.Api.addMovieReview(newReview)
-}
+  // @Input() UserId: number = 1;
+  // @Input() MediaId: number = 1;
+  //@Input() ReviewId: number = 1; //review id
 
-//update review
+  addMovieReview(form: NgForm) {
+    let newReview: IUserReview = {
+      ReviewId: -1,
+      UserId: this.UserId,
+      MediaId: this.MediaId,
+      Review: form.form.value.Review,
+      Rating: form.form.value.Rating
+    };
+
+    this.Api.addMovieReview(newReview)
+    form.resetForm();
+  }
+
+  getReviewByMediaId(MediaId: number)
+  {
+    this.Api.getReviewByMediaId(this.MediaId).subscribe();
+  }
+
+  getReviewByUserId(UserId: number)
+  {
+    this.Api.getReviewByUserId(this.UserId).subscribe();
+  }
+
+  getReviewByReviewId(ReviewId:number)
+  {
+    this.Api.getReviewByReviewId(this.ReviewId).subscribe();
+  }
+  
+  editReview(){}
+
+  editRating(){}
+
 
 }
