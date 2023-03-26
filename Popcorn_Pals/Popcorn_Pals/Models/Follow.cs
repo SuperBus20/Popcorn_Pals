@@ -3,7 +3,6 @@ namespace Popcorn_Pals.Models
 {
   public class Follow
   {
-    
     public int Id { get; set; }
 
     //You
@@ -15,8 +14,5 @@ namespace Popcorn_Pals.Models
 
     // the user you are following
     public int? FollowingId { get; set; }
-
-    
   }
 }
-
