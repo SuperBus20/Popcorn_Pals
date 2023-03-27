@@ -21,7 +21,7 @@ namespace Popcorn_Pals.Controllers
       _popcornRepository = popcornRepository;
     }
 
-  // User Endpoints
+    // User Endpoints
     [HttpPost("CreateUser")]
     public User CreateUser(string userName, string password)
     {
@@ -46,7 +46,7 @@ namespace Popcorn_Pals.Controllers
     }
 
 
-    
+
     // Review Endpoints
 
     [HttpPost("AddMovieReview")]
@@ -80,6 +80,7 @@ namespace Popcorn_Pals.Controllers
     }
 
     // TODO: Add Edit Review
+
 
 
     // Follow Endpoints

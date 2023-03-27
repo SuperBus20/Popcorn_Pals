@@ -30,7 +30,6 @@ namespace Popcorn_Pals.Services
         Review = review,
         Rating = rating
       };
-
       
       return _popcornRepository.AddMovieReview(reviewToAdd);
     }
@@ -46,7 +45,6 @@ namespace Popcorn_Pals.Services
         Review = review,
         Rating = rating
       };
-
 
       _popcornRepository.AddShowReview(reviewToAdd);
       return reviewToAdd;
