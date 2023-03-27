@@ -33,6 +33,7 @@ namespace Popcorn_Pals
 
         _configuration = builder.Build();
         string cnstr = _configuration.GetConnectionString("PopcornDb");
+        Console.WriteLine($"{cnstr}");
         optionsBuilder.UseSqlServer(cnstr);
       }
     }

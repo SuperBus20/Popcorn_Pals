@@ -1,13 +1,12 @@
 using Popcorn_Pals.Models;
-using Popcorn_Pals.DAL;
+using Popcorn_Pals.DAL.Interfaces;
 using Popcorn_Pals.Controllers;
 using System;
 
 namespace Popcorn_Pals.DAL
 {
-  public class PopcornRepository
+  public class PopcornRepository : IPopcornRepository
   {
-    private PopcornController _controller = new PopcornController();
     private PopcornContext _popContext = new PopcornContext();
 
 
@@ -66,35 +65,15 @@ namespace Popcorn_Pals.DAL
 
 
 // Review Methods //
-    public UserReview AddMovieReview(int userId, int mediaId, string review, int rating)
+    public UserReview AddMovieReview(UserReview reviewToAdd)
     {
-      Movie movieToReview = _controller.GetMovieById(mediaId).FirstOrDefault(x => x._id == mediaId);
-      UserReview reviewToAdd = new UserReview()
-      {
-        UserId = userId,
-        MediaId = movieToReview._id,
-        Movie = movieToReview,
-        Review = review,
-        Rating = rating
-      };
-
       _popContext.Reviews.Add(reviewToAdd);
       _popContext.SaveChanges();
       return reviewToAdd;
     }
 
-    public UserReview AddShowReview(int userId, int mediaId, string review, int rating)
+    public UserReview AddShowReview(UserReview reviewToAdd)
     {
-      Show showToReview = _controller.GetShowById(mediaId).FirstOrDefault(x => x._id == mediaId);
-      UserReview reviewToAdd = new UserReview()
-      {
-        UserId = userId,
-        MediaId = showToReview._id,
-        Show = showToReview,
-        Review = review,
-        Rating = rating
-      };
-
       _popContext.Reviews.Add(reviewToAdd);
       _popContext.SaveChanges();
       return reviewToAdd;
