@@ -13,23 +13,27 @@
   <button type="submit">Search</button>
 </form>
 
+<!-- <p *ngIf="loggedInUser">{{loggedInUser.User.userId}}</p > test to see if userId was passing through -->
+
 
 <div *ngIf="!selectedMedia">
 <h2>Search Results</h2>
-<ng-container *ngIf="movie">
+<ng-container *ngIf="isMovie">
 <ul>
   <li *ngFor="let result of movieResults">
     <h3 class="title"  (click)="selectId(result._id, result.type)">{{result.title}}</h3>
     <!-- <button (click)="selectId(result._id, result.type)">Select</button> -->
+
   </li>
 </ul>
 </ng-container>
 
-<ng-container *ngIf="show">
+<ng-container *ngIf="isShow">
   <ul>
   <li *ngFor="let result of showResults">
      <h3 class="title" (click)="selectId(result._id, result.type)" >{{result.title}}</h3>
     <!-- <button (click)="selectId(result._id, result.type)">Select</button> -->
+
   </li>
 </ul>
 </ng-container>
@@ -37,7 +41,12 @@
 
 <div *ngIf="selectedMovie" >
   <div *ngFor="let info of selectedMovie">
-  <h3>{{ info.title }}</h3>
+  <h3>{{ info.title }}
+    <!-- <button (click)="favoriteMovieClicked()">add to favorites</button> -->
+    <button (click)="addFavoriteMovie(info._id)">add to favorites</button>
+  </h3>
+
+   <p>id: {{info._id}}</p>
   <p>overview: {{ info.overview }}</p>
   <p>poster: <img src="https://image.tmdb.org/t/p/original{{ info.poster_path }}" width="500" height="600"></p>
   <p>Genre: {{ info.genres }}</p>
@@ -50,9 +59,17 @@
       <p>{{ source.source }}: <a href="{{ source.link }}">link</a> type: {{ source.type }} </p>
     </div>
 </div>
+
+
+
+
+
+
+
 <div *ngIf="selectedShow" >
   <div *ngFor="let info of selectedShow">
   <h3>{{ info.title }}</h3>
+  <button (click)="addFavoriteShow(info._id)">add to favorites</button>
   <p>overview: {{ info.overview }}</p>
   <p>poster: <img src="https://image.tmdb.org/t/p/original{{ info.poster_path }}" width="500" height="600"></p>
   <p>Genre: {{ info.genres }}</p>

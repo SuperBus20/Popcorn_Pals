@@ -133,7 +133,7 @@ id:number=0;
     this.api.createUser({
       userName: name,
       password: pass,
-      UserId: -1,
+      userId: -1,
       UserRating: 0,
       UserPic: '',
       UserBio: ''
@@ -141,7 +141,7 @@ id:number=0;
     this.api.setUser({
       userName: name,
       password: pass,
-      UserId: -1,
+      userId: -1,
       UserRating: 0,
       UserPic: '',
       UserBio: ''

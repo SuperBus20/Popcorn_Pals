@@ -1,5 +1,5 @@
 export interface IUser {
-  UserId: number;
+  userId: number;
   userName: string;
   password: string;
   UserRating: number; //Rating of User Profile - This might need to be nullable depending on our logic

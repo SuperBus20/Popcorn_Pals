@@ -35,7 +35,7 @@ export class UserProfileComponent {
     this.follow(4, 5);
   }
 
-  // Profile Mgmt // 
+  // Profile Mgmt //
 
   // TODO: Figure out where this logic should live - in user profile or in another component specifically for managing data related to a user profile
   // updateProfile(form: NgForm) {
@@ -57,12 +57,12 @@ export class UserProfileComponent {
   // Follow Profiles //
 
   usersFollowingUser(user: IUser) {
-    let id = user.UserId
+    let id = user.userId
     this.Api.getUserFollowers(id);
   }
 
   usersFollowedByUser(user: IUser) {
-    let id = user.UserId
+    let id = user.userId
     this.Api.getUsersFollowedByUser(id);
   }
 
