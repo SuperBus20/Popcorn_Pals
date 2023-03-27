@@ -136,25 +136,17 @@ export class ApiService {
 
 
 // Follow //
-  getFollowers(user: IUser) {
-    let id = user.UserId
-    return this.http.get<IUser>(this.userURI + `GetFollowers?userId=${id}`);
+  getUserFollowers(userId: number) {
+    return this.http.get(this.userURI + `GetFollowers?userId=${userId}`);
   }
 
-  getFollowing(user: IUser) {
-    let id = user.UserId
-    return this.http.get<IUser>(this.userURI + `GetFollowing?userId=${id}`);
+  getUsersFollowedByUser(userId: number) {
+    return this.http.get(this.userURI + `GetFollowing?userId=${userId}`);
   }
 
-  followUser(userId: number, userToFollow: number) { //SOMETHING ISN'T WORKING IN THIS METHOD - Come back to fix
-    
-    // let userId = user.UserId;
-    // let userToFollow = toFollow.UserId
-    
-    return this.http.get(
-      this.userURI +
-      `FollowUser?userId=${userId}&userToFollow=${userToFollow}`
-    );
+  followUser(userId: number, userToFollow: number)
+  {
+    return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`,{}).subscribe(() => { Response });
+    //for post, needs a body, input blank body to make this function
   }
-
 }

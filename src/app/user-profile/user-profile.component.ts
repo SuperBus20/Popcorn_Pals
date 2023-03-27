@@ -31,10 +31,13 @@ export class UserProfileComponent {
 
   ngOnInit(): void {
     this.getProfile;
-    this.follow(4,5); //TEST DATA
+    console.log("stringOnInIt");
+    this.follow(4, 5);
   }
 
-// Profile Mgmt //
+  // Profile Mgmt // 
+
+  // TODO: Figure out where this logic should live - in user profile or in another component specifically for managing data related to a user profile
   // updateProfile(form: NgForm) {
   //   let newUser: IUser = {
   //     userName: form.value.userName,
@@ -50,14 +53,22 @@ export class UserProfileComponent {
   //   form.resetForm();
   // }
 
-// Follow Profiles //
-  follow(userToFollow: number, follower:number) {
-    this.Api.followUser(userToFollow, follower).subscribe(
-      () => {}
-    )
+
+  // Follow Profiles //
+
+  usersFollowingUser(user: IUser) {
+    let id = user.UserId
+    this.Api.getUserFollowers(id);
   }
 
+  usersFollowedByUser(user: IUser) {
+    let id = user.UserId
+    this.Api.getUsersFollowedByUser(id);
+  }
 
+  follow(userId: number, userToFollow: number) {
+    this.Api.followUser(userId, userToFollow);
+  }
 
 }
 
