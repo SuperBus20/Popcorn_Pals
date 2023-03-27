@@ -1,6 +1,24 @@
+using Popcorn_Pals.Configs;
+using Popcorn_Pals.DAL;
+using Popcorn_Pals.DAL.Interfaces;
+using Popcorn_Pals.Services;
+using Popcorn_Pals.Services.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// var configSection = builder.Configuration.GetSection("ExternalUrls");
+
+// builder.Services.Configure<UrlConfig>(configSection);
+
+var urlConfig = new UrlConfig();
+builder.Configuration.Bind("ExternalUrls", urlConfig);
+
+builder.Services.AddSingleton<UrlConfig>(urlConfig);
+
+builder.Services.AddScoped<IPopcornRepository, PopcornRepository>();
+builder.Services.AddScoped<IRapidApiService, RapidApiService>();
+builder.Services.AddScoped<IPopcornService, PopcornService>();
 
 
 builder.Services.AddControllers();
