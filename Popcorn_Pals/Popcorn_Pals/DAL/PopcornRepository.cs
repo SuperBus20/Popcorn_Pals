@@ -191,6 +191,7 @@ namespace Popcorn_Pals.DAL
       return Followers;
     }
 
+    //TODO revisit this soon
     //had to change from movie type to void due to 429 error
     public void FavoriteMovie(int movieId, int userId)
     {
@@ -274,7 +275,7 @@ namespace Popcorn_Pals.DAL
       return null;
     }
 
-
+    //TODO revisit this soon
     ///// for some reason this is the only way i was able to get show all favorite movies to work will fix after MVP
     public static List<Show> GetShowById(int _id)
     {
