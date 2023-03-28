@@ -24,6 +24,7 @@ export class UserProfileComponent {
   userBio: string = "";
   userToFollow: any;
   follower: any;
+  loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
 
   getProfile(User: IUser) {
     this.Api.getUser(User);
@@ -32,7 +33,7 @@ export class UserProfileComponent {
   ngOnInit(): void {
     this.getProfile;
     console.log("stringOnInIt");
-    this.follow(4, 5);
+    //this.follow(1, 3003); this was test code
   }
 
   // Profile Mgmt //
