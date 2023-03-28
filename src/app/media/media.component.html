@@ -1,16 +1,16 @@
 <form #searchForm="ngForm" (ngSubmit)="searchMedia(searchForm)">
   <label for="searchString">Search Title:</label>
-  <input type="text" id="searchString" name="searchString" placeholder="Title" [(ngModel)]="searchString" required>
+  <input class="w3-input" type="text" id="searchString" name="searchString" placeholder="Title" [(ngModel)]="searchString" required>
 
   <!-- <label for="searchType">Search Type:</label> -->
   <!-- <input type="text" id="searchType" name="searchType" [(ngModel)]="searchType" required> -->
-    <select name="searchType" ngModel>
+    <select class="w3-input" name="searchType" ngModel>
     <option value="">--Type--</option>
     <option value="movie">Movie</option>
     <option value="show">TV Show</option>
   </select>
 
-  <button type="submit">Search</button>
+  <button class="w3-button w3-blue-grey" type="submit">Search</button>
 </form>
 
 

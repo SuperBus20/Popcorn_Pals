@@ -10,7 +10,7 @@ namespace Popcorn_Pals.DAL
     private PopcornContext _popContext = new PopcornContext();
 
 
-// User Methods //
+    // User Methods //
     public List<User> GetUsers()
     {
       return _popContext.Users.ToList();
@@ -64,7 +64,7 @@ namespace Popcorn_Pals.DAL
 
 
 
-// Review Methods //
+    // Review Methods //
     public UserReview AddMovieReview(UserReview reviewToAdd)
     {
       _popContext.Reviews.Add(reviewToAdd);
@@ -116,7 +116,7 @@ namespace Popcorn_Pals.DAL
 
 
 
-// Follow Methods //
+    // Follow Methods //
     public Follow FollowUser(int user, int userToFollow) // Working as of last change to method
     {
       Follow follow = new Follow
@@ -185,6 +185,17 @@ namespace Popcorn_Pals.DAL
         .Where(x => x.FollowingId != null)
         .ToList();
       return Followers;
+    }
+    public bool UpdateUser(User userToUpdate)
+    {
+      if (GetUserById(userToUpdate.UserId) == null)
+      {
+        return false;
+      }
+
+      _popContext.Users.Update(userToUpdate);
+      _popContext.SaveChanges();
+      return true;
     }
 
 

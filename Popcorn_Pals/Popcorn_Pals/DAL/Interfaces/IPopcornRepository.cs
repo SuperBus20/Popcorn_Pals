@@ -12,6 +12,7 @@ namespace Popcorn_Pals.DAL.Interfaces
     User GetUser(string userName);
     User AddUser(string userName, string password);
     User GetUserById(int id);
+    bool UpdateUser(User userToUpdate);
 
 
     // Review Methods //

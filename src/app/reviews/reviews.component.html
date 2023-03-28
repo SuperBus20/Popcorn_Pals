@@ -1,10 +1,10 @@
     <form #newReview="ngForm" (ngSubmit)="addMovieReview(newReview)">
 
       <label for="reviewText">Review:</label>
-      <input type="text" id="review" name="Review" [(ngModel)]="Review" required>
+      <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
 
       <label for="userRating">Rating:</label>
-      <input type="text" id="rating" name="userRating" [(ngModel)]="Rating" required>
+      <input class="w3-input" type="text" id="rating" name="userRating" [(ngModel)]="Rating" required>
 
-      <button type="submit">Add Review</button>
+      <button class="w3-button w3-blue-grey" type="submit">Add Review</button>
     </form>

@@ -23,6 +23,7 @@ export class UserProfileComponent {
   userPic: string = "";
   userBio: string = "";
   userToFollow: any;
+  userRating: any;
   follower: any;
 
   getProfile(User: IUser) {
@@ -38,20 +39,21 @@ export class UserProfileComponent {
   // Profile Mgmt // 
 
   // TODO: Figure out where this logic should live - in user profile or in another component specifically for managing data related to a user profile
-  // updateProfile(form: NgForm) {
-  //   let newUser: IUser = {
-  //     userName: form.value.userName,
-  //     password: form.value.userPassword,
-  //     UserRating: this.userRating.disable,
-  //     UserPic: form.value.userPic,
-  //     UserBio: form.value.userBio,
-  //   }
+  updateProfile(form: NgForm) {
+    let newUser: IUser = {
+      userName: form.value.userName,
+      password: form.value.userPassword,
+      UserRating: this.userRating.disable,
+      UserPic: form.value.userPic,
+      UserBio: form.value.userBio,
+      UserId: form.value.UserId
+    }
 
-  //   this.users.updateProfile(form).subscribe(
-  //     () => { });
+    this.users.updateProfile(form).subscribe(
+      () => { });
 
-  //   form.resetForm();
-  // }
+    form.resetForm();
+  }
 
 
   // Follow Profiles //
@@ -69,6 +71,7 @@ export class UserProfileComponent {
   follow(userId: number, userToFollow: number) {
     this.Api.followUser(userId, userToFollow);
   }
+  
 
 }
 

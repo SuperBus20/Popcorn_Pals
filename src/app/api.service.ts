@@ -149,4 +149,18 @@ export class ApiService {
     return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`,{}).subscribe(() => { Response });
     //for post, needs a body, input blank body to make this function
   }
+  
+  updateProfile(userToUpdate:IUser)
+  {
+    let userId = userToUpdate.UserId
+    let userName = userToUpdate.userName
+    let password = userToUpdate.password
+    let userRating = userToUpdate.UserRating
+    let userPic = userToUpdate.UserPic
+    let userBio = userToUpdate.UserBio
+    return this.http.post(
+      this.userURI + `UpdateUser?UserId=${userId}&newUserName=${userName}&newPassword=${password}&newUserRating=${userRating}&newUserPic=${userPic}&newUserBio=${userBio}`
+    ,userToUpdate).subscribe(() => {});
+    
+  }
 }
