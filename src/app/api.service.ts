@@ -17,19 +17,143 @@ export class ApiService {
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
   loggedInUser: ILoggedInUser | null = null;
-  
+
   @Output() loggedInEvent: EventEmitter<ILoggedInUser> = new EventEmitter<ILoggedInUser>();
 
 // Media //
-  getMovieByID(media_id: number) {
-    return this.http.get<IMovie>(this.popCornUri + `movie?_id=${media_id}`);
+selectFavoriteMovie(movieId: number) {
+
+  let userId=-1;
+  let user = this.loggedInUser as ILoggedInUser;
+  if (user) {
+    userId = user.User.userId;
+    let favorites = user.FavoriteMovies;
+    let movie = favorites.filter(x => x._id === movieId)[0];
+    let indexNumber = favorites.indexOf(movie);
+    let length = favorites.length;
+    if (user.FavoriteMovies.some(x => x._id === movieId)) {
+      favorites = favorites.slice(0, (Math.abs(indexNumber)))
+        .concat(favorites.slice(-Math.abs(length - indexNumber)));
+      this.removeFavoriteMovie(userId, movieId);
+
+
+    } else {
+      this.http.post<IMovie>(this.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`, {}).subscribe(
+        (x)=>{
+          if(x){
+            this.setUser(user.User)
+            return this.onComponentLoad()
+          }
+    });
+    }
   }
+}
+removeFavoriteMovie(userId: number, movieId: number) {
+  return this.http.post<boolean>(this.userURI+ `DeleteFavoriteMovie/${userId}/${movieId}`, {})
+  .subscribe(
+    (x) => {
+      if(x) {
+        this.setUser(this.giveCurrentUser().User)
+        return this.onComponentLoad();
+      }
+  })
+}
 
-  getShowByID(media_id: number) {
-    return this.http.get<IShow>(this.popCornUri + `show?_id=${media_id}`);
+
+selectFavoriteShow(showId: number) {
+
+  let userId = -1;
+  let user = this.loggedInUser as ILoggedInUser;
+  if (user) {
+    userId = user.User.userId;
+    let favorites = user.FavoriteShows;
+    let show = favorites.filter(x => x._id === showId)[0];
+    let indexNumber = favorites.indexOf(show);
+    let length = favorites.length;
+    if (user.FavoriteMovies.some(x => x._id === showId)) {
+      favorites = favorites.slice(0, (Math.abs(indexNumber)))
+        .concat(favorites.slice(-Math.abs(length - indexNumber)));
+      this.removeFavoriteShow(userId, showId);
+
+
+    } else {
+      this.http.post<IMovie>(this.userURI + `FavoriteShow/${showId}/${userId}`, {}).subscribe(
+        (x)=>{
+          if(x){
+            this.setUser(user.User)
+            return this.onComponentLoad()
+          }
+    });
+    }
   }
+}
 
+removeFavoriteShow(userId: number, showId: number) {
+  return this.http.post<boolean>(this.userURI+ `DeleteFavoriteShow/${userId}/${showId}`, {})
+  .subscribe(
+    (x) => {
+      if(x) {
+        this.setUser(this.giveCurrentUser().User)
+        return this.onComponentLoad();
+      }
+  })
+}
 
+getLoggedInUserFavoriteMovies(user:IUser) {
+
+  return this.http.get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
+  .subscribe(
+    (x) => {
+      if(x){
+        this.loggedInUser = {
+          User: user ,
+          UserReview: [],
+          FavoriteMovies: x,
+          FavoriteShows: []
+        }
+      }else{
+        this.loggedInUser = {
+          User: user ,
+          UserReview: [],
+          FavoriteMovies: [],
+          FavoriteShows: []
+        }
+      }
+      return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+  });
+}
+getLoggedInUserFavoriteShows(user:IUser) {
+
+return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
+.subscribe(
+  (x) => {
+    if(x){
+      this.loggedInUser = {
+        User: user ,
+        UserReview: [],
+        FavoriteMovies: [],
+        FavoriteShows: x
+      }
+    }else{
+      this.loggedInUser = {
+        User: user ,
+        UserReview: [],
+        FavoriteMovies: [],
+        FavoriteShows: []
+      }
+    }
+    return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+});
+}
+getMovieByID(media_id:number)
+{
+ return this.http.get<IMovie>(this.popCornUri+`movie?_id=${media_id}`);
+}
+
+getShowByID(media_id:number)
+{
+ return this.http.get<IShow>(this.popCornUri+`show?_id=${media_id}`);
+}
 
 // User //
   createUser(user: IUser) {
@@ -43,9 +167,11 @@ export class ApiService {
       )
       .subscribe((x) => {
         this.loggedInUser = {
-          User: x,
-          UserReview: []
-          //Favorites: []
+          User: x ,
+          UserReview: [],
+          FavoriteMovies: [],
+          FavoriteShows: []
+
         };
         this.onComponentLoad()
       });
@@ -59,8 +185,10 @@ export class ApiService {
       .get<IUser>(this.userURI + `Login?userName=${userName}&password=${password}`)
       .subscribe((x) => {
         this.loggedInUser = {
-          User: x,
-          UserReview: []
+        User: x ,
+        UserReview: [],
+        FavoriteMovies: [],
+        FavoriteShows: []
 
         };
         this.onComponentLoad()
@@ -94,7 +222,7 @@ export class ApiService {
 
 /// Review //
   addMovieReview(movieReview: IUserReview) {
-    let userId = movieReview.UserId;
+    let userId = movieReview.userId;
     let mediaId = movieReview.MediaId;
     let review = movieReview.Review;
     let rating = movieReview.Rating;
@@ -108,7 +236,7 @@ export class ApiService {
   }
 
   addShowReview(showReview: IUserReview) {
-    let userId = showReview.UserId;
+    let userId = showReview.userId;
     let mediaId = showReview.MediaId;
     let review = showReview.Review;
     let rating = showReview.Rating;

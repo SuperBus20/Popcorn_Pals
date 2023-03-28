@@ -13,10 +13,7 @@ namespace Popcorn_Pals.Controllers
   [ApiController]
   public class PopcornController : ControllerBase
   {
-    string juneKey = "4fc1bbfbfamsh918f184e4f2d29cp13265ajsnad0c24e96d2b";
-    string anhKey = "75b89c1e52msh391d45bf48da45bp1a0f89jsnf24f7bad2b61";
-    string anhKey2 = "b2f985562amsh9ea369258704508p17e603jsnc19236cf310d";
-    string lisaKey = "15728bb747mshb12d9318d06a090p16bcc7jsnf46cf1933827";
+    
     // TODO: Have team add api key to the appsettings.json. Example of code block for this can be found in PR comment and in slack
 
     private readonly UrlConfig _config;
@@ -30,7 +27,7 @@ namespace Popcorn_Pals.Controllers
     public List<Search> SearchByTitle(string title, string type)
     {
       string apiUri = $"{_config.RapidApi}/search?type={type}&query={title}";
-      var apiTask = apiUri.WithHeaders(new
+       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
         x_rapidapi_key = _config.RapidApiKey
@@ -52,7 +49,7 @@ namespace Popcorn_Pals.Controllers
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = _config.RapidApiKey
+        x_rapidapi_key =_config.RapidApiKey
 
       }).GetJsonAsync<List<Movie>>();
       apiTask.Wait();

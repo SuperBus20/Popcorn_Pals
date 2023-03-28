@@ -34,7 +34,7 @@ export class ReviewsComponent {
   addMovieReview(form: NgForm) {
     let newReview: IUserReview = {
       Id: -1, //update
-      UserId: this.UserId,
+      userId: this.UserId,
       MediaId: this.MediaId,
       Review: form.form.value.Review,
       Rating: form.form.value.Rating
@@ -58,7 +58,7 @@ export class ReviewsComponent {
   {
     this.Api.getReviewByReviewId(this.Id).subscribe(); //updated
   }
-  
+
   editReview(){}
 
   editRating(){}
