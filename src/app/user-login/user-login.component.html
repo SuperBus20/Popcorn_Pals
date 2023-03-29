@@ -15,3 +15,6 @@
   <button class="button" (click)="onLogout()">Logout</button>
 </div>
 
+<div *ngIf="loggedInUser">
+  <app-favorite></app-favorite>
+</div>

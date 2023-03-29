@@ -8,6 +8,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { MediaComponent } from './media/media.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MediaComponent } from './media/media.component';
     ReviewsComponent,
     MediaComponent,
     UserProfileComponent,
-    ReviewsComponent
+    ReviewsComponent,
+    FavoriteComponent
   ],
 
   imports: [
