@@ -177,6 +177,11 @@ namespace Popcorn_Pals.Controllers
       return _popcornRepository.FavoriteShow(showId, userId);
     }
 
+    [HttpGet("SearchUserByName/{userToSearch}")]
+    public List<User> SearchUserByName(string userToSearch)
+    {
+      return _popcornRepository.SearchUserByName(userToSearch);
+    }
 
 
   }

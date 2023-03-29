@@ -1,28 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { IUser } from '../Interfaces/user';
-import { IUserReview } from '../Interfaces/user-review';
+import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
+import { IUser } from '../Interfaces/user';
+import { SearchUserComponent } from '../search-user/search-user.component';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-view-user',
+  templateUrl: './view-user.component.html',
+  styleUrls: ['./view-user.component.css']
 })
-
-export class UserProfileComponent {
-
+export class ViewUserComponent {
   constructor(private api: ApiService) { }
   
-
-  user = this.api.loggedInUser?.User;
+  loggedInUser=this.api.loggedInUser
+  user = this.api.userToView
   userProfile: any;
   userToFollow: any;
   follower: any;
-
-ngOnInit() 
-{
-  this.api.onComponentLoad();
-}
 
   // Follow Profiles //
 
@@ -42,4 +35,5 @@ ngOnInit()
   
 
 }
+
 

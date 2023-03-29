@@ -5,13 +5,14 @@ using Popcorn_Pals.Services;
 using System;
 using Flurl.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Popcorn_Pals.DAL
 {
   public class PopcornRepository : IPopcornRepository
   {
     private PopcornContext _popContext = new PopcornContext();
-    
+
 
 
     // User Methods //
@@ -56,13 +57,7 @@ namespace Popcorn_Pals.DAL
 #pragma warning disable CS8600
     public User GetUserById(int id)
     {
-      User user = GetUsers()
-        .FirstOrDefault(x => x.UserId == id);
-      if (user == null)
-      {
-        return null;
-      }
-      return user;
+      return _popContext.Users.AsNoTracking().FirstOrDefault(x => x.UserId == id);
     }
 #pragma warning restore CS8600
 
@@ -361,7 +356,12 @@ namespace Popcorn_Pals.DAL
       return true;
     }
 
-
+    public List<User> SearchUserByName(string userToSearch)
+    {
+      List<User> users = _popContext.Users
+        .Where(x => x.UserName.ToLower().Contains(userToSearch.ToLower())).ToList();
+      return users;
+    }
 
   }
 }

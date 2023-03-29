@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserLoginComponent } from './user-login/user-login.component';
-import { MediaComponent } from './media/media.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ViewUserComponent } from './view-user/view-user.component';
 
 const routes: Routes = [
-  { path: 'userlogin', component: UserLoginComponent },
-  { path: 'search', component: MediaComponent },
+  { path: 'user-profile', component: UserProfileComponent },
+  { path: 'view-user', component: ViewUserComponent },
 ];
 
 @NgModule({

@@ -1,13 +1,80 @@
-<!-- <app-media></app-media> -->
-<app-user-profile></app-user-profile>
+<head>
+    <title>Login Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Open Sans", sans-serif;
+        }
+    </style>
+</head>
 
-<!-- Footer -->
-<footer class="w3-container w3-theme-d3 w3-padding-16">
-    <h5>Popcorn Pals</h5>
-</footer>
+<body class="w3-theme-l5">
+    <!-- Navbar -->
 
-<footer class="w3-container w3-theme-d5">
-    <p>
-        Copyright &copy; 2023 Anh Group Ltd. All rights reserved
-    </p>
-</footer>
+    <div class="w3-top">
+        <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+            <a
+                class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2">
+                <i class="fa fa-bars"></i></a>
+            <button onclick="document.getElementById('id_modal_search').style.display='block'"
+                class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-theme-d4">
+                <i class="fa fa-film w3-margin-right"></i>Popcorn Pals</button>
+
+            <!-- Trigger/Open the Modal -->
+            <button onclick="document.getElementById('id_modal_search').style.display='block'"
+                class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">
+                <i class="fa fa-search w3-margin-right"></i>Search Users</button>
+
+            <!-- The Modal -->
+            <div id="id_modal_search" class="w3-modal">
+                <div class="w3-modal-content">
+                    <div class="w3-container">
+                        <span onclick="document.getElementById('id_modal_search').style.display='none'"
+                            class="w3-button w3-display-topright">&times;</span>
+                        <app-search-user></app-search-user>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Trigger/Open the Modal -->
+            <button onclick="document.getElementById('id_modal').style.display='block'"
+                class="w3-button w3-button w3-hide-small w3-padding-large w3-hover-white">
+                <i class="fa fa-cog w3-margin-right"></i>Log in</button>
+
+            <!-- The Modal -->
+            <div id="id_modal" class="w3-modal">
+                <div class="w3-modal-content">
+                    <div class="w3-container">
+                        <span onclick="document.getElementById('id_modal').style.display='none'"
+                            class="w3-button w3-display-topright">&times;</span>
+                        <app-user-login></app-user-login>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<router-outlet></router-outlet>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-theme-d3 w3-padding-16">
+        <h5>Popcorn Pals</h5>
+    </footer>
+
+    <footer class="w3-container w3-theme-d5">
+        <p>
+            Copyright &copy; 2023 Anh Group Ltd. All rights reserved
+        </p>
+    </footer>
