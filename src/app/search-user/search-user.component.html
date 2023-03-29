@@ -1,0 +1,20 @@
+<br>
+<div>
+    <label for="searchName">Search for a user:</label>
+    <input class="w3-input" id="search-user-input"  type="text" [(ngModel)]="searchName" placeholder="Enter a name to search">
+    <br>
+    <button class="w3-button w3-blue-grey" (click)="searchUsers()">Search</button>
+    <br>
+</div>
+
+<div *ngIf="users">
+    <ul>
+        <li *ngFor="let user of users">
+            <img src="{{user.UserPic}}" alt="User Picture" width="170" height="170">
+            <p>{{user.userName}}</p>
+            <p>{{user.UserBio}}</p>
+            <p>{{user.UserRating}}</p>
+            <button class="w3-button w3-blue-grey" (click)="loadUserProfile(user)">View User</button>
+        </li>
+    </ul>
+</div>

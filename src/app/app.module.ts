@@ -8,7 +8,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { MediaComponent } from './media/media.component';
+import { UserUpdateComponent } from './user-update/user-update.component';
+import { SearchUserComponent } from './search-user/search-user.component';
+import { ViewUserComponent } from './view-user/view-user.component';
 import { FavoriteComponent } from './favorite/favorite.component';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { FavoriteComponent } from './favorite/favorite.component';
     MediaComponent,
     UserProfileComponent,
     ReviewsComponent,
+    UserUpdateComponent,
+    SearchUserComponent,
+    ViewUserComponent
     FavoriteComponent
+
   ],
 
   imports: [
