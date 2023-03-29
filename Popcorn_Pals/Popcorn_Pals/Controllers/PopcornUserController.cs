@@ -134,5 +134,50 @@ namespace Popcorn_Pals.Controllers
       return _popcornRepository.GetFollowing(userId);
     }
 
+
+
+    [HttpGet("GetFavoriteMovies/{userId}")]
+    public IEnumerable<Movie> GetUserFavoriteMovies(int userId)
+    {
+
+      return _popcornRepository.GetFavoriteMovies(userId);
+    }
+
+    [HttpGet("GetFavoriteShows/{userId}")]
+    public IEnumerable<Show> GetUserFavoriteShows(int userId)
+    {
+
+      return _popcornRepository.GetFavoriteShows(userId);
+    }
+
+    [HttpPost("FavoriteMovie")]
+    //had to change from movie type to void due to 429 error
+    public void FavoriteMovie(int movieId, int userId)
+    {
+      // return
+      _popcornRepository.FavoriteMovie(movieId, userId);
+    }
+    [HttpPost("DeleteFavoriteMovie/{userId}/{movieId}")]
+    public bool DeleteFavoriteMovie(int userId, int movieId)
+    {
+      return _popcornRepository.DeleteFavoriteMovieById(userId, movieId);
+    }
+
+    [HttpPost("DeleteFavoriteShow/{userId}/{showId}")]
+    public bool DeleteFavoriteShow(int userId, int showId)
+    {
+      return _popcornRepository.DeleteFavoriteShowById(userId, showId);
+    }
+
+
+    [HttpPost("FavoriteShow/{showId}/{userId}")]
+
+    public Show FavoriteShow(int showId, int userId)
+    {
+      return _popcornRepository.FavoriteShow(showId, userId);
+    }
+
+
+
   }
 }

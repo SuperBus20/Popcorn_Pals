@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgForm } from '@angular/forms';
 import { IMovie, IShow, ISource } from '../Interfaces/Media';
 import { HttpClient } from '@angular/common/http';
+import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 
 @Component({
   selector: 'app-media',
@@ -14,23 +15,28 @@ export class MediaComponent {
   // ngOnInit(): void {
   // }
 
+  @Input() movie: IMovie | null = null;
+  @Input() show: IShow | null = null;
+  loggedInUser: ILoggedInUser|null = this.api.loggedInUser
+  @Input() index: number = 0;
+  @Output() clicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   searchString!: string;
   searchType!: string;
   movieResults!: IMovie[];
   showResults!: IShow[];
-  movie: boolean = false;
-  show: boolean = false;
-  selectedMovie!: any;
-  selectedShow!: any;
-  selectedMedia: boolean = false;
-  //MediaId: number = 1; //testing?
+  isMovie: boolean = false;
+  isShow: boolean = false;
+  selectedMovie!:any ;
+  selectedShow!:any;
+  selectedMedia:boolean=false;
 
+  //MediaId: number = 1; //testing?
   searchMedia(form: NgForm) {
     this.searchString = form.value.searchString;
     this.searchType = form.value.searchType;
 
     if ((this.searchType = 'movie')) {
-      this.movie = true;
+      this.isMovie = true;
       this.http
         .get<IMovie[]>(
           this.api.popCornUri + `search?title=${this.searchString}&type=movie`
@@ -40,7 +46,7 @@ export class MediaComponent {
         });
     }
     if ((this.searchType = 'show')) {
-      this.show = true;
+      this.isShow = true;
       this.http
         .get<IShow[]>(
           this.api.popCornUri + `search?title=${this.searchString}&type=show`
@@ -51,26 +57,86 @@ export class MediaComponent {
     }
   }
 
-  selectId(mediaId: number, mediaType: string) {
-    if (mediaType = "movie") {
-      this.selectedMedia = true;
-      this.api.getMovieByID(mediaId).subscribe((response) => {
-        this.selectedMovie = response;
-      });
-    }
-    if (mediaType = "show") {
-      this.selectedMedia = true;
-      this.api.getShowByID(mediaId).subscribe((response) => {
-        this.selectedShow = response;
-      });
+  selectId(mediaId:number, mediaType:string) {
+if(mediaType="movie")
+{
+  this.selectedMedia=true;
+   this.api.getMovieByID(mediaId).subscribe((response) => {
+    this.selectedMovie = response;
+  });
+}
+if(mediaType="show")
+{
+  this.selectedMedia=true;
+  this.api.getShowByID(mediaId).subscribe((response) => {
+    this.selectedShow = response;
+  });
 
-    }
-    // this.http.get<IMovie>(this.api.popCornUri+`movie?_id=${movieId}`)
-    // .subscribe(response => {
-    //   this.selectedMedia = response;
-    // });
-    // this.selectedMedia=movieId;
-    // console.log(this.selectedMedia);
+}
+  // this.http.get<IMovie>(this.api.popCornUri+`movie?_id=${movieId}`)
+  // .subscribe(response => {
+  //   this.selectedMedia = response;
+  // });
+  // this.selectedMedia=movieId;
+  // console.log(this.selectedMedia);
+
+  }
+
+  // favoriteMovieClicked() {
+  //   this.movie = this.movie as IMovie
+  //   this.api.selectFavoriteMovie(this.movie._id);
+  //   return this.clicked.emit(true);
+
+  // }
+  favoriteShowClicked() {
+    this.show = this.show as IShow
+    this.api.selectFavoriteShow(this.show._id);
+    return this.clicked.emit(true);
+
+  }
+
+addFavoriteMovie(movieId:Number)
+{
+  let userId =-1
+  let user = this.loggedInUser as ILoggedInUser;
+  userId=user.User.userId
+  this.http.post<IMovie>(this.api.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`, {}).subscribe(response => {
+    console.log('Item added to database');
+  });
+
+
+//   .subscribe(
+//     (x)=>{
+//       if(x){
+//         this.api.setUser(user.User)
+//         return this.api.onComponentLoad()
+//       }
+// });
+}
+addFavoriteShow(showId:Number)
+{
+  let userId =-1
+  let user = this.loggedInUser as ILoggedInUser;
+  userId=user.User.userId
+  this.http.post<IShow>(this.api.userURI + `FavoriteShow?showId=${showId}&userId=${userId}`, {}).subscribe(response => {
+    console.log('Item added to database');
+  });
+
+
+//   .subscribe(
+//     (x)=>{
+//       if(x){
+//         this.api.setUser(user.User)
+//         return this.api.onComponentLoad()
+//       }
+// });
+}
+
+
+
+  ngOnInit(): void {
+
+    this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x as ILoggedInUser);
 
   }
 

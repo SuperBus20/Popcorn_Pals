@@ -1,6 +1,6 @@
 export interface IUserReview {
     Id: number; //updated
-    UserId: number;
+    userId: number;
     MediaId: number;
     Review: string;
     Rating: number;
