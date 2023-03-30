@@ -25,7 +25,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
     ReviewsComponent,
     UserUpdateComponent,
     SearchUserComponent,
-    ViewUserComponent
+    ViewUserComponent,
     FavoriteComponent
 
   ],

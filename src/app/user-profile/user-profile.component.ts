@@ -12,17 +12,17 @@ import { ApiService } from '../api.service';
 export class UserProfileComponent {
 
   constructor(private api: ApiService) { }
-  
 
-  user = this.api.loggedInUser?.User;
+
+  user = this.api.loggedInUser.User;
   userProfile: any;
   userToFollow: any;
   follower: any;
 
-ngOnInit() 
-{
-  this.api.onComponentLoad();
-}
+// ngOnInit()
+// {
+//   this.api.onComponentLoad();
+// }
 
   // Follow Profiles //
 
@@ -39,7 +39,7 @@ ngOnInit()
   follow(userId: number, userToFollow: number) {
     this.api.followUser(userId, userToFollow);
   }
-  
+
 
 }
 

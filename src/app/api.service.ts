@@ -94,53 +94,26 @@ export class ApiService {
       }
     }
   }
-
+  removeFavoriteShow(userId: number, showId: number) {
+    return this.http.post<boolean>(this.userURI+ `DeleteFavoriteShow/${userId}/${showId}`, {})
+    .subscribe(
+      (x) => {
+        if(x) {
+          this.setUser(this.giveCurrentUser().User)
+          return this.onComponentLoad();
+        }
+    })
+  }
 
 getLoggedInUserFavoriteMovies(user:IUser) :Observable<IMovie[]> {
 
   return this.http.get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
-  // .subscribe(
-  //   (x) => {
-  //     if(x){
-  //       this.loggedInUser = {
-  //         User: user ,
-  //         UserReview: [],
-  //         FavoriteMovies: x,
-  //         FavoriteShows: []
-  //       }
-  //     }else{
-  //       this.loggedInUser = {
-  //         User: user ,
-  //         UserReview: [],
-  //         FavoriteMovies: [],
-  //         FavoriteShows: []
-  //       }
-  //     }
-  //     return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
-  // });
+
 }
 getLoggedInUserFavoriteShows(user:IUser) :Observable<IShow[]> {
 
 return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
-// .subscribe(
-//   (x) => {
-//     if(x){
-//       this.loggedInUser = {
-//         User: user ,
-//         UserReview: [],
-//         FavoriteMovies: [],
-//         FavoriteShows: x
-//       }
-//     }else{
-//       this.loggedInUser = {
-//         User: user ,
-//         UserReview: [],
-//         FavoriteMovies: [],
-//         FavoriteShows: []
-//       }
-//     }
-//     return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
-// });
+
 }
 getMovieByID(media_id:number)
 {
@@ -163,13 +136,13 @@ getMovieByID(media_id:number)
         user
       )
       .subscribe((x) => {
-        this.loggedInUser = {
+        return this.loggedInUser = {
           User: x,
           UserReview: [],
           FavoriteMovies: [],
           FavoriteShows: [],
         };
-        this.onComponentLoad();
+        // this.onComponentLoad();
       });
   }
 
@@ -182,13 +155,13 @@ getMovieByID(media_id:number)
         this.userURI + `Login?userName=${userName}&password=${password}`
       )
       .subscribe((x) => {
-        this.loggedInUser = {
+         this.loggedInUser = {
           User: x,
           UserReview: [],
           FavoriteMovies: [],
           FavoriteShows: [],
         };
-        this.onComponentLoad();
+        // this.onComponentLoad();
       });
   }
 
@@ -197,6 +170,7 @@ getMovieByID(media_id:number)
 
     this.getUser(currentUser);
   }
+
 
   getAllUsers() {
     return this.http.get<IUser[]>(this.userURI, {});

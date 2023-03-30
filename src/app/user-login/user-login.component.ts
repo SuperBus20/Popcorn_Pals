@@ -5,6 +5,7 @@ import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
@@ -12,7 +13,9 @@ import { Router } from '@angular/router';
 })
 export class UserLoginComponent implements OnInit {
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router) {
+    this.loggedInUser = this.api.loggedInUser;
+  }
   static onLogout() {
     throw new Error('Method not implemented.');
   }
@@ -23,7 +26,7 @@ export class UserLoginComponent implements OnInit {
   loginError: boolean = false;
   errorMessage: string = '';
   users: IUser[] = [];
-  loggedInUser = this.api.loggedInUser
+  loggedInUser!: ILoggedInUser;
 
   isUsers() {
     if (this.users.length === 0) {

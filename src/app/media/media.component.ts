@@ -55,26 +55,52 @@ export class MediaComponent {
           this.showResults = response;
         });
     }
+    this.selectedMedia=false;
   }
 
-  selectMovieId(mediaId: number) {
-      this.api.getMovieByID(mediaId).subscribe((response) => {
+
+
+  selectId(mediaId:number, mediaType:string) {
+    if(mediaType="movie")
+    {
+      this.selectedMedia=true;
+       this.api.getMovieByID(mediaId).subscribe((response) => {
         this.selectedMovie = response;
       });
-  }
-
-  selectShowId(mediaId: number) {
+      this.selectedMedia=true;
+    }
+    if(mediaType="show")
+    {
+      this.selectedMedia=true;
       this.api.getShowByID(mediaId).subscribe((response) => {
         this.selectedShow = response;
       });
+      this.selectedMedia=true;
     }
+  }
+
+
+
+
+
+  // selectMovieId(mediaId: number) {
+  //     this.api.getMovieByID(mediaId).subscribe((response) => {
+  //       this.selectedMovie = response;
+  //     });
+  // }
+
+  // selectShowId(mediaId: number) {
+  //     this.api.getShowByID(mediaId).subscribe((response) => {
+  //       this.selectedShow = response;
+  //     });
+  //   }
     // this.http.get<IMovie>(this.api.popCornUri+`movie?_id=${movieId}`)
     // .subscribe(response => {
     //   this.selectedMedia = response;
     // });
     // this.selectedMedia=movieId;
     // console.log(this.selectedMedia);
-  
+
 
   // favoriteMovieClicked() {
   //   this.movie = this.movie as IMovie
