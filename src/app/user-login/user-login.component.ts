@@ -5,6 +5,7 @@ import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
@@ -12,7 +13,9 @@ import { Router } from '@angular/router';
 })
 export class UserLoginComponent implements OnInit {
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router) {
+    // this.loggedInUser = this.api.loggedInUser;
+  }
   static onLogout() {
     throw new Error('Method not implemented.');
   }
@@ -23,7 +26,7 @@ export class UserLoginComponent implements OnInit {
   loginError: boolean = false;
   errorMessage: string = '';
   users: IUser[] = [];
-  loggedInUser = this.api.loggedInUser
+  loggedInUser: ILoggedInUser|null = null;
 
   isUsers() {
     if (this.users.length === 0) {
@@ -107,8 +110,8 @@ export class UserLoginComponent implements OnInit {
       password: pass,
       userId: -1,
       UserRating: 0,
-      UserPic: '',
-      UserBio: '',
+      userPic: '',
+      userBio: '',
     });
   
     this.api.setUser({
@@ -116,12 +119,10 @@ export class UserLoginComponent implements OnInit {
       password: pass,
       userId: -1,
       UserRating: 0,
-      UserPic: '',
-      UserBio: '',
-    });
-  
-    // Passing the currently logged in user back to the service so it is globally available.
-    // This has to be done this way.
+      userPic: '',
+      userBio: '',
+    }); // passing the currently logged in user back to service so it is globally available, has to be done this way...
+
   }
   
 
