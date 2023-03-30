@@ -22,8 +22,6 @@ export class UserProfileComponent {
   password: string = "";
   userPic: string = "";
   userBio: string = "";
-  userToFollow: any;
-  follower: any;
   loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
 
   getProfile(User: IUser) {
@@ -32,8 +30,6 @@ export class UserProfileComponent {
 
   ngOnInit(): void {
     this.getProfile;
-    console.log("stringOnInIt");
-    //this.follow(1, 3003); this was test code
   }
 
   // Profile Mgmt //
@@ -53,23 +49,5 @@ export class UserProfileComponent {
 
   //   form.resetForm();
   // }
-
-
-  // Follow Profiles //
-
-  // usersFollowingUser(user: IUser) {
-  //   let id = user.userId
-  //   this.Api.getUserFollowers(id);
-  // }
-
-  // usersFollowedByUser(user: IUser) {
-  //   let id = user.userId
-  //   this.Api.getUsersFollowedByUser(id);
-  // }
-
-  // follow(userId: number, userToFollow: number) {
-  //   this.Api.followUser(userId, userToFollow);
-  // }
-
 }
 

@@ -17,7 +17,6 @@ export class FollowUserComponent {
   followingUsers: any;
   loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
 
-
   ngOnInit(): void{
      //this.following(10);
      //this.followers(5);
@@ -36,14 +35,12 @@ export class FollowUserComponent {
     this.Api.followUser(userId, userToFollow);
   }
 
-  isFollowing(userId:number){
-    this.Api.isFollowingUser(userId);
+  unfollow (userId: number, userToUnfollow: number){
+    this.Api.unfollowUser(userId, userToUnfollow);
   }
   
-
-
-
-
-
-
+  isFollowing(userId:number, id: number){
+    this.Api.isFollowingUser(userId, id)
+  }
+  
 }

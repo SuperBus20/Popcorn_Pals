@@ -91,25 +91,33 @@ namespace Popcorn_Pals.Controllers
       return _popcornRepository.FollowUser(userId, userToFollow);
     }
 
-    [HttpPost("Follow/SetUnset/{settingUserId}/{userId}")]
-    public Follow setUnsetFollow(int settingUserId, int userId)
+    [HttpPost("UnfollowUser")]
+    public Follow UnfollowUser(int userId, int userToUnfollow)
     {
-      return _popcornRepository.FollowUser(settingUserId, userId);
+      return _popcornRepository.UnfollowUser (userId, userToUnfollow);
     }
 
     [HttpPost("GetFollowers")]
     public List<Follow> GetFollowers(int userId)
     {
-      return _popcornRepository.GetFollowers(userId);
+      return _popcornRepository.GetAllFollowers(userId);
     }
 
     [HttpPost("GetFollowing")]
     public List<Follow> GetFollowing(int userId)
     {
-      return _popcornRepository.GetFollowing(userId);
+      return _popcornRepository.GetAllFollowing(userId);
+    }
+
+    [HttpPost("IsFollowing")]
+    public bool IsFollowing(int userId, int id)
+    {
+      return _popcornRepository.IsFollowing(userId, id);
     }
 
 
+
+    // Favorites
 
     [HttpGet("GetFavoriteMovies/{userId}")]
     public IEnumerable<Movie> GetUserFavoriteMovies(int userId)
@@ -144,15 +152,11 @@ namespace Popcorn_Pals.Controllers
       return _popcornRepository.DeleteFavoriteShowById(userId, showId);
     }
 
-
     [HttpPost("FavoriteShow/{showId}/{userId}")]
-
     public Show FavoriteShow(int showId, int userId)
     {
       return _popcornRepository.FavoriteShow(showId, userId);
     }
-
-
-
+    
   }
 }

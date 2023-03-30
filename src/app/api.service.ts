@@ -276,19 +276,12 @@ getShowByID(media_id:number)
     return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`,{}).subscribe(() => { Response });
   }
 
-  setUnsetFollow(userId: number, userToFollowUnfollow: number){
-    return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollowUnfollow}`,{}).subscribe(() => { Response });
+  unfollowUser(userId: number, userToUnfollow: number) {
+    return this.http.post(this.userURI + `UnfollowUser?userId=${userId}&userToIUnfollow=${userToUnfollow}`,{}).subscribe(() => { Response });
   }
 
-  isFollowingUser(userId:number){
-    return this.http.get()
-
+  isFollowingUser(userId: number, userToUnfollow: number){
+    return this.http.get(this.userURI + `IsFollowing?=${userId}&id=${userToUnfollow}`,{}).subscribe(() => { Response });
   }
 
-  
-
-  // unfollowUser(userId: number, userToUnfollow: number)
-  // {
-  //   return this.http.delete(this.userURI + `UnfollowUser?userId=${userId}&userToUnfollow=${userToUnfollow}`,{}).subscribe(() => { Response });
-  // }
 }

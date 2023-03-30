@@ -11,10 +11,10 @@ namespace Popcorn_Pals.DAL
   public class PopcornRepository : IPopcornRepository
   {
     private PopcornContext _popContext = new PopcornContext();
-    
 
 
-// User Methods //
+
+    // User Methods //
     public List<User> GetUsers()
     {
       return _popContext.Users.ToList();
@@ -68,7 +68,7 @@ namespace Popcorn_Pals.DAL
 
 
 
-// Review Methods //
+    // Review Methods //
     public UserReview AddMovieReview(UserReview reviewToAdd)
     {
       _popContext.Reviews.Add(reviewToAdd);
@@ -89,7 +89,7 @@ namespace Popcorn_Pals.DAL
     //   UserReview reviewEdit = 
 
 
-    //   _popContext.Reviews.Add(reviewToEdit);
+    //   _popContext.Reviews.Update(reviewToEdit);
     //   _popContext.SaveChanges();
     //   return reviewToEdit;
     // }
@@ -120,34 +120,7 @@ namespace Popcorn_Pals.DAL
 
 
 
-// Follow Methods //
-    public Follow FollowUser(int user, int userToFollow) // Working as of last change to method
-    {
-      Follow follow = new Follow
-      {
-        UserId = user,
-        FollowingId = userToFollow
-      };
-
-      Follow follow2 = new Follow
-      {
-        FollowerId = user,
-        UserId = userToFollow
-      };
-
-      _popContext.Follows.Add(follow);
-      _popContext.Follows.Add(follow2);
-      _popContext.SaveChanges();
-
-      return follow;
-    }
-
-
-
-    //TODO: Add unfollow
-
-
-
+    // Follow Methods //
     public List<Follow> GetAllFollowers(int userId)
     {
       List<Follow> Followers = _popContext.Follows
@@ -166,20 +139,63 @@ namespace Popcorn_Pals.DAL
       return Followers;
     }
 
-    public bool isFollowing(int userId, int id2) 
+    public bool IsFollowing(int userId, int id2)
     {
-      GetAllFollowing(userId)
-      .Where(x => x.UserId == userId)
-      .Where(x => x.FollowingId == id2)
-      .ToList();
-      
-      if (GetAllFollowers!=null) {
-        return true;
+      List<Follow> test = GetAllFollowing(userId)
+        .Where(x => x.UserId == userId && x.FollowingId == id2).ToList();
+
+      return test.Count > 0; // >0 = true/Is Following
+    }
+
+    public Follow FollowUser(int user, int profile)
+    {
+      bool checkForFollow = IsFollowing(user, profile);
+      if (checkForFollow == false)
+      {
+        Follow follow = new Follow
+        {
+          UserId = user,
+          FollowingId = profile
+        };
+
+        Follow follow2 = new Follow
+        {
+          FollowerId = user,
+          UserId = profile
+        };
+
+        _popContext.Follows.Add(follow);
+        _popContext.Follows.Add(follow2);
+        _popContext.SaveChanges();
+
+        return follow;
       }
-      else {
-        return false;
+      else
+      {
+        throw new ArgumentException("User is being followed");
       }
     }
+
+    public Follow UnfollowUser(int user, int profile)
+    {
+      bool checkForFollow = IsFollowing(user, profile);
+      if (checkForFollow == true)
+      {
+        var relationship = _popContext.Follows.Where(x => x.UserId == user && x.FollowingId == profile).First();
+        var relationship2 = _popContext.Follows.Where(x => x.UserId == profile && x.FollowerId == user).First();
+
+        _popContext.Follows.Remove(relationship);
+        _popContext.Follows.Remove(relationship2);
+
+        _popContext.SaveChanges();
+
+        return relationship;
+      }
+      else {
+        throw new ArgumentException("User is not being followed");
+      }
+    }
+
 
     //TODO revisit this soon
     //had to change from movie type to void due to 429 error
