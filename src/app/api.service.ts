@@ -264,17 +264,31 @@ getShowByID(media_id:number)
 
 
 // Follow //
-  getUserFollowers(userId: number) {
-    return this.http.get(this.userURI + `GetFollowers?userId=${userId}`);
+  getFollowing(userId: number) {
+    return this.http.post(this.userURI + `GetFollowing?userId=${userId}`,{});
   }
 
-  getUsersFollowedByUser(userId: number) {
-    return this.http.get(this.userURI + `GetFollowing?userId=${userId}`);
+  getFollowers(userId: number) {
+    return this.http.post(this.userURI + `GetFollowers?userId=${userId}`,{});
   }
 
-  followUser(userId: number, userToFollow: number)
-  {
+  followUser(userId: number, userToFollow: number) {
     return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`,{}).subscribe(() => { Response });
-    //for post, needs a body, input blank body to make this function
   }
+
+  setUnsetFollow(userId: number, userToFollowUnfollow: number){
+    return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollowUnfollow}`,{}).subscribe(() => { Response });
+  }
+
+  isFollowingUser(userId:number){
+    return this.http.get()
+
+  }
+
+  
+
+  // unfollowUser(userId: number, userToUnfollow: number)
+  // {
+  //   return this.http.delete(this.userURI + `UnfollowUser?userId=${userId}&userToUnfollow=${userToUnfollow}`,{}).subscribe(() => { Response });
+  // }
 }

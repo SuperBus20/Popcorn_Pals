@@ -142,38 +142,13 @@ namespace Popcorn_Pals.DAL
       return follow;
     }
 
-    // public Follow Follow/UnfollowUser(int user, int userToFollow) //!!Untested - attempt to remove follow - Non-MVP
-    // {
-    //   Follow follow = _popContext.Follows.FirstOrDefault(x => x.UserId == user && x.UserId == userToFollow);
 
-    //   if (follow != null)
-    //   {
-    //     _popContext.Follows.Remove(follow);
-    //     _popContext.SaveChanges();
-    //     return follow;
-    //   }
-    //   else
-    //   {
-    //     follow = new Follow
-    //     {
-    //       UserId = user,
-    //       FollowingId = userToFollow
-    //     };
 
-    //     Follow follow2 = new Follow
-    //     {
-    //       FollowerId = user,
-    //       UserId = userToFollow
-    //     };
+    //TODO: Add unfollow
 
-    //     _popContext.Follows.Add(follow);
-    //     _popContext.Follows.Add(follow2);
-    //     _popContext.SaveChanges();
-    //     return follow;
-    //   }
-    // }
 
-    public List<Follow> GetFollowers(int userId)
+
+    public List<Follow> GetAllFollowers(int userId)
     {
       List<Follow> Followers = _popContext.Follows
         .Where(x => x.UserId == userId)
@@ -182,13 +157,28 @@ namespace Popcorn_Pals.DAL
       return Followers;
     }
 
-    public List<Follow> GetFollowing(int userId)
+    public List<Follow> GetAllFollowing(int userId)
     {
       List<Follow> Followers = _popContext.Follows
         .Where(x => x.UserId == userId)
         .Where(x => x.FollowingId != null)
         .ToList();
       return Followers;
+    }
+
+    public bool isFollowing(int userId, int id2) 
+    {
+      GetAllFollowing(userId)
+      .Where(x => x.UserId == userId)
+      .Where(x => x.FollowingId == id2)
+      .ToList();
+      
+      if (GetAllFollowers!=null) {
+        return true;
+      }
+      else {
+        return false;
+      }
     }
 
     //TODO revisit this soon
@@ -212,9 +202,6 @@ namespace Popcorn_Pals.DAL
       // return null;
     }
 
-
-
-
     ///// for some reason this is the only way i was able to get show all favorite movies to work will fix after MVP
     public static List<Movie> GetMovieById(int _id)
     {
@@ -229,9 +216,6 @@ namespace Popcorn_Pals.DAL
       List<Movie> movie = apiTask.Result;
       return movie;
     }
-
-
-
 
     public static Movie GetMovie(int movieId)// this method converts Movie from list to movie object to be used in get favorite movies
     {
@@ -252,10 +236,6 @@ namespace Popcorn_Pals.DAL
       return favorites;
     }
     // see note above GetMovieById
-
-
-
-
 
     public Show FavoriteShow(int showId, int userId)
     {
@@ -292,16 +272,12 @@ namespace Popcorn_Pals.DAL
       return (show);
     }
 
-
-
     public static Show GetShow(int showId)// this method converts Movie from list to movie object to be used in get favorite movies
     {
       Show show = GetShowById(showId).FirstOrDefault(x => x._id == showId);
       return show;
     }
     // see note above GetShowById
-
-
 
     public List<Show> GetFavoriteShows(int userId)
     {
@@ -315,8 +291,6 @@ namespace Popcorn_Pals.DAL
       }
       return favorites;
     }
-
-
 
     public bool DeleteFavoriteMovieById(int userId, int mediaId)
     {
@@ -349,8 +323,6 @@ namespace Popcorn_Pals.DAL
 
       return true;
     }
-
-
 
   }
 }

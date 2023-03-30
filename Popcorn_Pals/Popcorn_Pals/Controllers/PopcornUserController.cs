@@ -89,7 +89,12 @@ namespace Popcorn_Pals.Controllers
     public Follow FollowUser(int userId, int userToFollow)
     {
       return _popcornRepository.FollowUser(userId, userToFollow);
-      // TODO: Need to add logic to make sure user is not already following another user - Non-MVP
+    }
+
+    [HttpPost("Follow/SetUnset/{settingUserId}/{userId}")]
+    public Follow setUnsetFollow(int settingUserId, int userId)
+    {
+      return _popcornRepository.FollowUser(settingUserId, userId);
     }
 
     [HttpPost("GetFollowers")]

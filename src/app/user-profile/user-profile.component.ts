@@ -57,19 +57,19 @@ export class UserProfileComponent {
 
   // Follow Profiles //
 
-  usersFollowingUser(user: IUser) {
-    let id = user.userId
-    this.Api.getUserFollowers(id);
-  }
+  // usersFollowingUser(user: IUser) {
+  //   let id = user.userId
+  //   this.Api.getUserFollowers(id);
+  // }
 
-  usersFollowedByUser(user: IUser) {
-    let id = user.userId
-    this.Api.getUsersFollowedByUser(id);
-  }
+  // usersFollowedByUser(user: IUser) {
+  //   let id = user.userId
+  //   this.Api.getUsersFollowedByUser(id);
+  // }
 
-  follow(userId: number, userToFollow: number) {
-    this.Api.followUser(userId, userToFollow);
-  }
+  // follow(userId: number, userToFollow: number) {
+  //   this.Api.followUser(userId, userToFollow);
+  // }
 
 }
 
