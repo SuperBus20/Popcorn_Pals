@@ -16,7 +16,7 @@ export class ApiService {
   popCornUri: string = 'https://localhost:7035/api/Popcorn/';
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
-  loggedInUser!: ILoggedInUser;
+  loggedInUser: ILoggedInUser | null = null;
 
   @Output() loggedInEvent: EventEmitter<ILoggedInUser> = new EventEmitter<ILoggedInUser>();
 
@@ -125,25 +125,7 @@ getLoggedInUserFavoriteMovies(user:IUser) :Observable<IMovie[]> {
 getLoggedInUserFavoriteShows(user:IUser) :Observable<IShow[]> {
 
 return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
-// .subscribe(
-//   (x) => {
-//     if(x){
-//       this.loggedInUser = {
-//         User: user ,
-//         UserReview: [],
-//         FavoriteMovies: [],
-//         FavoriteShows: x
-//       }
-//     }else{
-//       this.loggedInUser = {
-//         User: user ,
-//         UserReview: [],
-//         FavoriteMovies: [],
-//         FavoriteShows: []
-//       }
-//     }
-//     return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
-// });
+
 }
 getMovieByID(media_id:number)
 {
@@ -189,9 +171,9 @@ getShowByID(media_id:number)
         UserReview: [],
         FavoriteMovies: [],
         FavoriteShows: []
-
         };
-        this.onComponentLoad()
+        return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+
       });
   }
 
@@ -210,7 +192,7 @@ getShowByID(media_id:number)
   }
 
   onLogout() {
-    this.loggedInUser!;
+    this.loggedInUser = null;
     this.onComponentLoad();
   }
 

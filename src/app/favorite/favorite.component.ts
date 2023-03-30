@@ -13,18 +13,20 @@ export class FavoriteComponent implements OnInit{
 
   favoriteMovies : IMovie[] = [];
   favoriteShows: IShow[]=[]
-  loggedInUser: ILoggedInUser = this.api.loggedInUser
-  constructor(private api: ApiService){}
+  loggedInUser: ILoggedInUser|null = null;
+  constructor(private api: ApiService){
+    this.loggedInUser=this.api.loggedInUser}
 
   ngOnInit(): void {
-    // this.api.getLoggedInUserFavoriteMovies(this.loggedInUser.User).subscribe(this.favoriteMovies => {
-    //   this.favoriteMovies = FavoriteMovies;
-    // });
+
+    if(this.loggedInUser){
     this.api.getLoggedInUserFavoriteMovies(this.loggedInUser.User).subscribe((movies)=>{
       this.favoriteMovies = movies;  });
-
       this.api.getLoggedInUserFavoriteShows(this.loggedInUser.User).subscribe((shows)=>{
         this.favoriteShows = shows; });
+    }
+
+
 
 }
 }

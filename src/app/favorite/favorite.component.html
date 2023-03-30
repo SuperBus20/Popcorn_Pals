@@ -1,5 +1,5 @@
 
-
+<p *ngIf="loggedInUser">{{loggedInUser.User.userId}}</p >
 <h1>favoriteMovies</h1>
 <ul>
   <li *ngFor="let movie of favoriteMovies">
