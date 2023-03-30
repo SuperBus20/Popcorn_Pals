@@ -23,10 +23,10 @@ import { FollowUserComponent } from './follow-user/follow-user.component';
   ],
 
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
+    BrowserModule, //display in browser - default
+    AppRoutingModule, //where I'm routing paths - default
+    HttpClientModule, //setting up http client to call out eternal stuff
+    FormsModule //forms to submit reviews and create profile
   ],
 
   providers: [],

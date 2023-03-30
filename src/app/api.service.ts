@@ -7,10 +7,10 @@ import { IUserReview } from './Interfaces/user-review';
 import { IMovie, IShow, ISource } from './Interfaces/Media';
 import { Observable } from 'rxjs';
 
-@Injectable({
+@Injectable({ //dependency injection for repos
   providedIn: 'root',
 })
-export class ApiService {
+export class ApiService { //setting up the api calls that we're going to use
   constructor(private http: HttpClient) { }
   userURI: string = 'https://localhost:7035/api/PopcornUser/';
   popCornUri: string = 'https://localhost:7035/api/Popcorn/';
@@ -18,7 +18,7 @@ export class ApiService {
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
   loggedInUser: ILoggedInUser | null = null;
 
-  @Output() loggedInEvent: EventEmitter<ILoggedInUser> = new EventEmitter<ILoggedInUser>();
+  @Output() loggedInEvent: EventEmitter<ILoggedInUser> = new EventEmitter<ILoggedInUser>(); //whoever is listening to this event as an output is recieving this logged in user info
 
 // Media //
 selectFavoriteMovie(movieId: number) {
@@ -221,7 +221,7 @@ getShowByID(media_id:number)
 
 
 /// Review //
-  addMovieReview(movieReview: IUserReview) {
+  addMovieReview(movieReview: IUserReview) { //this will be a form
     let userId = movieReview.userId;
     let mediaId = movieReview.MediaId;
     let review = movieReview.Review;

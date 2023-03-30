@@ -12,7 +12,7 @@ import { AnonymousSubject } from 'rxjs/internal/Subject';
 
 export class FollowUserComponent {
 
-  constructor(private Api: ApiService) { }
+  constructor(private Api: ApiService) { } //passing in api service to this component for use
   userFollowers: any;
   followingUsers: any;
   loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
@@ -27,7 +27,7 @@ export class FollowUserComponent {
     this.Api.getFollowers(id).subscribe((response) => {this.userFollowers = response;});
   }
 
-  following(id:any){
+  following(id:any){ 
     this.Api.getFollowing(id).subscribe((response) => {this.followingUsers = response;});
   }
 

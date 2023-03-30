@@ -12,14 +12,16 @@ namespace Popcorn_Pals.Controllers
   [ApiController]
   public class PopcornUserController : ControllerBase
   {
-    private readonly IPopcornService _popcornService;
+    private readonly IPopcornService _popcornService; //wrapping this instance in a private field, injection is happening in constructor
     private readonly IPopcornRepository _popcornRepository;
 
-    public PopcornUserController(IPopcornService popcornService, IPopcornRepository popcornRepository)
+
+    public PopcornUserController(IPopcornService popcornService, IPopcornRepository popcornRepository) //constructor for dependency injection
     {
       _popcornService = popcornService;
       _popcornRepository = popcornRepository;
     }
+    //assigning _service and _repo to an instance of the type that I want
 
     // User Endpoints
     [HttpPost("CreateUser")]

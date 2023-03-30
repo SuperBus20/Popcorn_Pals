@@ -1,17 +1,11 @@
 using Popcorn_Pals.Models;
 using Popcorn_Pals.DAL.Interfaces;
-using Popcorn_Pals.Controllers;
-using Popcorn_Pals.Services;
-using System;
 using Flurl.Http;
-using Microsoft.AspNetCore.Mvc;
-
 namespace Popcorn_Pals.DAL
 {
   public class PopcornRepository : IPopcornRepository
   {
     private PopcornContext _popContext = new PopcornContext();
-
 
 
     // User Methods //
@@ -20,16 +14,14 @@ namespace Popcorn_Pals.DAL
       return _popContext.Users.ToList();
     }
 
-    public User GetUser(string userName)
+    public User? GetUser(string userName)
     {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-      User user = GetUsers()
+      User? user = GetUsers() //can change this to user? or replace with var and tell the sytem to find out what type is being returned
         .FirstOrDefault(x => x.UserName
         .ToLower()
         .Trim() == userName
         .ToLower()
         .Trim());
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
       if (user == null)
       {
         return null;

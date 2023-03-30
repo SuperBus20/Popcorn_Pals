@@ -39,10 +39,10 @@ namespace Popcorn_Pals
       }
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder) //setting up connection to db and mapping info coming back from db into models
     {
       modelBuilder.Entity<Source>().HasNoKey();
-      modelBuilder.Entity<Movie>().Ignore(x => x.genres);
+      modelBuilder.Entity<Movie>().Ignore(x => x.genres); //these are things we can ignore because they aren't going to be a column in the db
       modelBuilder.Entity<Movie>().Ignore(x => x.sources);
       modelBuilder.Entity<Show>().Ignore(x => x.genres);
       modelBuilder.Entity<Show>().Ignore(x => x.sources);

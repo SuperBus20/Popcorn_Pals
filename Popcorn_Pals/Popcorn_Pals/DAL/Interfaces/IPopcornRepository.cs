@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Popcorn_Pals.Models;
 
-namespace Popcorn_Pals.DAL.Interfaces
+namespace Popcorn_Pals.DAL.Interfaces // interface that interacts with database
 {
   public interface IPopcornRepository
   {
-    public List<User> GetUsers();
-    User GetUser(string userName);
+    public List<User> GetUsers(); //all of these methods should be public so they can be inherited
+    User? GetUser(string userName);
     User AddUser(string userName, string password);
     User GetUserById(int id);
 
