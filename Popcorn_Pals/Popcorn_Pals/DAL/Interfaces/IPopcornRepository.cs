@@ -25,9 +25,12 @@ namespace Popcorn_Pals.DAL.Interfaces
 
 
     // Follow Methods //
-    Follow FollowUser(int user, int userToFollow);
-    List<Follow> GetFollowers(int userId);
-    List<Follow> GetFollowing(int userId);
+    Follow FollowUser(int user, int profile);
+    Follow UnfollowUser(int user, int profile);
+    List<Follow> GetAllFollowers(int userId);
+    List<Follow> GetAllFollowing(int userId);
+    bool IsFollowing(int userId, int id2);
+
 
     //Favorites Methods //
     void FavoriteMovie(int movieId, int userId);

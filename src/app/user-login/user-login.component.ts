@@ -87,21 +87,24 @@ export class UserLoginComponent implements OnInit {
     form.resetForm();
   }
   newUser(form: NgForm) {
-    let name = form.form.value.userName;
-    let pass = form.form.value.password;
-
+    const name = form.form.value.userName;
+    const pass = form.form.value.password;
+  
     if (!name || !pass) {
       this.clearForm(form);
       this.loginError = true;
       this.errorMessage = '';
       return;
     }
-    if (this.users.filter((x) => x.userName === name)[0]) {
-      this.errorMessage = 'that username already exists...';
+  
+    const userExists = this.users.some((x) => x.userName === name);
+    if (userExists) {
+      this.errorMessage = 'That username already exists.';
       this.loginError = true;
       this.clearForm(form);
       return;
     }
+  
     this.api.createUser({
       userName: name,
       password: pass,
@@ -110,6 +113,7 @@ export class UserLoginComponent implements OnInit {
       userPic: '',
       userBio: '',
     });
+  
     this.api.setUser({
       userName: name,
       password: pass,
@@ -118,7 +122,9 @@ export class UserLoginComponent implements OnInit {
       userPic: '',
       userBio: '',
     }); // passing the currently logged in user back to service so it is globally available, has to be done this way...
+
   }
+  
 
   ngOnInit(): void {
     this.api.getAllUsers().subscribe((x) => (this.users = x));
