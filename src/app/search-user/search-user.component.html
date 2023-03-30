@@ -10,9 +10,9 @@
 <div *ngIf="users">
     <ul>
         <li *ngFor="let user of users">
-            <img src="{{user.UserPic}}" alt="User Picture" width="170" height="170">
+            <img src="{{user.userPic}}" alt="User Picture" width="170" height="170">
             <p>{{user.userName}}</p>
-            <p>{{user.UserBio}}</p>
+            <p>{{user.userBio}}</p>
             <p>{{user.UserRating}}</p>
             <button class="w3-button w3-blue-grey" (click)="loadUserProfile(user)">View User</button>
         </li>

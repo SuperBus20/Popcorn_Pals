@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from '../Interfaces/user';
 import { IUserReview } from '../Interfaces/user-review';
 import { ApiService } from '../api.service';
+import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,26 +10,30 @@ import { ApiService } from '../api.service';
   styleUrls: ['./user-profile.component.css']
 })
 
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
 
-  constructor(private api: ApiService) { }
+  loggedInUser: ILoggedInUser | null = null;
 
-
-  user = this.api.loggedInUser.User;
   userProfile: any;
   userToFollow: any;
   follower: any;
+  constructor(private api: ApiService) {
+    // this.loggedInUser = this.api.loggedInUser;
+  }
+ngOnInit()
+{
+  this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
 
-// ngOnInit()
-// {
-//   this.api.onComponentLoad();
-// }
+}
 
   // Follow Profiles //
 
   usersFollowingUser(user: IUser) {
-    let id = user.userId
+    if(this.loggedInUser)
+    {
+    let id = this.loggedInUser.User.userId
     this.api.getUserFollowers(id);
+    }
   }
 
   usersFollowedByUser(user: IUser) {

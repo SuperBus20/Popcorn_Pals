@@ -1,5 +1,9 @@
-  <!-- Page Container -->
-  <div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
+<!-- Page Container -->
+<div *ngIf="loggedInUser">
+  <div
+    class="w3-container w3-content"
+    style="max-width: 1400px; margin-top: 80px"
+  >
     <!-- The Grid -->
     <div class="w3-row">
       <!-- Left Column -->
@@ -7,14 +11,20 @@
         <!-- Profile -->
         <div class="w3-card w3-round w3-white">
           <div class="w3-container">
-            <h4 class="w3-center">{{user.userName}}</h4>
+            <h4 class="w3-center">{{ loggedInUser.User.userName }}</h4>
             <p class="w3-center">
-              <img src="{{user.UserPic}}" class="w3-circle" style="height: 106px; width: 106px" alt="Avatar" />
+              <img
+                src="{{ loggedInUser.User.userPic }}"
+                class="w3-circle"
+                style="height: 106px; width: 106px"
+                alt="Avatar"
+              />
             </p>
+
             <hr />
             <p>
               <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
-              {{user.UserBio}}
+              {{ loggedInUser.User.userBio }}
             </p>
           </div>
         </div>
@@ -23,21 +33,30 @@
         <!-- Accordion -->
         <div class="w3-card w3-round">
           <div class="w3-white">
-            <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align">
+            <button
+              onclick="myFunction('Demo3')"
+              class="w3-button w3-block w3-theme-l1 w3-left-align"
+            >
               <i class="fa fa-users fa-fw w3-margin-right"></i> Followers
             </button>
 
             <!-- Trigger/Open the Modal -->
-            <button onclick="document.getElementById('id_update').style.display='block'"
-              class="w3-button w3-block w3-theme-l1 w3-left-align">
-              <i class="fa fa-cog fa-fw w3-margin-right"></i>Update Profile</button>
+            <button
+              onclick="document.getElementById('id_update').style.display='block'"
+              class="w3-button w3-block w3-theme-l1 w3-left-align"
+            >
+              <i class="fa fa-cog fa-fw w3-margin-right"></i>Update Profile
+            </button>
 
             <!-- The Modal -->
             <div id="id_update" class="w3-modal">
               <div class="w3-modal-content">
                 <div class="w3-container">
-                  <span onclick="document.getElementById('id_update').style.display='none'"
-                    class="w3-button w3-display-topright">&times;</span>
+                  <span
+                    onclick="document.getElementById('id_update').style.display='none'"
+                    class="w3-button w3-display-topright"
+                    >&times;</span
+                  >
                   <app-user-update></app-user-update>
                 </div>
               </div>
@@ -73,7 +92,12 @@
             <p>Review Goes Here</p>
             <div class="w3-row-padding" style="margin: 0 -16px">
               <div class="w3-half">
-                <img src="{{user.UserPic}}" style="width: 100%" alt="Media Image" class="w3-margin-bottom" />
+                <img
+                  src="{{ loggedInUser.User.userPic }}"
+                  style="width: 100%"
+                  alt="Media Image"
+                  class="w3-margin-bottom"
+                />
               </div>
             </div>
           </div>
@@ -81,9 +105,12 @@
           <!-- End Middle Column -->
         </div>
 
+
         <!-- End Grid -->
       </div>
 
       <!-- End Page Container -->
     </div>
     <br />
+  </div>
+</div>

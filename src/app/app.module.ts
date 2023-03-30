@@ -12,6 +12,7 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { FavoriteComponent } from './favorite/favorite.component';
+import { ApiService } from './api.service';
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
     FormsModule
   ],
 
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 

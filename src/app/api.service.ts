@@ -17,11 +17,10 @@ export class ApiService {
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
 
-  loggedInUser!: ILoggedInUser
+  loggedInUser: ILoggedInUser| null = null;
   userToView: IUser | null = null;
 
-  @Output() loggedInEvent: EventEmitter<ILoggedInUser> =
-    new EventEmitter<ILoggedInUser>();
+  loggedInEvent= new EventEmitter<ILoggedInUser>
 
   // Media //
   selectFavoriteMovie(movieId: number) {
@@ -151,17 +150,16 @@ getMovieByID(media_id:number)
     let userName = user.userName;
     let password = user.password;
     return this.http
-      .get<IUser>(
-        this.userURI + `Login?userName=${userName}&password=${password}`
-      )
+      .get<IUser>(this.userURI + `Login?userName=${userName}&password=${password}`)
       .subscribe((x) => {
-         this.loggedInUser = {
-          User: x,
-          UserReview: [],
-          FavoriteMovies: [],
-          FavoriteShows: [],
+        this.loggedInUser = {
+        User: x ,
+        UserReview: [],
+        FavoriteMovies: [],
+        FavoriteShows: []
         };
-        // this.onComponentLoad();
+        this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+
       });
   }
 
@@ -182,7 +180,7 @@ getMovieByID(media_id:number)
 
   onLogout() {
 
-    this.loggedInUser!;
+    this.loggedInUser= null;
 
     this.onComponentLoad();
   }
@@ -269,8 +267,8 @@ getMovieByID(media_id:number)
     let userName = userToUpdate.userName;
     let password = userToUpdate.password;
     let userRating = userToUpdate.UserRating;
-    let userPic = userToUpdate.UserPic;
-    let userBio = userToUpdate.UserBio;
+    let userPic = userToUpdate.userPic;
+    let userBio = userToUpdate.userBio;
     return this.http
       .post(
         this.userURI +
