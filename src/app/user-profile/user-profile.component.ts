@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from '../Interfaces/user';
 import { IUserReview } from '../Interfaces/user-review';
 import { ApiService } from '../api.service';
+import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,13 +10,22 @@ import { ApiService } from '../api.service';
   styleUrls: ['./user-profile.component.css']
 })
 
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
 
-  constructor(private api: ApiService) { }
-  
-  loggedInUser = this.api.loggedInUser
-  user = this.loggedInUser.User;
+  loggedInUser: ILoggedInUser | null = null;
+
   userProfile: any;
+  userToFollow: any;
+  follower: any;
+  constructor(private api: ApiService) {
+    // this.loggedInUser = this.api.loggedInUser;
+  }
+ngOnInit()
+{
+  this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+
+}
+
 
   userName: string = "";
   userId: number = -1;
@@ -24,13 +34,16 @@ export class UserProfileComponent {
   userBio: string = "";
   loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
 
+
   getProfile(User: IUser) {
     this.Api.getUser(User);
+
   }
 
   ngOnInit(): void {
     this.getProfile;
   }
+
 
   // Profile Mgmt //
 
@@ -49,6 +62,7 @@ export class UserProfileComponent {
 
   //   form.resetForm();
   // }
+
 
 }
 

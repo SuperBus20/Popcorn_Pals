@@ -17,11 +17,10 @@ export class ApiService {
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
 
-  loggedInUser!: ILoggedInUser
+  loggedInUser: ILoggedInUser| null = null;
   userToView: IUser | null = null;
 
-  @Output() loggedInEvent: EventEmitter<ILoggedInUser> =
-    new EventEmitter<ILoggedInUser>();
+  loggedInEvent= new EventEmitter<ILoggedInUser>
 
   // Media //
   selectFavoriteMovie(movieId: number) {
@@ -94,53 +93,26 @@ export class ApiService {
       }
     }
   }
-
+  removeFavoriteShow(userId: number, showId: number) {
+    return this.http.post<boolean>(this.userURI+ `DeleteFavoriteShow/${userId}/${showId}`, {})
+    .subscribe(
+      (x) => {
+        if(x) {
+          this.setUser(this.giveCurrentUser().User)
+          return this.onComponentLoad();
+        }
+    })
+  }
 
 getLoggedInUserFavoriteMovies(user:IUser) :Observable<IMovie[]> {
 
   return this.http.get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
-  // .subscribe(
-  //   (x) => {
-  //     if(x){
-  //       this.loggedInUser = {
-  //         User: user ,
-  //         UserReview: [],
-  //         FavoriteMovies: x,
-  //         FavoriteShows: []
-  //       }
-  //     }else{
-  //       this.loggedInUser = {
-  //         User: user ,
-  //         UserReview: [],
-  //         FavoriteMovies: [],
-  //         FavoriteShows: []
-  //       }
-  //     }
-  //     return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
-  // });
+
 }
 getLoggedInUserFavoriteShows(user:IUser) :Observable<IShow[]> {
 
 return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
-// .subscribe(
-//   (x) => {
-//     if(x){
-//       this.loggedInUser = {
-//         User: user ,
-//         UserReview: [],
-//         FavoriteMovies: [],
-//         FavoriteShows: x
-//       }
-//     }else{
-//       this.loggedInUser = {
-//         User: user ,
-//         UserReview: [],
-//         FavoriteMovies: [],
-//         FavoriteShows: []
-//       }
-//     }
-//     return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
-// });
+
 }
 getMovieByID(media_id:number)
 {
@@ -163,13 +135,13 @@ getMovieByID(media_id:number)
         user
       )
       .subscribe((x) => {
-        this.loggedInUser = {
+        return this.loggedInUser = {
           User: x,
           UserReview: [],
           FavoriteMovies: [],
           FavoriteShows: [],
         };
-        this.onComponentLoad();
+        // this.onComponentLoad();
       });
   }
 
@@ -178,17 +150,16 @@ getMovieByID(media_id:number)
     let userName = user.userName;
     let password = user.password;
     return this.http
-      .get<IUser>(
-        this.userURI + `Login?userName=${userName}&password=${password}`
-      )
+      .get<IUser>(this.userURI + `Login?userName=${userName}&password=${password}`)
       .subscribe((x) => {
         this.loggedInUser = {
-          User: x,
-          UserReview: [],
-          FavoriteMovies: [],
-          FavoriteShows: [],
+        User: x ,
+        UserReview: [],
+        FavoriteMovies: [],
+        FavoriteShows: []
         };
-        this.onComponentLoad();
+        this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+
       });
   }
 
@@ -197,6 +168,7 @@ getMovieByID(media_id:number)
 
     this.getUser(currentUser);
   }
+
 
   getAllUsers() {
     return this.http.get<IUser[]>(this.userURI, {});
@@ -208,7 +180,7 @@ getMovieByID(media_id:number)
 
   onLogout() {
 
-    this.loggedInUser!;
+    this.loggedInUser= null;
 
     this.onComponentLoad();
   }
@@ -283,8 +255,25 @@ getMovieByID(media_id:number)
     return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`,{}).subscribe(() => { Response });
   }
 
+
+  updateProfile(userToUpdate: IUser) {
+    let userId = userToUpdate.userId;
+    let userName = userToUpdate.userName;
+    let password = userToUpdate.password;
+    let userRating = userToUpdate.UserRating;
+    let userPic = userToUpdate.userPic;
+    let userBio = userToUpdate.userBio;
+    return this.http
+      .post(
+        this.userURI +
+          `UpdateUser?UserId=${userId}&newUserName=${userName}&newPassword=${password}&newUserRating=${userRating}&newUserPic=${userPic}&newUserBio=${userBio}`,
+        userToUpdate
+      )
+      .subscribe(() => {});
+
   unfollowUser(userId: number, userToUnfollow: number) {
     return this.http.post(this.userURI + `UnfollowUser?userId=${userId}&userToIUnfollow=${userToUnfollow}`,{}).subscribe(() => { Response });
+
   }
 
   isFollowingUser(userId: number, userToUnfollow: number){

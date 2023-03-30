@@ -31,8 +31,8 @@ export class UserUpdateComponent {
       userName: form.value.userName,
       password: form.value.userPassword,
       UserRating: this.userRating.disable,
-      UserPic: form.value.userPic,
-      UserBio: form.value.userBio,
+      userPic: form.value.userPic,
+      userBio: form.value.userBio,
       userId: form.value.userId
     }
 
