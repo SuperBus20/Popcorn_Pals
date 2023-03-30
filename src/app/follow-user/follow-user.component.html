@@ -1,0 +1,14 @@
+<!-- Following -->
+<div>
+    <li *ngFor="let following of followingUsers">        
+           <span  style="font-size: 20px;text-align: center;">{{following.userId}}  </span>      
+    </li>
+</div>
+
+
+<!-- Followers -->
+<div>
+    <li *ngFor="let followers of userFollowers">        
+           <span  style="font-size: 20px;text-align: center;">{{followers.userId}}  </span>      
+    </li>
+</div>
