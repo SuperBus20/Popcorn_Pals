@@ -22,24 +22,34 @@
             <br />
 
             <!-- Accordion -->
-            <div class="w3-card w3-round">
-                <div class="w3-white">
-                    <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align">
-                        <i class="fa fa-users fa-fw w3-margin-right"></i> Followers
-                    </button>
+            <br />
+
+            <!-- Trigger/Open the Modal -->
+            <button onclick="document.getElementById('id_modal_followers').style.display='block'"
+                class="w3-button w3-block w3-theme-l1 w3-left-align">
+                <i class="fa fa-users w3-margin-right"></i>View Followers</button>
+
+            <!-- The Modal -->
+            <div id="id_modal_followers" class="w3-modal">
+                <div class="w3-modal-content">
+                    <div class="w3-container w3-blue-grey">
+                        <span onclick="document.getElementById('id_modal_followers').style.display='none'"
+                            class="w3-button w3-display-topright">&times;</span>
+                        <!-- <app-followers><app-followers> -->
+                    </div>
                 </div>
             </div>
-            <br />
 
             <!-- End Left Column -->
         </div>
 
         <!-- Middle Column -->
+        
         <div class="w3-col m7">
             <div class="w3-row-padding">
                 <div class="w3-col m12">
                     <div class="w3-card w3-round w3-white">
-                        <div class="w3-container w3-padding">
+                        <div class="w3-container w3-padding w3-">
                             <h6 class="w3-opacity">Search For Popcorn</h6>
                             <app-media></app-media>
                         </div>
@@ -47,8 +57,7 @@
                 </div>
             </div>
 
-            <div class="w3-container w3-card w3-white w3-round w3-margin">
-                <!-- <app-reviews></app-reviews> -->
+            <div class="w3-container w3-card w3-blue-grey w3-round w3-margin">
                 <div class="w3-container w3-card w3-white w3-round w3-margin">
                     <br />
                     <span class="w3-right w3-opacity">Rating Goes Here/5</span>

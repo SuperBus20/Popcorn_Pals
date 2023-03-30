@@ -3,7 +3,7 @@
     <label for="searchName">Search for a user:</label>
     <input class="w3-input" id="search-user-input"  type="text" [(ngModel)]="searchName" placeholder="Enter a name to search">
     <br>
-    <button class="w3-button w3-blue-grey" (click)="searchUsers()">Search</button>
+    <button class="w3-button w3-theme-d4" (click)="searchUsers()">Search</button>
     <br>
 </div>
 
@@ -14,7 +14,7 @@
             <p>{{user.userName}}</p>
             <p>{{user.UserBio}}</p>
             <p>{{user.UserRating}}</p>
-            <button class="w3-button w3-blue-grey" (click)="loadUserProfile(user)">View User</button>
+            <button class="w3-button w3-theme-d4" (click)="loadUserProfile(user)">View User</button>
         </li>
     </ul>
 </div>

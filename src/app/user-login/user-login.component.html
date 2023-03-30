@@ -1,18 +1,20 @@
+<body class="w3-theme15">
 <br>
 <form *ngIf="!loggedInUser" #login="ngForm">
-  <label for="userName">User Name</label><br>
+  <label  for="userName">User Name</label><br>
   <input class="w3-input" name="userName" [ngModel] /><br>
   <label for="password">Password</label><br>
   <input class="w3-input" name="password" type="password" [ngModel] /><br>
   <label for="submit"></label><br>
-  <button class="w3-button w3-blue-grey" type="submit" (click)="onLogin(login)"> Login </button><br><br>
-  <button class="w3-button w3-blue-grey" type="button" (click)="newUser(login)"> Create Login </button>
+  <button class="w3-button w3-theme-d4" type="submit" (click)="onLogin(login)"> Login </button><br><br>
+  <button class="w3-button w3-theme-d4" type="button" (click)="newUser(login)"> Create Login </button>
 
   <h1 class="Login-error" *ngIf="loginError">{{displayErrorMessage()}}</h1>
 
 </form>
 <div *ngIf="loggedInUser">
   <h4>{{loggedInUser.User.userName}} is logged in!</h4>
-  <button class="w3-button" (click)="onLogout()">Logout</button>
+  <button class="w3-button w3-theme-d4" (click)="onLogout()">Logout</button>
 </div>
 
+</body>

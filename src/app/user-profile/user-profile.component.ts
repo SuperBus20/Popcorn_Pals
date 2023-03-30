@@ -13,8 +13,8 @@ export class UserProfileComponent {
 
   constructor(private api: ApiService) { }
   
-
-  user = this.api.loggedInUser?.User;
+  loggedInUser = this.api.loggedInUser
+  user = this.loggedInUser.User;
   userProfile: any;
   userToFollow: any;
   follower: any;

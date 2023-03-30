@@ -214,7 +214,7 @@ export class ApiService {
   }
 
   onLogout() {
-    this.loggedInUser!
+    this.loggedInUser!=null;
     this.onComponentLoad();
   }
 
