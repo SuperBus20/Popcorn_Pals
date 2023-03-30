@@ -24,7 +24,7 @@ import { ApiService } from './api.service';
     MediaComponent,
     UserProfileComponent,
     ReviewsComponent,
-    FollowUserComponent
+    FollowUserComponent,
     UserUpdateComponent,
     SearchUserComponent,
     ViewUserComponent,

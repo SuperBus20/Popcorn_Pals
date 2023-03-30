@@ -11,16 +11,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   userURI: string = 'https://localhost:7035/api/PopcornUser/';
   popCornUri: string = 'https://localhost:7035/api/Popcorn/';
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
 
-  loggedInUser: ILoggedInUser| null = null;
+  loggedInUser: ILoggedInUser | null = null;
   userToView: IUser | null = null;
 
-  loggedInEvent= new EventEmitter<ILoggedInUser>
+  loggedInEvent = new EventEmitter<ILoggedInUser>
 
   // Media //
   selectFavoriteMovie(movieId: number) {
@@ -49,10 +49,12 @@ export class ApiService {
               return this.onComponentLoad();
             }
           });
-
       }
     }
   }
+
+
+  // Favorite
   removeFavoriteMovie(userId: number, movieId: number) {
     return this.http
       .post<boolean>(
@@ -93,32 +95,29 @@ export class ApiService {
       }
     }
   }
+
   removeFavoriteShow(userId: number, showId: number) {
-    return this.http.post<boolean>(this.userURI+ `DeleteFavoriteShow/${userId}/${showId}`, {})
-    .subscribe(
-      (x) => {
-        if(x) {
-          this.setUser(this.giveCurrentUser().User)
-          return this.onComponentLoad();
-        }
-    })
+    return this.http.post<boolean>(this.userURI + `DeleteFavoriteShow/${userId}/${showId}`, {})
+      .subscribe(
+        (x) => {
+          if (x) {
+            this.setUser(this.giveCurrentUser().User)
+            return this.onComponentLoad();
+          }
+        })
   }
 
-getLoggedInUserFavoriteMovies(user:IUser) :Observable<IMovie[]> {
+  getLoggedInUserFavoriteMovies(user: IUser): Observable<IMovie[]> {
+    return this.http.get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
+  }
 
-  return this.http.get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
+  getLoggedInUserFavoriteShows(user: IUser): Observable<IShow[]> {
+    return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
+  }
 
-}
-getLoggedInUserFavoriteShows(user:IUser) :Observable<IShow[]> {
-
-return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
-
-}
-getMovieByID(media_id:number)
-{
- return this.http.get<IMovie>(this.popCornUri+`movie?_id=${media_id}`);
-}
-
+  getMovieByID(media_id: number) {
+    return this.http.get<IMovie>(this.popCornUri + `movie?_id=${media_id}`);
+  }
 
   getShowByID(media_id: number) {
     return this.http.get<IShow>(this.popCornUri + `show?_id=${media_id}`);
@@ -153,22 +152,36 @@ getMovieByID(media_id:number)
       .get<IUser>(this.userURI + `Login?userName=${userName}&password=${password}`)
       .subscribe((x) => {
         this.loggedInUser = {
-        User: x ,
-        UserReview: [],
-        FavoriteMovies: [],
-        FavoriteShows: []
+          User: x,
+          UserReview: [],
+          FavoriteMovies: [],
+          FavoriteShows: []
         };
         this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
 
       });
   }
 
-  setUser(currentUser: IUser) {
-    // sets the currently logged in user in this service so that its globally available to all components, also only used by login component
-
-    this.getUser(currentUser);
+  updateProfile(userToUpdate: IUser) {
+    let userId = userToUpdate.userId;
+    let userName = userToUpdate.userName;
+    let password = userToUpdate.password;
+    let userRating = userToUpdate.UserRating;
+    let userPic = userToUpdate.userPic;
+    let userBio = userToUpdate.userBio;
+    return this.http
+      .post(
+        this.userURI +
+        `UpdateUser?UserId=${userId}&newUserName=${userName}&newPassword=${password}&newUserRating=${userRating}&newUserPic=${userPic}&newUserBio=${userBio}`,
+        userToUpdate
+      )
+      .subscribe(() => { });
   }
 
+  setUser(currentUser: IUser) {
+    // sets the currently logged in user in this service so that its globally available to all components, also only used by login component
+    this.getUser(currentUser);
+  }
 
   getAllUsers() {
     return this.http.get<IUser[]>(this.userURI, {});
@@ -179,9 +192,7 @@ getMovieByID(media_id:number)
   }
 
   onLogout() {
-
-    this.loggedInUser= null;
-
+    this.loggedInUser = null;
     this.onComponentLoad();
   }
 
@@ -189,6 +200,13 @@ getMovieByID(media_id:number)
     // provides the currently logged in user or null to components so they can provide the appropriate functionality, used by any component that needs this data
     return this.loggedInUser as ILoggedInUser;
   }
+
+  getUserByName(userToSearch:string)
+  {
+    return this.http.get<IUser[]>(this.userURI+`SearchUserByName/${userToSearch}`);
+  }
+
+
 
   /// Review //
   addMovieReview(movieReview: IUserReview) {
@@ -199,7 +217,7 @@ getMovieByID(media_id:number)
     return this.http
       .post<IUserReview>(
         this.movieReview +
-          `AddMovieReview?userId=${userId}&mediaId=${mediaId}&review=${review}&rating=${rating}`,
+        `AddMovieReview?userId=${userId}&mediaId=${mediaId}&review=${review}&rating=${rating}`,
         movieReview
       )
       .subscribe(() => {
@@ -215,10 +233,10 @@ getMovieByID(media_id:number)
     return this.http
       .post<IUserReview>(
         this.showReview +
-          `AddShowReview?userId=${userId}&mediaId=${mediaId}&review=${review}&rating=${rating}`,
+        `AddShowReview?userId=${userId}&mediaId=${mediaId}&review=${review}&rating=${rating}`,
         showReview
       )
-      .subscribe(() => {});
+      .subscribe(() => { });
   }
 
   getReviewByMediaId(mediaId: number) {
@@ -234,51 +252,35 @@ getMovieByID(media_id:number)
   }
 
   getReviewByReviewId(id: number) {
-    //updated
     return this.http.get<IUserReview>(
       this.userURI + `GetReviewByReviewId?id=${id}`
-    ); //updated
+    );
   }
 
-// Follow //
-  getFollowing(userId: number) {
-    return this.http.post(this.userURI + `GetFollowing?userId=${userId}`,{});
 
+
+  // Follow //
+  getFollowing(userId: number) {
+    return this.http.post(this.userURI + `GetFollowing?userId=${userId}`, {});
   }
 
   getFollowers(userId: number) {
-    return this.http.post(this.userURI + `GetFollowers?userId=${userId}`,{});
+    return this.http.post(this.userURI + `GetFollowers?userId=${userId}`, {});
   }
 
   followUser(userId: number, userToFollow: number) {
-
-    return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`,{}).subscribe(() => { Response });
+    return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`, {}).subscribe(() => { Response });
   }
-
-
-  updateProfile(userToUpdate: IUser) {
-    let userId = userToUpdate.userId;
-    let userName = userToUpdate.userName;
-    let password = userToUpdate.password;
-    let userRating = userToUpdate.UserRating;
-    let userPic = userToUpdate.userPic;
-    let userBio = userToUpdate.userBio;
-    return this.http
-      .post(
-        this.userURI +
-          `UpdateUser?UserId=${userId}&newUserName=${userName}&newPassword=${password}&newUserRating=${userRating}&newUserPic=${userPic}&newUserBio=${userBio}`,
-        userToUpdate
-      )
-      .subscribe(() => {});
 
   unfollowUser(userId: number, userToUnfollow: number) {
-    return this.http.post(this.userURI + `UnfollowUser?userId=${userId}&userToIUnfollow=${userToUnfollow}`,{}).subscribe(() => { Response });
-
+    return this.http.post(this.userURI + `UnfollowUser?userId=${userId}&userToIUnfollow=${userToUnfollow}`, {}).subscribe(() => { Response });
   }
 
-  isFollowingUser(userId: number, userToUnfollow: number){
-    return this.http.get(this.userURI + `IsFollowing?=${userId}&id=${userToUnfollow}`,{}).subscribe(() => { Response });
+  isFollowingUser(userId: number, userToUnfollow: number) {
+    return this.http.get(this.userURI + `IsFollowing?=${userId}&id=${userToUnfollow}`, {}).subscribe(() => { Response });
   }
-
 
 }
+
+
+

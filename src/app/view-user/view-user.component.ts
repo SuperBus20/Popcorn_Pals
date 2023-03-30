@@ -16,24 +16,7 @@ export class ViewUserComponent {
   userProfile: any;
   userToFollow: any;
   follower: any;
-
-  // Follow Profiles //
-
-  usersFollowingUser(user: IUser) {
-    let id = user.userId
-    this.api.getUserFollowers(id);
-  }
-
-  usersFollowedByUser(user: IUser) {
-    let id = user.userId
-    this.api.getUsersFollowedByUser(id);
-  }
-
-  follow(userId: number, userToFollow: number) {
-    this.api.followUser(userId, userToFollow);
-  }
   
-
 }
 
 

@@ -13,39 +13,30 @@ import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 export class UserProfileComponent implements OnInit {
 
   loggedInUser: ILoggedInUser | null = null;
-
   userProfile: any;
   userToFollow: any;
   follower: any;
+  
   constructor(private api: ApiService) {
     // this.loggedInUser = this.api.loggedInUser;
   }
-ngOnInit()
-{
-  this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
 
-}
-
+  ngOnInit() {
+    this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+  }
 
   userName: string = "";
   userId: number = -1;
   password: string = "";
   userPic: string = "";
   userBio: string = "";
-  loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
-
 
   getProfile(User: IUser) {
-    this.Api.getUser(User);
+    this.api.getUser(User);
 
   }
 
-  ngOnInit(): void {
-    this.getProfile;
-  }
-
-
-  // Profile Mgmt //
+  // Profile Mgmt // //TODO: Do we need this?
 
   // TODO: Figure out where this logic should live - in user profile or in another component specifically for managing data related to a user profile
   // updateProfile(form: NgForm) {

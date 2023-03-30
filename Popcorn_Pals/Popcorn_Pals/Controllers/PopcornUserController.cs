@@ -112,8 +112,7 @@ namespace Popcorn_Pals.Controllers
     // TODO: Add Edit Review
 
 
-
-    // Follow Endpoints
+// Follow Endpoints
 
     [HttpPost("FollowUser")]
     public Follow FollowUser(int userId, int userToFollow)
@@ -144,7 +143,6 @@ namespace Popcorn_Pals.Controllers
     {
       return _popcornRepository.IsFollowing(userId, id);
     }
-
 
 
     // Favorites

@@ -18,8 +18,8 @@ export class FollowUserComponent {
   loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
 
   ngOnInit(): void{
-     //this.following(10);
-     //this.followers(5);
+     //this.following(10); //test data
+     //this.followers(5);  //test data
   }
 
   // Follow Profiles //
