@@ -16,6 +16,7 @@ export class ApiService {
   popCornUri: string = 'https://localhost:7035/api/Popcorn/';
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
+
   loggedInUser!: ILoggedInUser
   userToView: IUser | null = null;
 
@@ -49,6 +50,7 @@ export class ApiService {
               return this.onComponentLoad();
             }
           });
+
       }
     }
   }
@@ -93,67 +95,58 @@ export class ApiService {
     }
   }
 
-  removeFavoriteShow(userId: number, showId: number) {
-    return this.http
-      .post<boolean>(
-        this.userURI + `DeleteFavoriteShow/${userId}/${showId}`,
-        {}
-      )
-      .subscribe((x) => {
-        if (x) {
-          this.setUser(this.giveCurrentUser().User);
-          return this.onComponentLoad();
-        }
-      });
-  }
 
-  getLoggedInUserFavoriteMovies(user: IUser) {
-    return this.http
-      .get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
-      .subscribe((x) => {
-        if (x) {
-          this.loggedInUser = {
-            User: user,
-            UserReview: [],
-            FavoriteMovies: x,
-            FavoriteShows: [],
-          };
-        } else {
-          this.loggedInUser = {
-            User: user,
-            UserReview: [],
-            FavoriteMovies: [],
-            FavoriteShows: [],
-          };
-        }
-        return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
-      });
-  }
-  getLoggedInUserFavoriteShows(user: IUser) {
-    return this.http
-      .get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
-      .subscribe((x) => {
-        if (x) {
-          this.loggedInUser = {
-            User: user,
-            UserReview: [],
-            FavoriteMovies: [],
-            FavoriteShows: x,
-          };
-        } else {
-          this.loggedInUser = {
-            User: user,
-            UserReview: [],
-            FavoriteMovies: [],
-            FavoriteShows: [],
-          };
-        }
-        return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
-      });
-  }
-  getMovieByID(media_id: number) {
-    return this.http.get<IMovie>(this.popCornUri + `movie?_id=${media_id}`);
-  }
+getLoggedInUserFavoriteMovies(user:IUser) :Observable<IMovie[]> {
+
+  return this.http.get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
+  // .subscribe(
+  //   (x) => {
+  //     if(x){
+  //       this.loggedInUser = {
+  //         User: user ,
+  //         UserReview: [],
+  //         FavoriteMovies: x,
+  //         FavoriteShows: []
+  //       }
+  //     }else{
+  //       this.loggedInUser = {
+  //         User: user ,
+  //         UserReview: [],
+  //         FavoriteMovies: [],
+  //         FavoriteShows: []
+  //       }
+  //     }
+  //     return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+  // });
+}
+getLoggedInUserFavoriteShows(user:IUser) :Observable<IShow[]> {
+
+return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
+// .subscribe(
+//   (x) => {
+//     if(x){
+//       this.loggedInUser = {
+//         User: user ,
+//         UserReview: [],
+//         FavoriteMovies: [],
+//         FavoriteShows: x
+//       }
+//     }else{
+//       this.loggedInUser = {
+//         User: user ,
+//         UserReview: [],
+//         FavoriteMovies: [],
+//         FavoriteShows: []
+//       }
+//     }
+//     return this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
+// });
+}
+getMovieByID(media_id:number)
+{
+ return this.http.get<IMovie>(this.popCornUri+`movie?_id=${media_id}`);
+}
+
 
   getShowByID(media_id: number) {
     return this.http.get<IShow>(this.popCornUri + `show?_id=${media_id}`);
@@ -214,7 +207,9 @@ export class ApiService {
   }
 
   onLogout() {
-    this.loggedInUser!=null;
+
+    this.loggedInUser!;
+
     this.onComponentLoad();
   }
 

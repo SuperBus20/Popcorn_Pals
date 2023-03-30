@@ -11,6 +11,8 @@ import { MediaComponent } from './media/media.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
+import { FavoriteComponent } from './favorite/favorite.component';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { ViewUserComponent } from './view-user/view-user.component';
     UserUpdateComponent,
     SearchUserComponent,
     ViewUserComponent
+    FavoriteComponent
+
   ],
 
   imports: [

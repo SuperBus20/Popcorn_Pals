@@ -17,4 +17,6 @@
   <button class="w3-button w3-theme-d4" (click)="onLogout()">Logout</button>
 </div>
 
-</body>
+<div *ngIf="loggedInUser">
+  <app-favorite></app-favorite>
+</div>
