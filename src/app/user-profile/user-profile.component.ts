@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { IUser } from '../Interfaces/user';
 import { IUserReview } from '../Interfaces/user-review';
-import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -13,10 +11,12 @@ import { ApiService } from '../api.service';
 
 export class UserProfileComponent {
 
-  constructor(private Api: ApiService) { }
-
-  users: any;
+  constructor(private api: ApiService) { }
+  
+  loggedInUser = this.api.loggedInUser
+  user = this.loggedInUser.User;
   userProfile: any;
+
   userName: string = "";
   userId: number = -1;
   password: string = "";
@@ -49,5 +49,6 @@ export class UserProfileComponent {
 
   //   form.resetForm();
   // }
+
 }
 

@@ -5,6 +5,7 @@ using Popcorn_Pals.Services;
 using System;
 using Flurl.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Popcorn_Pals.DAL
 {
@@ -56,13 +57,7 @@ namespace Popcorn_Pals.DAL
 #pragma warning disable CS8600
     public User GetUserById(int id)
     {
-      User user = GetUsers()
-        .FirstOrDefault(x => x.UserId == id);
-      if (user == null)
-      {
-        return null;
-      }
-      return user;
+      return _popContext.Users.AsNoTracking().FirstOrDefault(x => x.UserId == id);
     }
 #pragma warning restore CS8600
 
@@ -121,7 +116,9 @@ namespace Popcorn_Pals.DAL
 
 
     // Follow Methods //
+
     public List<Follow> GetAllFollowers(int userId)
+
     {
       List<Follow> Followers = _popContext.Follows
         .Where(x => x.UserId == userId)
@@ -137,6 +134,17 @@ namespace Popcorn_Pals.DAL
         .Where(x => x.FollowingId != null)
         .ToList();
       return Followers;
+    }
+    public bool UpdateUser(User userToUpdate)
+    {
+      if (GetUserById(userToUpdate.UserId) == null)
+      {
+        return false;
+      }
+
+      _popContext.Users.Update(userToUpdate);
+      _popContext.SaveChanges();
+      return true;
     }
 
     public bool IsFollowing(int userId, int id2)
@@ -339,6 +347,14 @@ namespace Popcorn_Pals.DAL
 
       return true;
     }
+
+    public List<User> SearchUserByName(string userToSearch)
+    {
+      List<User> users = _popContext.Users
+        .Where(x => x.UserName.ToLower().Contains(userToSearch.ToLower())).ToList();
+      return users;
+    }
+
 
   }
 }

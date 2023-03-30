@@ -12,6 +12,8 @@ namespace Popcorn_Pals.DAL.Interfaces
     User GetUser(string userName);
     User AddUser(string userName, string password);
     User GetUserById(int id);
+    bool UpdateUser(User userToUpdate);
+    List<User> SearchUserByName(string userToSearch);
 
 
     // Review Methods //
@@ -33,16 +35,11 @@ namespace Popcorn_Pals.DAL.Interfaces
     //Favorites Methods //
     void FavoriteMovie(int movieId, int userId);
     List<Movie> GetFavoriteMovies(int userId);
-    
+
     Show FavoriteShow(int showId, int userId);
-    
+
     List<Show> GetFavoriteShows(int userId);
     bool DeleteFavoriteMovieById(int userId, int mediaId);
     bool DeleteFavoriteShowById(int userId, int mediaId);
-
-
-
-
-
   }
 }
