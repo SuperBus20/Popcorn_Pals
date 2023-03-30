@@ -16,30 +16,39 @@ export class UserProfileComponent {
   loggedInUser = this.api.loggedInUser
   user = this.loggedInUser.User;
   userProfile: any;
-  userToFollow: any;
-  follower: any;
 
-ngOnInit() 
-{
-  this.api.onComponentLoad();
-}
+  userName: string = "";
+  userId: number = -1;
+  password: string = "";
+  userPic: string = "";
+  userBio: string = "";
+  loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
 
-  // Follow Profiles //
-
-  usersFollowingUser(user: IUser) {
-    let id = user.userId
-    this.api.getUserFollowers(id);
+  getProfile(User: IUser) {
+    this.Api.getUser(User);
   }
 
-  usersFollowedByUser(user: IUser) {
-    let id = user.userId
-    this.api.getUsersFollowedByUser(id);
+  ngOnInit(): void {
+    this.getProfile;
   }
 
-  follow(userId: number, userToFollow: number) {
-    this.api.followUser(userId, userToFollow);
-  }
-  
+  // Profile Mgmt //
+
+  // TODO: Figure out where this logic should live - in user profile or in another component specifically for managing data related to a user profile
+  // updateProfile(form: NgForm) {
+  //   let newUser: IUser = {
+  //     userName: form.value.userName,
+  //     password: form.value.userPassword,
+  //     UserRating: this.userRating.disable,
+  //     UserPic: form.value.userPic,
+  //     UserBio: form.value.userBio,
+  //   }
+
+  //   this.users.updateProfile(form).subscribe(
+  //     () => { });
+
+  //   form.resetForm();
+  // }
 
 }
 

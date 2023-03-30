@@ -268,47 +268,28 @@ getMovieByID(media_id:number)
     ); //updated
   }
 
-  // Follow //
-  getUserFollowers(userId: number) {
-    return this.http.get(this.userURI + `GetFollowers?userId=${userId}`);
+// Follow //
+  getFollowing(userId: number) {
+    return this.http.post(this.userURI + `GetFollowing?userId=${userId}`,{});
+
   }
 
-  getUsersFollowedByUser(userId: number) {
-    return this.http.get(this.userURI + `GetFollowing?userId=${userId}`);
+  getFollowers(userId: number) {
+    return this.http.post(this.userURI + `GetFollowers?userId=${userId}`,{});
   }
 
   followUser(userId: number, userToFollow: number) {
-    return this.http
-      .post(
-        this.userURI +
-          `FollowUser?userId=${userId}&userToFollow=${userToFollow}`,
-        {}
-      )
-      .subscribe(() => {
-        Response;
-      });
-    //for post, needs a body, input blank body to make this function
+
+    return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`,{}).subscribe(() => { Response });
   }
 
-  updateProfile(userToUpdate: IUser) {
-    let userId = userToUpdate.userId;
-    let userName = userToUpdate.userName;
-    let password = userToUpdate.password;
-    let userRating = userToUpdate.UserRating;
-    let userPic = userToUpdate.UserPic;
-    let userBio = userToUpdate.UserBio;
-    return this.http
-      .post(
-        this.userURI +
-          `UpdateUser?UserId=${userId}&newUserName=${userName}&newPassword=${password}&newUserRating=${userRating}&newUserPic=${userPic}&newUserBio=${userBio}`,
-        userToUpdate
-      )
-      .subscribe(() => {});
+  unfollowUser(userId: number, userToUnfollow: number) {
+    return this.http.post(this.userURI + `UnfollowUser?userId=${userId}&userToIUnfollow=${userToUnfollow}`,{}).subscribe(() => { Response });
   }
 
-  searchUserByName(userToSearch: string): Observable<IUser[]> {
-    return this.http.get<IUser[]>(
-      this.userURI + `SearchUserByName/${userToSearch}`
-    );
+  isFollowingUser(userId: number, userToUnfollow: number){
+    return this.http.get(this.userURI + `IsFollowing?=${userId}&id=${userToUnfollow}`,{}).subscribe(() => { Response });
   }
+
+
 }
