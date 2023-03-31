@@ -10,36 +10,63 @@ import { AnonymousSubject } from 'rxjs/internal/Subject';
   styleUrls: ['./follow-user.component.css']
 })
 
-export class FollowUserComponent {
+export class FollowUserComponent implements OnInit{
 
-  constructor(private Api: ApiService) { }
+  constructor(private api: ApiService) { }
   userFollowers: any;
   followingUsers: any;
-  loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
+  loggedInUser: ILoggedInUser|null = null
+  userToView : IUser | null = null;
+  isLoggedInAlsoUserToView: boolean = false;
+  profileToView: any;
+  userFollowingCount: number = 0;
+  userFollowersCount: number = 0;
 
   ngOnInit() {
-    this.Api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+    this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+    this.userToView = this.api.userToView
+
+    if(this.loggedInUser?.User.userId == this.userToView?.userId){
+      this.isLoggedInAlsoUserToView = true;
+    }
+    this.setProfileToView();
+    this.followers();
+    this.following();
+  }
+
+  setProfileToView()
+  {
+    if  (this.isLoggedInAlsoUserToView)
+    {
+      this.profileToView = this.loggedInUser!.User;
+    }
+    else (!this.isLoggedInAlsoUserToView)
+    {
+      this.profileToView = this.userToView;
+    }
   }
 
   // Follow Profiles //
-  followers(id: any){
-    this.Api.getFollowers(id).subscribe((response) => {this.userFollowers = response;});
+  followers(){
+    this.api.getFollowers(this.profileToView.userId).subscribe((response) => {this.userFollowers = response;});
+    this.userFollowersCount = this.userFollowers.length;
   }
 
-  following(id:any){
-    this.Api.getFollowing(id).subscribe((response) => {this.followingUsers = response;});
+  following(){
+    this.api.getFollowing(this.profileToView.userId).subscribe((response) => {this.followingUsers = response;});
+    this.userFollowingCount = this.followingUsers.length;
   }
 
-  follow(userId: number, userToFollow: number){
-    this.Api.followUser(userId, userToFollow);
+  follow(userToFollow: number){
+    this.api.followUser(this.loggedInUser!.User.userId, userToFollow);
   }
 
-  unfollow (userId: number, userToUnfollow: number){
-    this.Api.unfollowUser(userId, userToUnfollow);
+  unfollow (userToUnfollow: number){
+    this.api.unfollowUser(this.loggedInUser!.User.userId, userToUnfollow);
   }
 
-  isFollowing(userId:number, id: number){
-    this.Api.isFollowingUser(userId, id)
+  isFollowing(id: number){
+    this.api.isFollowingUser(this.loggedInUser!.User.userId, id)
   }
 
 }

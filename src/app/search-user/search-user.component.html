@@ -9,12 +9,12 @@
 
 <div *ngIf="users">
     <ul>
-        <li *ngFor="let user of users">
-            <img src="{{user.userPic}}" alt="User Picture" width="170" height="170">
-            <p>{{user.userName}}</p>
-            <p>{{user.userBio}}</p>
+        <li *ngFor="let user of users" class="w3-theme-d5">
+            <h3>{{user.userName}}</h3>
+            <img src="{{user.userPic}}" alt="User Picture" width="120" height="120">
             <p>{{user.UserRating}}</p>
-            <button class="w3-button w3-theme-d4" (click)="loadUserProfile(user)">View User</button>
+            <button class="w3-button w3-white" (click)="loadUserProfile(user)">View User</button>
+            <br>
         </li>
     </ul>
 </div>
