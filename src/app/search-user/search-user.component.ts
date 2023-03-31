@@ -16,8 +16,8 @@ export class SearchUserComponent {
   constructor(private api: ApiService, private router: Router) {}
 
   searchUsers() {
-    this.api.searchUserByName(this.searchName).subscribe(
-      (response: IUser[]) => {
+    this.api.getUserByName(this.searchName).subscribe(
+      (response) => {
         this.users = response;
       },
       (error) => {

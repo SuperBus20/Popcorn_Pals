@@ -114,11 +114,8 @@ namespace Popcorn_Pals.DAL
     }
 
 
-
     // Follow Methods //
-
     public List<Follow> GetAllFollowers(int userId)
-
     {
       List<Follow> Followers = _popContext.Follows
         .Where(x => x.UserId == userId)
@@ -134,17 +131,6 @@ namespace Popcorn_Pals.DAL
         .Where(x => x.FollowingId != null)
         .ToList();
       return Followers;
-    }
-    public bool UpdateUser(User userToUpdate)
-    {
-      if (GetUserById(userToUpdate.UserId) == null)
-      {
-        return false;
-      }
-
-      _popContext.Users.Update(userToUpdate);
-      _popContext.SaveChanges();
-      return true;
     }
 
     public bool IsFollowing(int userId, int id2)
@@ -354,6 +340,19 @@ namespace Popcorn_Pals.DAL
         .Where(x => x.UserName.ToLower().Contains(userToSearch.ToLower())).ToList();
       return users;
     }
+
+    public bool UpdateUser(User userToUpdate)
+    {
+      if (GetUserById(userToUpdate.UserId) == null)
+      {
+        return false;
+      }
+
+      _popContext.Users.Update(userToUpdate);
+      _popContext.SaveChanges();
+      return true;
+    }
+
 
 
   }

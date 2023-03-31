@@ -24,7 +24,7 @@ namespace Popcorn_Pals.DAL.Interfaces
     List<UserReview> GetReviewByReviewId(int id);
 
 
-    // Follow Methods //
+ // Follow Methods //
     Follow FollowUser(int user, int profile);
     Follow UnfollowUser(int user, int profile);
     List<Follow> GetAllFollowers(int userId);
