@@ -17,9 +17,8 @@ export class FollowUserComponent {
   followingUsers: any;
   loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
 
-  ngOnInit(): void{
-     //this.following(10); //test data
-     //this.followers(5);  //test data
+  ngOnInit() {
+    this.Api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
   }
 
   // Follow Profiles //
@@ -38,9 +37,9 @@ export class FollowUserComponent {
   unfollow (userId: number, userToUnfollow: number){
     this.Api.unfollowUser(userId, userToUnfollow);
   }
-  
+
   isFollowing(userId:number, id: number){
     this.Api.isFollowingUser(userId, id)
   }
-  
+
 }
