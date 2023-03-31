@@ -37,6 +37,7 @@ export class MediaComponent {
 
     if ((this.searchType == 'movie')) {
       this.isMovie = true;
+      this.isShow = false;
       this.http
         .get<IMovie[]>(
           this.api.popCornUri + `search?title=${this.searchString}&type=movie`
@@ -47,6 +48,7 @@ export class MediaComponent {
     }
     if ((this.searchType == 'show')) {
       this.isShow = true;
+      this.isMovie = false;
       this.http
         .get<IShow[]>(
           this.api.popCornUri + `search?title=${this.searchString}&type=show`
