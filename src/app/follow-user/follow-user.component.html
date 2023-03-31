@@ -1,15 +1,49 @@
-test
-<!-- Following -->
-<div>
-    <li *ngFor="let following of followingUsers">        
-           <span  style="font-size: 20px;text-align: center;">{{following.userId}}  </span>      
-    </li>
+<!-- following -->
+<button onclick="document.getElementById('id_modal_followers').style.display='block'"
+    class="w3-button w3-block w3-theme-l1 w3-left-align">
+    <i class="fa fa-users w3-margin-right"></i>({{userFollowingCount}}) Following</button>
+
+<!-- The Modal -->
+<div id="id_modal_followers" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-blue-grey">
+            <span onclick="document.getElementById('id_modal_followers').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+            <div *ngIf="userFollowingCount != 0">
+                <li *ngFor="let following of followingUsers">
+                    <span style="font-size: 20px;text-align: center;">{{following.userId}} </span>
+                </li>
+            </div>
+            <div *ngIf="userFollowingCount == 0">
+                <div>
+                    <span style="font-size: 20px;text-align: center;"><br> No one is following you</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<!-- followers -->
+<button onclick="document.getElementById('id_modal_following').style.display='block'"
+    class="w3-button w3-block w3-theme-l1 w3-left-align">
+    <i class="fa fa-users w3-margin-right"></i>({{userFollowersCount}}) Followers</button>
 
-<!-- Followers -->
-<div>
-    <li *ngFor="let followers of userFollowers">        
-           <span  style="font-size: 20px;text-align: center;">{{followers.userId}}  </span>      
-    </li>
+<!-- The Modal -->
+<div id="id_modal_following" class="w3-modal">
+    <div class="w3-modal-content">
+        <div class="w3-container w3-blue-grey">
+            <span onclick="document.getElementById('id_modal_following').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+            <div *ngIf="userFollowersCount != 0">
+                <li *ngFor="let followers of userFollowers">
+                    <span style="font-size: 20px;text-align: center;">{{followers.userId}} </span>
+                </li>
+            </div>
+            <div *ngIf="userFollowersCount == 0">
+                <div>
+                    <span style="font-size: 20px;text-align: center;"><br> You are not following anyone</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
