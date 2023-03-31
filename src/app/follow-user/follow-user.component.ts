@@ -10,12 +10,12 @@ import { AnonymousSubject } from 'rxjs/internal/Subject';
   styleUrls: ['./follow-user.component.css']
 })
 
-export class FollowUserComponent {
+export class FollowUserComponent implements OnInit{
 
   constructor(private Api: ApiService) { }
   userFollowers: any;
   followingUsers: any;
-  loggedInUser: ILoggedInUser|null = this.Api.loggedInUser
+  loggedInUser: ILoggedInUser|null = null
 
   ngOnInit() {
     this.Api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
