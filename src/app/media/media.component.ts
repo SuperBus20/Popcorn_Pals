@@ -88,9 +88,21 @@ export class MediaComponent {
     }
   }
 
+  // goToMovieReviewForm(movieId: any) {
+  //   this.route.navigate([
+  //     '/app-reviews/', movieId
+  //   ])
+  // }
+  // navigate(url:string) {
+
+  //   window.open(url);
+  // }
+
+  
   goToMovieReviewForm(movieId: any) {
+    let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-reviews/', movieId
+      '/app-reviews/', movieId, userId, 
     ])
   }
   navigate(url:string) {

@@ -8,7 +8,11 @@
       <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
 
       <label for="userRating">Rating:</label>
-      <input class="w3-input" type="text" id="rating" name="userRating" [(ngModel)]="Rating" required>
+      <input class="w3-input" type="range" min=1 max=5 id="rating" name="userRating" [(ngModel)]="Rating" required>
 
-      <button class="w3-button w3-blue-grey" type="submit">Add Review</button>
+
+
+
+      
+      <button class="w3-button w3-blue-grey" type="submit">Add My Review</button>
     </form>

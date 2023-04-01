@@ -13,48 +13,35 @@ import { IMovie, IShow } from '../Interfaces/Media';
 })
 
 export class ReviewsComponent {
-  @Input() mediaType: any;
-
-  currentMediaType: any; //testing
   constructor(private Api: ApiService) { }
-  userId: number = -1;
+
+  userId: any;
   MediaId: number = -1;
   movieId: number = -1
   movie: IMovie | any;
   show: IShow | any;
-  isMovie: boolean = false;
-  isShow: boolean = false;
-  loggedInUser: ILoggedInUser | null = null;
+  // isMovie: boolean = false;
+  // isShow: boolean = false;
+  loggedInUser: ILoggedInUser | undefined;
   Review: string = "" ;
   Rating: number = -1 ;
-  Id: number = -1; 
+  Id: number = -1;
 
   selectedMovie!: any;
   selectedShow!: any;
   selectedMedia: boolean = false;
 
   ngOnInit(): void {
-    this.Api.currentMediaType.subscribe((value) => {
-      this.currentMediaType = value;
-    });
-    console.log(this.currentMediaType)
+    this.userId = this.Api.loggedInUser?.User.userId
   }
 
   // Adding Reviews //
   addMovieReview(form: NgForm) {
-    // Old Code //
-    //   let newReview: IUserReview = {
-    //   Id: -1, 
-    //   userId: this.UserId,
-    //   MediaId: this.MediaId,
-    //   Review: form.form.value.Review,
-    //   Rating: form.form.value.Rating
-    // };
     let user = this.loggedInUser as ILoggedInUser;
     this.userId = user.User.userId;
     
     let newReview: IUserReview = {
-      Id: -1,
+      Id: this.Id, 
       userId: this.userId,
       Review: form.form.value.Review,
       Rating: form.form.value.Rating,
