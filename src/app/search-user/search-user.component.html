@@ -11,7 +11,7 @@
     <ul>
         <li *ngFor="let user of users" class="w3-theme-d5">
             <h3>{{user.userName}}</h3>
-            <img src="{{user.userPic}}" alt="User Picture" width="120" height="120">
+            <img *ngIf="user.userPic" src="{{user.userPic}}" alt="User Picture" width="120" height="120">
             <p>{{user.UserRating}}</p>
             <button class="w3-button w3-white" (click)="loadUserProfile(user)">View User</button>
             <br>
