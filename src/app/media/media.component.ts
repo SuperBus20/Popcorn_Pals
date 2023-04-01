@@ -63,7 +63,7 @@ export class MediaComponent {
 
 
   selectId(mediaId:number, mediaType:string) {
-    if(mediaType="movie")
+    if(mediaType==="movie")
     {
       this.selectedMedia=true;
        this.api.getMovieByID(mediaId).subscribe((response) => {
@@ -71,7 +71,7 @@ export class MediaComponent {
       });
       this.selectedMedia=true;
     }
-    else if(mediaType="show")
+    else if(mediaType==="show")
     {
       this.selectedMedia=true;
       this.api.getShowByID(mediaId).subscribe((response) => {
