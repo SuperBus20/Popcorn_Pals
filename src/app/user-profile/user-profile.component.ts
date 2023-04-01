@@ -33,7 +33,6 @@ export class UserProfileComponent implements OnInit {
 
   getProfile(User: IUser) {
     this.api.getUser(User);
-
   }
 
   // Profile Mgmt // //TODO: Do we need this?

@@ -6,21 +6,15 @@ namespace Popcorn_Pals
   public class PopcornContext : DbContext
   {
 
-    public PopcornContext() 
-    {
-
-    }
-
-    public PopcornContext(DbContextOptions options) : base(options)
-    {
-
-    }
+    public PopcornContext() {}
+    public PopcornContext(DbContextOptions options) : base(options) {}
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserReview> Reviews { get; set; }
     public DbSet<Follow> Follows { get; set; }
     public DbSet<Favorite> Favorites { get; set; }
-
+    public DbSet<Movie> Movies { get; set;}
+    public DbSet<Show> Shows { get; set;}
 
     private static IConfigurationRoot _configuration;
 

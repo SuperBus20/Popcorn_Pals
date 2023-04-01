@@ -5,12 +5,16 @@ import { IUser } from './Interfaces/user';
 import { ILoggedInUser } from './Interfaces/LoggedinUser';
 import { IUserReview } from './Interfaces/user-review';
 import { IMovie, IShow, ISource } from './Interfaces/Media';
-import { Observable } from 'rxjs';
+import { Observable, from, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
+
+  private mediatypestuff = new BehaviorSubject<any>({}); //testing
+  currentMediaType = this.mediatypestuff.asObservable(); //testing
+
   constructor(private http: HttpClient) { }
   userURI: string = 'https://localhost:7035/api/PopcornUser/';
   popCornUri: string = 'https://localhost:7035/api/Popcorn/';
@@ -21,6 +25,10 @@ export class ApiService {
   userToView: IUser | null = null;
 
   loggedInEvent = new EventEmitter<ILoggedInUser>
+
+  setMediaTypeStuff(mediatypestuff: any) { //testing
+    this.mediatypestuff.next(this.mediatypestuff);
+  }
 
   // Media //
   selectFavoriteMovie(movieId: number) {
@@ -237,6 +245,12 @@ export class ApiService {
         showReview
       )
       .subscribe(() => { });
+  }
+
+  getAllReviews() {
+    return this.http.get<IUserReview>(
+      this.userURI + `GetAllReviews`
+    );
   }
 
   getReviewByMediaId(mediaId: number) {

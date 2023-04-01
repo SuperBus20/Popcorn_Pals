@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgForm } from '@angular/forms';
 import { IMovie, IShow, ISource } from '../Interfaces/Media';
 import { HttpClient } from '@angular/common/http';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-media',
@@ -11,7 +12,8 @@ import { ILoggedInUser } from '../Interfaces/LoggedinUser';
   styleUrls: ['./media.component.css'],
 })
 export class MediaComponent {
-  constructor(private api: ApiService, private http: HttpClient) {}
+  constructor(private api: ApiService, private http: HttpClient, 
+    private route: Router) {}
   // ngOnInit(): void {
   // }
 
@@ -20,6 +22,7 @@ export class MediaComponent {
   loggedInUser: ILoggedInUser | null = null;
 
   @Output() clicked: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   searchString!: string;
   searchType!: string;
   movieResults!: IMovie[];
@@ -60,7 +63,9 @@ export class MediaComponent {
     this.selectedMedia=false;
   }
 
-
+  setMediaTypeStuff(mediatypestuff: any) {
+    this.api.setMediaTypeStuff(mediatypestuff); //testing
+  }
 
   selectId(mediaId:number, mediaType:string) {
     if(mediaType==="movie")
@@ -68,6 +73,7 @@ export class MediaComponent {
       this.selectedMedia=true;
        this.api.getMovieByID(mediaId).subscribe((response) => {
         this.selectedMovie = response;
+        this.setMediaTypeStuff("movie")
       });
       this.selectedMedia=true;
     }
@@ -76,15 +82,22 @@ export class MediaComponent {
       this.selectedMedia=true;
       this.api.getShowByID(mediaId).subscribe((response) => {
         this.selectedShow = response;
+        this.setMediaTypeStuff("show")
       });
       this.selectedMedia=true;
     }
   }
 
+  goToMovieReviewForm(movieId: any) {
+    this.route.navigate([
+      '/app-reviews/', movieId
+    ])
+  }
+  navigate(url:string) {
 
-
-
-
+    window.open(url);
+  }
+  
 
   favoriteShowClicked() {
     this.show = this.show as IShow;

@@ -9,7 +9,7 @@ namespace Popcorn_Pals.DAL.Interfaces
   public interface IPopcornRepository
   {
     public List<User> GetUsers();
-    User GetUser(string userName);
+    User? GetUser(string userName);
     User AddUser(string userName, string password);
     User GetUserById(int id);
     bool UpdateUser(User userToUpdate);
@@ -17,11 +17,25 @@ namespace Popcorn_Pals.DAL.Interfaces
 
 
     // Review Methods //
+
     UserReview AddMovieReview(UserReview reviewToAdd);
     UserReview AddShowReview(UserReview reviewToAdd);
-    List<UserReview> GetReviewByMediaId(int mediaId);
-    List<UserReview> GetReviewByUserId(int userId);
+    List<UserReview> GetAllReviews();
+    List<UserReview> GetReviewsByUserId(int userId);
     List<UserReview> GetReviewByReviewId(int id);
+    //UserReview DeleteMovieReview(UserReview reviewToDelete);
+    //UserReview EditMovieReview(UserReview reviewToEdit);
+    //UserReview DeleteShowReview(UserReview reviewToDelete);
+    //UserReview EditShowReview(UserReview reviewToEdit);
+    //UserReview DeleteMovieReview(UserReview reviewToDelete);
+    //UserReview EditMovieReview(UserReview reviewToEdit);
+    //UserReview DeleteShowReview(UserReview reviewToDelete);
+    //UserReview EditShowReview(UserReview reviewToEdit);
+    //UserReview GetReviewByMediaId(int mediaId);
+    //UserReview GetMediaTypeById(int userId, int mediaId);
+    //List<UserReview> GetReviewByMovieId(int movieId);
+    //List<UserReview> GetReviewByShowId(int showId);
+    //bool IsReviewedByUser(int userId, int mediaId, int showId)
 
 
  // Follow Methods //
@@ -35,9 +49,7 @@ namespace Popcorn_Pals.DAL.Interfaces
     //Favorites Methods //
     void FavoriteMovie(int movieId, int userId);
     List<Movie> GetFavoriteMovies(int userId);
-
     Show FavoriteShow(int showId, int userId);
-
     List<Show> GetFavoriteShows(int userId);
     bool DeleteFavoriteMovieById(int userId, int mediaId);
     bool DeleteFavoriteShowById(int userId, int mediaId);

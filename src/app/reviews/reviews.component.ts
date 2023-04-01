@@ -4,7 +4,7 @@ import { MediaComponent } from '../media/media.component';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { ApiService } from '../api.service';
 import { NgForm } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { IMovie, IShow } from '../Interfaces/Media';
 
 @Component({
   selector: 'app-reviews',
@@ -13,35 +13,103 @@ import { FormsModule } from '@angular/forms';
 })
 
 export class ReviewsComponent {
+  @Input() mediaType: any;
 
-  //review: IUserReview | undefined;
-  //rating: number = 0
-  // Userid: number = 1
-
+  currentMediaType: any; //testing
   constructor(private Api: ApiService) { }
-  Movie: any;
-  Show: any;
-  UserId: number = -1 ;
-  MediaId: number = -1 ;
+  userId: number = -1;
+  MediaId: number = -1;
+  movieId: number = -1
+  movie: IMovie | any;
+  show: IShow | any;
+  isMovie: boolean = false;
+  isShow: boolean = false;
+  loggedInUser: ILoggedInUser | null = null;
   Review: string = "" ;
   Rating: number = -1 ;
-  Id: number = -1; //updated
+  Id: number = -1; 
 
-  // @Input() UserId: number = 1;
-  // @Input() MediaId: number = 1;
-  //@Input() Id: number = 1; //review id
+  selectedMovie!: any;
+  selectedShow!: any;
+  selectedMedia: boolean = false;
 
+  ngOnInit(): void {
+    this.Api.currentMediaType.subscribe((value) => {
+      this.currentMediaType = value;
+    });
+    console.log(this.currentMediaType)
+  }
+
+  // Adding Reviews //
   addMovieReview(form: NgForm) {
+    // Old Code //
+    //   let newReview: IUserReview = {
+    //   Id: -1, 
+    //   userId: this.UserId,
+    //   MediaId: this.MediaId,
+    //   Review: form.form.value.Review,
+    //   Rating: form.form.value.Rating
+    // };
+    let user = this.loggedInUser as ILoggedInUser;
+    this.userId = user.User.userId;
+    
     let newReview: IUserReview = {
-      Id: -1, //update
-      userId: this.UserId,
-      MediaId: this.MediaId,
+      Id: -1,
+      userId: this.userId,
       Review: form.form.value.Review,
-      Rating: form.form.value.Rating
+      Rating: form.form.value.Rating,
+      MediaId: this.movieId,
     };
 
     this.Api.addMovieReview(newReview)
     form.resetForm();
+  }
+
+
+  // addShowReview(form: NgForm) {
+  //   // Old Code //
+  //   //   let newReview: IUserReview = {
+  //   //   Id: -1, 
+  //   //   userId: this.UserId,
+  //   //   MediaId: this.MediaId,
+  //   //   Review: form.form.value.Review,
+  //   //   Rating: form.form.value.Rating
+  //   // };
+  //   let userId = -1;
+  //   let user = this.loggedInUser as ILoggedInUser;
+  //   let MediaId = this.movie._id;
+  //   userId = user.User.userId;
+    
+  //   let newReview: IUserReview = {
+  //     Id: -1,
+  //     userId: userId,
+  //     MediaId: this.MediaId, //changed
+  //     Review: form.form.value.Review,
+  //     Rating: form.form.value.Rating
+  //   };
+
+  //   this.isMovie == true; //added
+
+  //   this.Api.addMovieReview(newReview)
+  //   form.resetForm();
+  // }
+
+  // Edit Reviews // //TODO: add this schtuff
+  editMovieReview(){}
+
+  editMovieRating(){}
+
+  editShowReview(){}
+
+  editShowRating(){}
+
+  // Delete Reviews //TODO: add this schtuff
+
+
+  // Get Reviews //
+  getAllReviews()
+  {
+    this.Api.getAllReviews().subscribe();
   }
 
   getReviewByMediaId(MediaId: number)
@@ -49,19 +117,14 @@ export class ReviewsComponent {
     this.Api.getReviewByMediaId(this.MediaId).subscribe();
   }
 
-  getReviewByUserId(UserId: number)
+  getReviewByUserId(userId: number)
   {
-    this.Api.getReviewByUserId(this.UserId).subscribe();
+    this.Api.getReviewByUserId(this.userId).subscribe();
   }
 
   getReviewByReviewId(Id:number) //updated
   {
     this.Api.getReviewByReviewId(this.Id).subscribe(); //updated
   }
-
-  editReview(){}
-
-  editRating(){}
-
 
 }

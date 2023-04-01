@@ -1,5 +1,9 @@
     <form #newReview="ngForm" (ngSubmit)="addMovieReview(newReview)">
 
+      <h1>{{Id}}</h1>
+      <h1>{{userId}}</h1>
+      <h1>{{movieId}}</h1>
+ 
       <label for="reviewText">Review:</label>
       <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
 

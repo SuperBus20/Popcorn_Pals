@@ -2,9 +2,7 @@ using Popcorn_Pals.Models;
 using Popcorn_Pals.DAL.Interfaces;
 using Popcorn_Pals.Controllers;
 using Popcorn_Pals.Services;
-using System;
 using Flurl.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Popcorn_Pals.DAL
@@ -12,8 +10,6 @@ namespace Popcorn_Pals.DAL
   public class PopcornRepository : IPopcornRepository
   {
     private PopcornContext _popContext = new PopcornContext();
-
-
 
     // User Methods //
     public List<User> GetUsers()
@@ -23,14 +19,13 @@ namespace Popcorn_Pals.DAL
 
     public User GetUser(string userName)
     {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-      User user = GetUsers()
+      User? user = GetUsers()
         .FirstOrDefault(x => x.UserName
         .ToLower()
         .Trim() == userName
         .ToLower()
         .Trim());
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+
       if (user == null)
       {
         return null;
@@ -54,13 +49,10 @@ namespace Popcorn_Pals.DAL
       return GetUser(userName);
     }
 
-#pragma warning disable CS8600
     public User GetUserById(int id)
     {
       return _popContext.Users.AsNoTracking().FirstOrDefault(x => x.UserId == id);
     }
-#pragma warning restore CS8600
-
 
 
     // Review Methods //
@@ -78,26 +70,13 @@ namespace Popcorn_Pals.DAL
       return reviewToAdd;
     }
 
-    // public UserReview EditReview(int userId, int Id, string review, int rating) // Non-MVP
-    // {
-    //   Goal of method: Pass in Id of Review to be edited and save changes 
-    //   UserReview reviewEdit = 
-
-
-    //   _popContext.Reviews.Update(reviewToEdit);
-    //   _popContext.SaveChanges();
-    //   return reviewToEdit;
-    // }
-
-    public List<UserReview> GetReviewByMediaId(int mediaId)
+    public List<UserReview> GetAllReviews()
     {
-      List<UserReview> Reviews = _popContext.Reviews
-        .Where(x => x.MediaId == mediaId)
-        .ToList();
+      List<UserReview> Reviews = _popContext.Reviews.ToList();
       return Reviews;
     }
 
-    public List<UserReview> GetReviewByUserId(int userId)
+    public List<UserReview> GetReviewsByUserId(int userId)
     {
       List<UserReview> Reviews = _popContext.Reviews
         .Where(x => x.UserId == userId)
@@ -105,7 +84,7 @@ namespace Popcorn_Pals.DAL
       return Reviews;
     }
 
-    public List<UserReview> GetReviewByReviewId(int id) //updated
+    public List<UserReview> GetReviewByReviewId(int id)
     {
       List<UserReview> Reviews = _popContext.Reviews
         .Where(x => x.Id == id)
@@ -113,6 +92,51 @@ namespace Popcorn_Pals.DAL
       return Reviews;
     }
 
+
+    // public List<UserReview> GetReviewByMediaId(int mediaId) //Old code that does work
+    // {
+    //   List<UserReview> Reviews = _popContext.Reviews
+    //     .Where(x => x.MediaId == mediaId)
+    //     .ToList();
+    //   return Reviews;
+    // }
+
+    // public List<UserReview> GetReviewByMovieId(int movieId)
+    // {
+    //   List<UserReview> Reviews = _popContext.Reviews
+    //     .Where(x => x.MediaId == movieId)
+    //     .ToList();
+    //   return Reviews;
+    // }
+
+    // public List<UserReview> GetReviewByShowId(int showId)
+    // {
+    //   // showId = UserReview.Show._id;
+    //   // int show = GetShowById(UserReview.Show._id).FirstOrDefault(x => x._id == showId); ;
+      
+    //   List<UserReview> Reviews = _popContext.Reviews
+    //     .Where(x => x.MediaId == showId)
+    //     // .Where(x => x.Show ==)
+    //     .ToList();
+    //   return Reviews;
+    // }
+
+    // public UserReview GetMediaTypeById(int userId, int mediaId)
+    // {
+      
+    //   // UserReview reviews = _popContext.Reviews.FirstOrDefault(x => x.MediaId == mediaId);
+    //         UserReview reviews = _popContext.Reviews.FirstOrDefault(x => x.UserId == userId && x.Show._id == mediaId && x.Movie._id == null);
+    //         if(reviews == null)
+    //         {
+    //          List<UserReview> testReviews = _popContext.Reviews.Where(x => x.UserId == userId && x.Movie._id == mediaId && x.Show._id == null).ToList();
+    //          Movie movieTest = _popContext.Movies.FirstOrDefault(x => x._id == mediaId);
+    //         // Movie showTest = _popContext.Show.FirstOrDefault(x => x._id == mediaId);
+
+    //          return testReviews;
+    //         }
+
+    //   return null;
+    // }
 
     // Follow Methods //
     public List<Follow> GetAllFollowers(int userId)
@@ -304,7 +328,7 @@ namespace Popcorn_Pals.DAL
 
     public bool DeleteFavoriteMovieById(int userId, int mediaId)
     {
-      Favorite favorite = _popContext.Favorites
+      Favorite? favorite = _popContext.Favorites
         .Where(x => x.UserId == userId)
         .FirstOrDefault(x => x.MovieId == mediaId);
 
@@ -320,7 +344,7 @@ namespace Popcorn_Pals.DAL
 
     public bool DeleteFavoriteShowById(int userId, int mediaId)
     {
-      Favorite favorite = _popContext.Favorites
+      Favorite? favorite = _popContext.Favorites
         .Where(x => x.UserId == userId)
         .FirstOrDefault(x => x.ShowId == mediaId);
 
@@ -352,7 +376,6 @@ namespace Popcorn_Pals.DAL
       _popContext.SaveChanges();
       return true;
     }
-
 
 
   }
