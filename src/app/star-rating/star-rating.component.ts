@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-star-review',
-  templateUrl: './star-review.component.html',
-  styleUrls: ['./star-review.component.css']
+  selector: 'app-star-rating',
+  templateUrl: './star-rating.component.html',
+  styleUrls: ['./star-rating.component.css']
 })
-export class StarReviewComponent  implements OnInit {
+export class StarRatingComponent  implements OnInit {
 
   @Input('rating') rating: number = 3;
   @Input('starCount') starCount: number = 5;

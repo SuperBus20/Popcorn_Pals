@@ -5,7 +5,7 @@ import { ApiService } from '../api.service';
 import { NgForm } from '@angular/forms';
 import { IMovie, IShow } from '../Interfaces/Media';
 import { Router } from '@angular/router';
-import { StarRatingColor } from '../star-review/star-review.component';
+import { StarRatingColor } from '../star-rating/star-rating.component';
 
 @Component({
   selector: 'app-review-form',

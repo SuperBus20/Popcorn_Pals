@@ -125,7 +125,6 @@ namespace Popcorn_Pals.DAL
     {
       List <UserReview> test = GetReviewsByUserId(userId)
         .Where(x => x.UserId == userId && x.MediaId == mediaId)
-        .Where(x => x.ShowId == mediaId)
         .ToList();
 
       return test.Count > 0; // >0 = true/ShowIsReviewed

@@ -199,12 +199,6 @@ namespace Popcorn_Pals.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isMovieReview")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isShowReview")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Movie_id");

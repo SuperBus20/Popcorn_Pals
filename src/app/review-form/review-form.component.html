@@ -7,7 +7,7 @@
   <form #newMovieReview="ngForm" (ngSubmit)="addMovieReview(newMovieReview)">
  
       <label for="reviewText">Review:</label>
-      <app-star-review [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></app-star-review>
+      <app-star-rating [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></app-star-rating>
       
       <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
 
@@ -20,7 +20,7 @@
     <form #newShowReview="ngForm" (ngSubmit)="addShowReview(newShowReview)">
  
       <label for="reviewText">Review:</label>
-      <app-star-review [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></app-star-review>
+      <app-star-rating [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></app-star-rating>
 
       <label for="reviewText">Review:</label>
       <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review">
