@@ -77,19 +77,19 @@ export class ReviewFormComponent {
   }
 
   // Edit Reviews //
-  editReview(form: NgForm) {
+
+  editShowReview(form: NgForm, showId: number, userId: number) {
+    let showReviewToEdit : IUserReview = {
+      userId: this.userId,
+      Review: form.form.value.Review,
+      Rating: form.form.value.Rating,
+      MediaId: this.show.Id,
+    };
+
+    s
+
+    this.Api.editShowReview(showReviewToEdit)
     form.resetForm();
   }
-
-  // editShowReview(form: NgForm) {
-  //   let showReviewToEdit : IUserReview = {
-  //     userId: this.userId,
-  //     Review: form.form.value.Review,
-  //     Rating: form.form.value.Rating,
-  //     MediaId: this.show.Id,
-  //   };
-
-  //   this.Api.editShowReview(showReviewToEdit)
-  //   form.resetForm();
 
 }

@@ -77,12 +77,31 @@ namespace Popcorn_Pals.DAL
     //   _popContext.SaveChanges();
     // }
 
-    public void EditReview(UserReview reviewToUpdate)
+    public int GetReviewId(int mediaId, int userId, bool mediaType)
     {
-      UserReview reviewToEdit = GetReviewByReviewId(reviewToUpdate.Id);
-      _popContext.Reviews.Update(reviewToEdit);
-      _popContext.SaveChanges();
+      if (mediaType == true)
+      { 
+        int movieReviewId = _popContext.Reviews.Where(x => x.UserId == userId && x.MovieId == mediaId)
+        .Select(x => x.Id).FirstOrDefault();
+
+        return movieReviewId;
+        
+      }
+      else {
+        int showReviewId = _popContext.Reviews.Where(x => x.UserId == userId && x.Show._id == mediaId)
+        .Select(x => x.Id).FirstOrDefault();
+
+        return showReviewId;
+      }
     }
+
+
+    // public void EditReview(UserReview reviewToUpdate)
+    // {
+    //   UserReview reviewToEdit = GetReviewByReviewId(reviewToUpdate.Id);
+    //   _popContext.Reviews.Update(reviewToEdit);
+    //   _popContext.SaveChanges();
+    // }
 
     public List<UserReview> GetAllReviews()
     {

@@ -262,22 +262,6 @@ export class ApiService {
       });
   }
 
-  editShowReview(showReview: IUserReview) {
-    let userId = showReview.userId;
-    let showId = showReview.MediaId;
-    let review = showReview.Review;
-    let rating = showReview.Rating;
-    return this.http
-      .post<IUserReview>(
-        this.showReview +
-        `EditShowReview?userId=${userId}&movieId=${showId}&review=${review}&rating=${rating}`,
-        showReview
-      )
-      .subscribe(() => {
-        Response;
-      });
-  }
-
   getAllReviews() {
     return this.http.get<IUserReview>(
       this.userURI + `GetAllReviews`

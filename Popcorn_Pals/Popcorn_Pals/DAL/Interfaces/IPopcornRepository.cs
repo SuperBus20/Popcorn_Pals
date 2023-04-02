@@ -20,6 +20,7 @@ namespace Popcorn_Pals.DAL.Interfaces
 
     UserReview AddMovieReview(UserReview reviewToAdd);
     UserReview AddShowReview(UserReview reviewToAdd);
+    bool hasUserReviewed(int mediaId, int userId);
     List<UserReview> GetAllReviews();
     List<UserReview> GetReviewsByUserId(int userId);
     UserReview GetReviewByReviewId(int id);
