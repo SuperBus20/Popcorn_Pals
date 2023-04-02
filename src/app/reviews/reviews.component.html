@@ -1,18 +1,27 @@
-    <form #newReview="ngForm" (ngSubmit)="addMovieReview(newReview)">
-
-      <h1>{{Id}}</h1>
-      <h1>{{userId}}</h1>
-      <h1>{{movieId}}</h1>
+<!--
+  I have no idea what I'm doinggffdsfkjds
+  <div *ngIf="selectedShow">
+  <div *ngFor="let addShowReview of selectedShow">
+    <h3>{{selectedshow>.title }}</h3> -->
+   <form #newReview="ngForm" (ngSubmit)="addMovieReview(newReview)">
  
       <label for="reviewText">Review:</label>
       <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
 
       <label for="userRating">Rating:</label>
-      <input class="w3-input" type="range" min=1 max=5 id="rating" name="userRating" [(ngModel)]="Rating" required>
+      <input class="w3-input" type="int" id="rating" name="userRating" [(ngModel)]="Rating">
 
-
-
-
-      
       <button class="w3-button w3-blue-grey" type="submit">Add My Review</button>
     </form>
+<!-- 
+    *ngIf="selectedShow"
+    <form #newReview="ngForm" (ngSubmit)="addShowReview(newReview)">
+ 
+      <label for="reviewText">Review:</label>
+      <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
+
+      <label for="userRating">Rating:</label>
+      <input class="w3-input" type="int" id="rating" name="userRating" [(ngModel)]="Rating">
+
+      <button class="w3-button w3-blue-grey" type="submit">Add My Review</button>
+    </form> -->

@@ -22,20 +22,10 @@ namespace Popcorn_Pals.DAL.Interfaces
     UserReview AddShowReview(UserReview reviewToAdd);
     List<UserReview> GetAllReviews();
     List<UserReview> GetReviewsByUserId(int userId);
-    List<UserReview> GetReviewByReviewId(int id);
-    //UserReview DeleteMovieReview(UserReview reviewToDelete);
-    //UserReview EditMovieReview(UserReview reviewToEdit);
-    //UserReview DeleteShowReview(UserReview reviewToDelete);
-    //UserReview EditShowReview(UserReview reviewToEdit);
-    //UserReview DeleteMovieReview(UserReview reviewToDelete);
-    //UserReview EditMovieReview(UserReview reviewToEdit);
-    //UserReview DeleteShowReview(UserReview reviewToDelete);
-    //UserReview EditShowReview(UserReview reviewToEdit);
-    //UserReview GetReviewByMediaId(int mediaId);
-    //UserReview GetMediaTypeById(int userId, int mediaId);
-    //List<UserReview> GetReviewByMovieId(int movieId);
-    //List<UserReview> GetReviewByShowId(int showId);
-    //bool IsReviewedByUser(int userId, int mediaId, int showId)
+    UserReview GetReviewByReviewId(int id);
+    UserReview DeleteReview(int id);
+    //UserReview EditReview(int id);
+
 
 
  // Follow Methods //

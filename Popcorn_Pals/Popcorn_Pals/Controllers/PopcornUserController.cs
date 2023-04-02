@@ -85,20 +85,20 @@ namespace Popcorn_Pals.Controllers
       return _popcornService.AddMovieReview(userId, movieId, review, rating);
     }
 
-    // [HttpPost("AddShowReview")]
-    // public UserReview AddShowReview(int userId, int showId, string review, int rating)
-    // {
-    //   return _popcornService.AddShowReview(userId, showId, review, rating);
-    // }
+    [HttpPost("AddShowReview")]
+    public UserReview AddShowReview(int userId, int showId, string review, int rating)
+    {
+      return _popcornService.AddShowReview(userId, showId, review, rating);
+    }
 
-    [HttpPost("GetReviewsByUserId")]
+    [HttpGet("GetReviewsByUserId")]
     public List<UserReview> GetReviewsByUserId(int userId)
     {
       return _popcornRepository.GetReviewsByUserId(userId);
     }
 
-    [HttpPost("GetReviewByReviewId")]
-    public List<UserReview> GetReviewByReviewId(int reviewId)
+    [HttpGet("GetReviewByReviewId")]
+    public UserReview GetReviewByReviewId(int reviewId)
     {
       return _popcornRepository.GetReviewByReviewId(reviewId);
     }

@@ -13,10 +13,12 @@ import { IMovie, IShow } from '../Interfaces/Media';
 })
 
 export class ReviewsComponent {
+
+  @Input() mediaId: any;
+
   constructor(private Api: ApiService) { }
 
   userId: any;
-  MediaId: number = -1;
   movieId: number = -1
   movie: IMovie | any;
   show: IShow | any;
@@ -27,9 +29,9 @@ export class ReviewsComponent {
   Rating: number = -1 ;
   Id: number = -1;
 
-  selectedMovie!: any;
-  selectedShow!: any;
-  selectedMedia: boolean = false;
+  // selectedMovie!: any;
+  // selectedShow!: any;
+  // selectedMedia: boolean = false;
 
   ngOnInit(): void {
     this.userId = this.Api.loggedInUser?.User.userId
@@ -40,78 +42,72 @@ export class ReviewsComponent {
     let user = this.loggedInUser as ILoggedInUser;
     this.userId = user.User.userId;
     
-    let newReview: IUserReview = {
-      Id: this.Id, 
+    let newMovieReview: IUserReview = {
       userId: this.userId,
       Review: form.form.value.Review,
       Rating: form.form.value.Rating,
       MediaId: this.movieId,
     };
 
-    this.Api.addMovieReview(newReview)
+    this.Api.addMovieReview(newMovieReview)
     form.resetForm();
   }
 
-
-  // addShowReview(form: NgForm) {
-  //   // Old Code //
-  //   //   let newReview: IUserReview = {
-  //   //   Id: -1, 
-  //   //   userId: this.UserId,
-  //   //   MediaId: this.MediaId,
-  //   //   Review: form.form.value.Review,
-  //   //   Rating: form.form.value.Rating
-  //   // };
-  //   let userId = -1;
-  //   let user = this.loggedInUser as ILoggedInUser;
-  //   let MediaId = this.movie._id;
-  //   userId = user.User.userId;
+  addShowReview(form: NgForm) {
+    let user = this.loggedInUser as ILoggedInUser;
+    this.userId = user.User.userId;
     
-  //   let newReview: IUserReview = {
-  //     Id: -1,
-  //     userId: userId,
-  //     MediaId: this.MediaId, //changed
+    let newShowReview: IUserReview = {
+      userId: this.userId,
+      Review: form.form.value.Review,
+      Rating: form.form.value.Rating,
+      MediaId: this.show.Id,
+    };
+
+    this.Api.addShowReview(newShowReview)
+    form.resetForm();
+  }
+
+  // // Edit Reviews // //TODO: add this schtuff
+  // editReview(form: NgForm, reviewId: number) {
+  //   let user = this.loggedInUser as ILoggedInUser;
+  //   this.userId = user.User.userId;
+    
+  //   let showReviewToEdit : IUserReview = {
+  //     userId: this.userId,
   //     Review: form.form.value.Review,
-  //     Rating: form.form.value.Rating
+  //     Rating: form.form.value.Rating,
+  //     MediaId: this.show.Id,
   //   };
 
-  //   this.isMovie == true; //added
-
-  //   this.Api.addMovieReview(newReview)
+  //   this.Api.editReview(showReviewToEdit)
   //   form.resetForm();
+  
   // }
 
-  // Edit Reviews // //TODO: add this schtuff
-  editMovieReview(){}
-
-  editMovieRating(){}
-
-  editShowReview(){}
-
-  editShowRating(){}
 
   // Delete Reviews //TODO: add this schtuff
-
-
-  // Get Reviews //
-  getAllReviews()
-  {
-    this.Api.getAllReviews().subscribe();
-  }
-
-  getReviewByMediaId(MediaId: number)
-  {
-    this.Api.getReviewByMediaId(this.MediaId).subscribe();
-  }
-
-  getReviewByUserId(userId: number)
-  {
+  deleteReview(reviewId: number) {
     this.Api.getReviewByUserId(this.userId).subscribe();
   }
 
-  getReviewByReviewId(Id:number) //updated
-  {
-    this.Api.getReviewByReviewId(this.Id).subscribe(); //updated
+
+  // Get Reviews //
+  getAllReviews() {
+    this.Api.getAllReviews().subscribe();
+  }
+
+  // getReviewByMediaId(MediaId: number)
+  // {
+  //   this.Api.getReviewByMediaId(this.MediaId).subscribe();
+  // }
+
+  getReviewByUserId(userId: number) {
+    this.Api.getReviewByUserId(this.userId).subscribe();
+  }
+
+  getReviewByReviewId(reviewId:number) {
+    this.Api.getReviewByReviewId(this.Id).subscribe();
   }
 
 }

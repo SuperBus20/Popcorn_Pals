@@ -1,14 +1,7 @@
 <form #searchForm="ngForm" (ngSubmit)="searchMedia(searchForm)">
   <label for="searchString">Search Title:</label>
-  <input
-    class="w3-input"
-    type="text"
-    id="searchString"
-    name="searchString"
-    placeholder="Title"
-    [(ngModel)]="searchString"
-    required
-  />
+  <input class="w3-input" type="text" id="searchString" name="searchString" placeholder="Title"
+    [(ngModel)]="searchString" required />
 
   <!-- <label for="searchType">Search Type:</label> -->
   <!-- <input type="text" id="searchType" name="searchType" [(ngModel)]="searchType" required> -->
@@ -54,41 +47,30 @@
       <h3>
         {{ info.title }}
         <!-- <button (click)="favoriteMovieClicked()">add to favorites</button> -->
-        <button
-          class="w3-button w3-blue-grey"
-          (click)="addFavoriteMovie(info._id)"
-        >
+        <button class="w3-button w3-blue-grey" (click)="addFavoriteMovie(info._id)">
           Add to Favorites
         </button>
 
-        <button
-          class="w3-button w3-blue-grey"
-          (click)="goToMovieReviewForm(info._id)" 
-        >
-          Add My Review
-        </button>
 
+        <button class="w3-button w3-blue-grey" (click)="onPress()"> Add Review</button>
+
+        <div id="comp-render" *ngIf="displayReview">
+            <app-reviews [mediaId]="info._id"></app-reviews>
+        </div>
       </h3>
+      
       <ul>
         <li>id: {{ info._id }}</li>
         <li>overview: {{ info.overview }}</li>
         <li>
           poster:
-          <img
-            src="https://image.tmdb.org/t/p/original{{ info.poster_path }}"
-            width="500"
-            height="600"
-          />
+          <img src="https://image.tmdb.org/t/p/original{{ info.poster_path }}" width="500" height="600" />
         </li>
         <li>Genre: {{ info.genres }}</li>
         <li>Release Date: {{ info.release_date }}</li>
         <li>
           youtube Trailer:
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/{{ info.youtube_trailer }}"
-          ></iframe>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ info.youtube_trailer }}"></iframe>
         </li>
         <li>Sources:</li>
         <div *ngFor="let source of info.sources">
@@ -105,30 +87,19 @@
     <div *ngIf="selectedShow">
       <div *ngFor="let info of selectedShow">
         <h3>{{ info.title }}</h3>
-        <button
-          class="w3-button w3-blue-grey"
-          (click)="addFavoriteShow(info._id)"
-        >
+        <button class="w3-button w3-blue-grey" (click)="addFavoriteShow(info._id)">
           add to favorites
         </button>
         <p class="w3-theme-blue-grey">overview: {{ info.overview }}</p>
         <p>
           poster:
-          <img
-            src="https://image.tmdb.org/t/p/original{{ info.poster_path }}"
-            width="500"
-            height="600"
-          />
+          <img src="https://image.tmdb.org/t/p/original{{ info.poster_path }}" width="500" height="600" />
         </p>
         <p>Genre: {{ info.genres }}</p>
         <p>First Aired: {{ info.first_aired }}</p>
         <p>
           youtube Trailer:
-          <iframe
-            width="420"
-            height="315"
-            src="https://www.youtube.com/embed/{{ info.youtube_trailer }}"
-          >
+          <iframe width="420" height="315" src="https://www.youtube.com/embed/{{ info.youtube_trailer }}">
           </iframe>
         </p>
         <p>Sources:</p>

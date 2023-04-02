@@ -70,6 +70,20 @@ namespace Popcorn_Pals.DAL
       return reviewToAdd;
     }
 
+    public void DeleteReview(UserReview deleteReview)
+    {
+      UserReview reviewToDelete = GetReviewByReviewId(deleteReview.Id);
+      _popContext.Reviews.Remove(reviewToDelete);
+      _popContext.SaveChanges();
+    }
+
+    public void EditReview(UserReview reviewToUpdate)
+    {
+      UserReview reviewToEdit = GetReviewByReviewId(reviewToUpdate.Id);
+      _popContext.Reviews.Update(reviewToEdit);
+      _popContext.SaveChanges();
+    }
+
     public List<UserReview> GetAllReviews()
     {
       List<UserReview> Reviews = _popContext.Reviews.ToList();
@@ -84,39 +98,24 @@ namespace Popcorn_Pals.DAL
       return Reviews;
     }
 
-    public List<UserReview> GetReviewByReviewId(int id)
+    public UserReview GetReviewByReviewId(int id)
     {
-      List<UserReview> Reviews = _popContext.Reviews
-        .Where(x => x.Id == id)
-        .ToList();
-      return Reviews;
+      return _popContext.Reviews.AsNoTracking().FirstOrDefault(x => x.Id == id);
     }
 
 
-    // public List<UserReview> GetReviewByMediaId(int mediaId) //Old code that does work
-    // {
-    //   List<UserReview> Reviews = _popContext.Reviews
-    //     .Where(x => x.MediaId == mediaId)
-    //     .ToList();
-    //   return Reviews;
-    // }
+    public List<UserReview> GetReviewByMediaId(int mediaId) //Old code that does work
+    {
+      List<UserReview> Reviews = _popContext.Reviews
+        .Where(x => x.MediaId == mediaId)
+        .ToList();
+      return Reviews;
+    }
 
     // public List<UserReview> GetReviewByMovieId(int movieId)
     // {
     //   List<UserReview> Reviews = _popContext.Reviews
     //     .Where(x => x.MediaId == movieId)
-    //     .ToList();
-    //   return Reviews;
-    // }
-
-    // public List<UserReview> GetReviewByShowId(int showId)
-    // {
-    //   // showId = UserReview.Show._id;
-    //   // int show = GetShowById(UserReview.Show._id).FirstOrDefault(x => x._id == showId); ;
-      
-    //   List<UserReview> Reviews = _popContext.Reviews
-    //     .Where(x => x.MediaId == showId)
-    //     // .Where(x => x.Show ==)
     //     .ToList();
     //   return Reviews;
     // }

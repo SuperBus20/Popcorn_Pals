@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./media.component.css'],
 })
 export class MediaComponent {
+  displayReview: boolean = false;
   constructor(private api: ApiService, private http: HttpClient, 
     private route: Router) {}
   // ngOnInit(): void {
@@ -63,17 +64,12 @@ export class MediaComponent {
     this.selectedMedia=false;
   }
 
-  setMediaTypeStuff(mediatypestuff: any) {
-    this.api.setMediaTypeStuff(mediatypestuff); //testing
-  }
-
   selectId(mediaId:number, mediaType:string) {
     if(mediaType==="movie")
     {
       this.selectedMedia=true;
        this.api.getMovieByID(mediaId).subscribe((response) => {
         this.selectedMovie = response;
-        this.setMediaTypeStuff("movie")
       });
       this.selectedMedia=true;
     }
@@ -82,9 +78,19 @@ export class MediaComponent {
       this.selectedMedia=true;
       this.api.getShowByID(mediaId).subscribe((response) => {
         this.selectedShow = response;
-        this.setMediaTypeStuff("show")
       });
       this.selectedMedia=true;
+    }
+  }
+
+  onPress() {
+    if(this.displayReview == true)
+    {
+      this.displayReview = false
+    }
+    else
+    {
+      this.displayReview = true
     }
   }
 

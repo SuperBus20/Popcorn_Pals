@@ -34,10 +34,40 @@ namespace Popcorn_Pals.Services
       return _popcornRepository.AddMovieReview(reviewToAdd);
     }
 
-    // public UserReview AddShowReview(int userId, int mediaId, string review, int rating)
+    public UserReview AddShowReview(int userId, int mediaId, string review, int rating)
+    {
+      Show? showToReview = _rapidApiService.GetShowById(mediaId).FirstOrDefault(x => x._id == mediaId);
+      UserReview reviewToAdd = new UserReview()
+      {
+        UserId = userId,
+        MediaId = showToReview._id,
+        Show = showToReview,
+        Review = review,
+        Rating = rating
+      };
+
+      _popcornRepository.AddShowReview(reviewToAdd);
+      return reviewToAdd;
+    }
+
+    public List <UserReview> GetAllReviews()
+    {
+        return _popcornRepository.GetAllReviews();
+    }
+    public List <UserReview> GetReviewByReviewId(int reviewId)
+    {
+        return _popcornRepository.GetReviewsByUserId(reviewId);
+    }
+
+    public List <UserReview> GetReviewsByUserId(int userId)
+    {
+        return _popcornRepository.GetReviewsByUserId(userId);
+    }
+
+    // public UserReview EditReview(int reviewId)
     // {
-    //   Show? showToReview = _rapidApiService.GetShowById(mediaId).FirstOrDefault(x => x._id == mediaId);
-    //   UserReview reviewToAdd = new UserReview()
+
+    //   UserReview reviewToEdit = _rapidApiService.GetReviewByReviewId(int );
     //   {
     //     UserId = userId,
     //     MediaId = showToReview._id,
@@ -48,54 +78,13 @@ namespace Popcorn_Pals.Services
 
     //   _popcornRepository.AddShowReview(reviewToAdd);
     //   return reviewToAdd;
+    //   return _popcornRepository.DeleteReview(reviewId);
     // }
 
-    public List <UserReview> GetAllReviews()
+    public UserReview DeleteReview(int reviewId)
     {
-        return _popcornRepository.GetAllReviews();
+      return _popcornRepository.DeleteReview(reviewId);
     }
-
-    // public UserReview GetReviewByReviewId(int reviewId)
-    // {
-    //   return _popcornRepository.GetReviewByReviewId();
-    // }
-
-    // public UserReview EditShowReview (int userId, int mediaId, string review, int rating)
-    // {
-    //   Show? showReviewToEdit = _rapidApiService.GetShowById(mediaId).FirstOrDefault(x => x._id == mediaId);
-    //   UserReview showReviewToEdit = new UserReview()
-    //   {
-    //     Review = review,
-    //     Rating = rating
-    //   };
-    //   _popcornRepository.EditShowReview(showReviewToEdit);
-    //   return showReviewToEdit;
-    // }
-
-    // public UserReview DeleteShowReview(int userId, int mediaId, string review, int rating)
-    // {
-      
-    // }
-
-    // public UserReview EditMovieReview(int userId, int mediaId, string review, int rating)
-    // {
-
-    // }
-
-    // public UserReview DeleteMovieReview(int userId, int mediaId, string review, int rating)
-    // {
-
-    // }
-
-    // public UserReview GetReviewByMediaId(int mediaId)
-    // {
-
-    // }
-
-    // public UserReview GetReviewByUserId(int userId)
-    // {
-
-    // }
 
   }
 }
