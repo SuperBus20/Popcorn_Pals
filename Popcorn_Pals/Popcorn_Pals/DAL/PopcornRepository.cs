@@ -111,41 +111,34 @@ namespace Popcorn_Pals.DAL
       return Reviews;
     }
 
+    public bool movieReviewedByUser(int userId, int mediaId)
+    {
+      List <UserReview> test = GetReviewsByUserId(userId)
+        .Where(x => x.UserId == userId && x.MediaId == mediaId)
+        .Where(x => x.MovieId == mediaId)
+        .ToList();
+
+      return test.Count > 0; // >0 = true/MovieIsReviewed
+    }
+
+    public bool showReviewedByUser(int userId, int mediaId)
+    {
+      List <UserReview> test = GetReviewsByUserId(userId)
+        .Where(x => x.UserId == userId && x.MediaId == mediaId)
+        .Where(x => x.ShowId == mediaId)
+        .ToList();
+
+      return test.Count > 0; // >0 = true/ShowIsReviewed
+    }
+
     // public int GetReviewId (int mediaId, int userId, int ShowId)
     // {
     //   List<UserReview> Reviews = _popContext.Reviews
-    //   Movie
-
     //     .Where(x => x.MediaId == mediaId)
-    //     .Where(x => x.ShowId == Show._id)
-      
+    //     .Where(x => x.Show._id == null)
+    //     .Where()
 
     //   return IdOfReview;
-    // }
-
-    // public List<UserReview> GetReviewByMovieId(int movieId)
-    // {
-    //   List<UserReview> Reviews = _popContext.Reviews
-    //     .Where(x => x.MediaId == movieId)
-    //     .ToList();
-    //   return Reviews;
-    // }
-
-    // public UserReview GetMediaTypeById(int userId, int mediaId)
-    // {
-      
-    //   // UserReview reviews = _popContext.Reviews.FirstOrDefault(x => x.MediaId == mediaId);
-    //         UserReview reviews = _popContext.Reviews.FirstOrDefault(x => x.UserId == userId && x.Show._id == mediaId && x.Movie._id == null);
-    //         if(reviews == null)
-    //         {
-    //          List<UserReview> testReviews = _popContext.Reviews.Where(x => x.UserId == userId && x.Movie._id == mediaId && x.Show._id == null).ToList();
-    //          Movie movieTest = _popContext.Movies.FirstOrDefault(x => x._id == mediaId);
-    //         // Movie showTest = _popContext.Show.FirstOrDefault(x => x._id == mediaId);
-
-    //          return testReviews;
-    //         }
-
-    //   return null;
     // }
 
     // Follow Methods //

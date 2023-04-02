@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from '../Interfaces/user';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { ApiService } from '../api.service';
-import { AnonymousSubject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'app-follow-user',

@@ -20,13 +20,10 @@ export class ApiService {
   popCornUri: string = 'https://localhost:7035/api/Popcorn/';
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
-
   loggedInUser: ILoggedInUser | null = null;
   userToView: IUser | null = null;
 
   loggedInEvent = new EventEmitter<ILoggedInUser>
-
-  // User //
 
    // User //
    createUser(user: IUser) {
@@ -68,7 +65,7 @@ export class ApiService {
   }
 
   updateProfile(userToUpdate: IUser) {
-    let userId = userToUpdate.userId;
+    let userId = this.loggedInUser;
     let userName = userToUpdate.userName;
     let password = userToUpdate.password;
     let userRating = userToUpdate.UserRating;
@@ -214,6 +211,11 @@ export class ApiService {
 
 
   // Review //
+  
+  isReviewedByUser(userId:number, mediaid: number) {
+   return this.http.get(this.userURI + `IsReviewedByUser?=${userId}&mediaid=${mediaid}`, {}).subscribe(() => { Response });
+  }
+  
   addMovieReview(movieReview: IUserReview) {
     let userId = movieReview.userId;
     let movieId = movieReview.MediaId;
@@ -244,6 +246,38 @@ export class ApiService {
       .subscribe(() => { });
   }
 
+  editMovieReview(movieReview: IUserReview) {
+    let userId = movieReview.userId;
+    let movieId = movieReview.MediaId;
+    let review = movieReview.Review;
+    let rating = movieReview.Rating;
+    return this.http
+      .post<IUserReview>(
+        this.movieReview +
+        `EditMovieReview?userId=${userId}&movieId=${movieId}&review=${review}&rating=${rating}`,
+        movieReview
+      )
+      .subscribe(() => {
+        Response;
+      });
+  }
+
+  editShowReview(showReview: IUserReview) {
+    let userId = showReview.userId;
+    let showId = showReview.MediaId;
+    let review = showReview.Review;
+    let rating = showReview.Rating;
+    return this.http
+      .post<IUserReview>(
+        this.showReview +
+        `EditShowReview?userId=${userId}&movieId=${showId}&review=${review}&rating=${rating}`,
+        showReview
+      )
+      .subscribe(() => {
+        Response;
+      });
+  }
+
   getAllReviews() {
     return this.http.get<IUserReview>(
       this.userURI + `GetAllReviews`
@@ -257,8 +291,8 @@ export class ApiService {
   }
 
   getReviewByUserId(userId: number) {
-    return this.http.get<IUserReview>(
-      this.userURI + `GetReviewByUserId?userId=${userId}`
+    return this.http.get(
+      this.userURI + `GetReviewsByUserId?userId=10`
     );
   }
 
@@ -268,14 +302,7 @@ export class ApiService {
     );
   }
 
-  // getReviewId(getReviewId: IUserReview){
-  
-    
-  // }
 
-  // deleteReview(deleteReview: IUserReview){
-  //   get
-  // }
 
   
   // Follow //

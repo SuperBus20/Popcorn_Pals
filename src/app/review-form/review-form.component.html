@@ -20,13 +20,27 @@
   <h1>Add Show Review</h1>
     <form #newShowReview="ngForm" (ngSubmit)="addShowReview(newShowReview)">
  
-      <label for="reviewText">Review:</label>
-      <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
-
       <label for="userRating">Rating:</label>
-      <input class="w3-input" type="number" id="rating" name="Rating" [(ngModel)]="Rating">
+      <input class="w3-input" type="number" id="rating" name="Rating" [(ngModel)]="Rating" required>
 
-      <button class="w3-button w3-blue-grey" type="submit">Add My Review</button>
+      <label for="reviewText">Review:</label>
+      <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review">
+
+      <button class="w3-button w3-blue-grey" type="submit">Submit Review</button>
     </form>
 </ng-template>
-  
+
+<!-- <ng-template #editReview>
+  <h1>Edit Review</h1>
+  <form #editReview="ngForm" (ngSubmit)="editMediaReview(editReview)">
+ 
+    <label for="userRating">Rating:</label>
+    <input class="w3-input" type="number" id="rating" name="Rating" [(ngModel)]="Rating">
+    
+    <label for="reviewText">Review:</label>
+    <input class="w3-input" type="text" id="review" name="Review" placeholder="{{}}" [(ngModel)]="Review">
+
+    <button class="w3-button w3-blue-grey" type="submit">Submit Edits</button>
+  </form>
+</ng-template>
+   -->

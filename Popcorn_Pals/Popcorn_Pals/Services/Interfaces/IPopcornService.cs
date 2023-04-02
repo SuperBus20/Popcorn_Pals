@@ -13,6 +13,7 @@ namespace Popcorn_Pals.Services.Interfaces
     UserReview AddShowReview(int userId, int showId, string review, int rating);
     //UserReview GetReviewByReviewId(int reviewId);
     List <UserReview> GetAllReviews();
+    
     // List <UserReview> GetReviewsByUserId(int userId);
     // UserReview EditReview(string review, int rating);
     //void DeleteReview(UserReview deleteReview);

@@ -1,1 +1,20 @@
-<p>review-detail works!</p>
+<br>
+<br>
+<!-- id
+mediaId
+rating
+review
+userId -->
+
+<h1>My Reviews</h1>
+
+<tbody>
+    <tr *ngFor="let detail of reviewstest">
+
+        <td>{{detail.id}}</td>
+        <td>{{detail.rating}}</td>
+        <td>{{detail.review}}</td>
+        <td>{{detail.userId}}</td>
+
+    </tr>
+</tbody>

@@ -4,12 +4,17 @@ import { FollowUserComponent } from './follow-user/follow-user.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { ReviewFormComponent } from './review-form/review-form.component';
+import { ReviewDetailComponent } from './review-detail/review-detail.component';
 
 const routes: Routes = [
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'view-user', component: ViewUserComponent },
   { path: 'follow-user', component: FollowUserComponent },
-  { path: 'app-reviews/:movieId', component: ReviewFormComponent }, //
+  { path: 'app-reviews/:movieId', component: ReviewFormComponent },
+  { path: 'app-reviews/:showId', component: ReviewFormComponent },
+  { path: 'app-review-detail/:movieId', component: ReviewDetailComponent },
+  { path: 'app-review-detail/:showId', component: ReviewDetailComponent },
+  { path: 'app-review-detail/', component: ReviewDetailComponent }
 ];
 
 @NgModule({

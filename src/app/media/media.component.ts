@@ -94,7 +94,7 @@ export class MediaComponent {
     }
   }
   
-  // Add a Review 
+  // Add Review // - Directs user to review form when viewing media
   goToMovieReviewForm(movieId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([

@@ -1,5 +1,7 @@
 <!-- Page Container -->
 <div *ngIf="loggedInUser">
+  <app-review-detail></app-review-detail>
+
   <div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
     <!-- The Grid -->
     <div class="w3-row">
@@ -30,13 +32,13 @@
             <!-- Trigger/Open the Modal -->
             <div class="w3-button w3-block w3-theme-l1 w3-left-align">
               <i class="fa fa-cog fa-fw w3-margin-right"></i>Followers
-          </div>
+            </div>
 
             <!-- Followers Component -->
             <div id="id_followers" class="w3-card w3-round">
-                <div class="w3-container w3-blue-grey">
-                  <app-follow-user></app-follow-user>
-                </div>
+              <div class="w3-container w3-blue-grey">
+                <app-follow-user></app-follow-user>
+              </div>
             </div>
 
             <!-- Trigger/Open the Modal -->
