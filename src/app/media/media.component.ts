@@ -69,7 +69,6 @@ export class MediaComponent {
 
 
   selectId(mediaId:number, mediaType:string) {
-
     if(mediaType==="movie")
     {
       this.selectedShow=null;
@@ -80,7 +79,7 @@ export class MediaComponent {
       this.api.isFavoritedMovie(this.selectedMovie._id).subscribe((x) => {this.isFavorite=x
       });
     }
-    if(mediaType==="show")
+    else if(mediaType==="show")
     {
       this.selectedMovie=null;
       this.selectedMedia=true;
