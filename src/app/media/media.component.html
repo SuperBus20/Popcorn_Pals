@@ -1,153 +1,170 @@
-<form #searchForm="ngForm" (ngSubmit)="searchMedia(searchForm)">
-  <label for="searchString">Search Title:</label>
-  <input
-    class="w3-input"
-    type="text"
-    id="searchString"
-    name="searchString"
-    placeholder="Title"
-    [(ngModel)]="searchString"
-    required
-  />
+<div class="modal--media">
+  <form #searchForm="ngForm" (ngSubmit)="searchMedia(searchForm)">
+    <label for="searchString">Search Title:</label>
+    <input
+      class="w3-input"
+      type="text"
+      id="searchString"
+      name="searchString"
+      placeholder="Title"
+      [(ngModel)]="searchString"
+      required
+    />
 
-  <!-- <label for="searchType">Search Type:</label> -->
-  <!-- <input type="text" id="searchType" name="searchType" [(ngModel)]="searchType" required> -->
-  <select class="w3-input" name="searchType" ngModel>
-    <option value="">--Type--</option>
-    <option value="movie">Movie</option>
-    <option value="show">TV Show</option>
-  </select>
+    <!-- <label for="searchType">Search Type:</label> -->
+    <!-- <input type="text" id="searchType" name="searchType" [(ngModel)]="searchType" required> -->
+    <label>Select Type:</label>
+    <select class="w3-input" name="searchType" ngModel>
+      <option value="">--Type--</option>
+      <option value="movie">Movie</option>
+      <option value="show">TV Show</option>
+    </select>
 
-  <button class="w3-button w3-blue-grey" type="submit">Search</button>
-</form>
+    <button class="button" type="submit">Search</button>
+  </form>
 
-<!-- <p *ngIf="loggedInUser">{{loggedInUser.User.userId}}</p > test to see if userId was passing through -->
+  <!-- <p *ngIf="loggedInUser">{{loggedInUser.User.userId}}</p > test to see if userId was passing through -->
 
-
-
-<div *ngIf="!selectedMedia">
-  <h2>Search Results</h2>
-  <ng-container *ngIf="isMovie">
-    <ul>
-      <li *ngFor="let result of movieResults">
-        <!-- <h3 class="title" (click)="selectMovieId(result._id)">
-          {{ result.title }}
-        </h3> -->
-         <h5 class="title" (click)="selectId(result._id, result.type)">
-        {{ result.title }}
-        </h5>
-      </li>
-    </ul>
-  </ng-container>
-
-  <ng-container *ngIf="isShow">
-    <ul>
-      <li *ngFor="let result of showResults">
-        <!-- <h3 class="title" (click)="selectShowId(result._id)">
-          {{ result.title }}
-        </h3> -->
-        <h5 class="title" (click)="selectId(result._id, result.type)">
-          {{ result.title }}
-        </h5>
-      </li>
-    </ul>
-  </ng-container>
-</div>
-
-<div *ngIf="selectedMedia">
-
-  <div *ngIf="selectedMovie">
-    <div *ngFor="let info of selectedMovie">
-      <h3>
-        {{ info.title }}
-        <!-- <button (click)="favoriteMovieClicked()">add to favorites</button> -->
-        <button *ngIf="!isFavorite"
-          class="w3-button w3-blue-grey"
-          (click)="addFavoriteMovie(info._id)"
-        >
-          add to favorites
-        </button>
-        <button *ngIf="isFavorite"
-        class="w3-button w3-blue-grey"
-        (click)="removeFavoriteMovie(info._id)"
-      >
-        remove favorites
-      </button>
-      </h3>
+  <div class="media-result-lists" *ngIf="!selectedMedia">
+    <h2>Search Results</h2>
+    <ng-container *ngIf="isMovie">
       <ul>
-        <p>id: {{ info._id }}</p>
-        <p>overview: {{ info.overview }}</p>
-        <p>
-
-          <img
-            src="https://image.tmdb.org/t/p/original{{ info.poster_path }}"
-            width="500"
-            height="600"
-          />
-        </p>
-        <p>Genre: {{ info.genres }}</p>
-        <p>Release Date: {{ info.release_date }}</p>
-        <p>
-          <youtube-player
-          videoId="{{ info.youtube_trailer }}"
-          suggestedQuality="highres"
-          [height]="250"
-          [width]="500"
-          >
-        </youtube-player>
-
-      </p>
-        <p>Sources:</p>
-        <div *ngFor="let source of info.sources">
-          <ul>
-            <li>
-              {{ source.source }}: <a href="{{ source.link }}">link</a> type:
-              {{ source.type }}
-            </li>
-          </ul>
-        </div>
+        <li *ngFor="let result of movieResults">
+          <!-- <h3 class="title" (click)="selectMovieId(result._id)">
+            {{ result.title }}
+          </h3> -->
+          <h5 class="title" (click)="selectId(result._id, result.type)">
+            {{ result.title }}
+          </h5>
+        </li>
       </ul>
-    </div>
+    </ng-container>
+
+    <ng-container *ngIf="isShow">
+      <ul>
+        <li *ngFor="let result of showResults">
+          <!-- <h3 class="title" (click)="selectShowId(result._id)">
+            {{ result.title }}
+          </h3> -->
+          <h5 class="title" (click)="selectId(result._id, result.type)">
+            {{ result.title }}
+          </h5>
+        </li>
+      </ul>
+    </ng-container>
   </div>
 
-  <div *ngIf="selectedShow">
-    <div *ngFor="let info of selectedShow">
-      <h3>{{ info.title }}</h3>
-      <button
-        class="w3-button w3-blue-grey"
-        (click)="addFavoriteShow(info._id)"
-      >
-        add to favorites
-      </button>
-      <p class="w3-theme-blue-grey">overview: {{ info.overview }}</p>
-      <p>
+  <div *ngIf="selectedMedia">
+    <div *ngIf="selectedMovie">
+      <div class="media-section" *ngFor="let info of selectedMovie">
+        <div class="media-section-title">
+          <h1>{{ info.title }}</h1>
+          <!-- <button (click)="favoriteMovieClicked()">add to favorites</button> -->
+          <div class="media-result-buttons">
+            <button
+              *ngIf="!isFavorite"
+              class="w3-button w3-blue-grey"
+              (click)="addFavoriteMovie(info._id)"
+            >
+              add to favorites
+            </button>
+            <button
+              *ngIf="isFavorite"
+              class="w3-button w3-blue-grey"
+              (click)="removeFavoriteMovie(info._id)"
+            >
+              remove favorites
+            </button>
+          </div>
+        </div>
 
-        <img
-          src="https://image.tmdb.org/t/p/original{{ info.poster_path }}"
-          width="500"
-          height="600"
-        />
-      </p>
-      <p>Genre: {{ info.genres }}</p>
-      <p>First Aired: {{ info.first_aired }}</p>
-      <p>
-        <youtube-player
-        videoId="{{ info.youtube_trailer }}"
-        suggestedQuality="highres"
-        [height]="250"
-        [width]="500"
-        >
-      </youtube-player>
-      </p>
-      <p>Sources:</p>
-      <div *ngFor="let source of info.sources">
-        <p>
-          {{ source.source }}: <a href="{{ source.link }}">link</a> <br />
-          type: {{ source.type }}
-        </p>
+        <div>
+          <p>{{ info.overview }}</p>
+          <p><strong>Genre:</strong> {{ info.genres }}</p>
+          <p><strong>Release Date:</strong> {{ info.release_date }}</p>
+
+          <div class="media-image-video-section">
+            <div class="media-image">
+              <img
+                src="https://image.tmdb.org/t/p/original{{ info.poster_path }}"
+              />
+            </div>
+            <div class="youtube-container">
+              <youtube-player
+                videoId="{{ info.youtube_trailer }}"
+                suggestedQuality="highres"
+                [height]="250"
+                [width]="400"
+              >
+              </youtube-player>
+            </div>
+          </div>
+
+          <div class="media-sources">
+            <p><strong>Sources:</strong></p>
+            <div class="sources-link" *ngFor="let source of info.sources">
+              <a href="{{ source.link }}">{{ source.source }}</a>
+              <p>Type: {{ source.type }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedShow">
+      <div class="media-section" *ngFor="let info of selectedShow">
+        <div class="media-section-title">
+          <h1>{{ info.title }}</h1>
+          <!-- <button (click)="favoriteMovieClicked()">add to favorites</button> -->
+          <div class="media-result-buttons">
+            <button
+              *ngIf="!isFavorite"
+              class="w3-button w3-blue-grey"
+              (click)="addFavoriteMovie(info._id)"
+            >
+              add to favorites
+            </button>
+            <button
+              *ngIf="isFavorite"
+              class="w3-button w3-blue-grey"
+              (click)="removeFavoriteMovie(info._id)"
+            >
+              remove favorites
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <p>{{ info.overview }}</p>
+          <p><strong>Genre:</strong> {{ info.genres }}</p>
+          <p><strong>First Aired:</strong> {{ info.first_aired }}</p>
+
+          <div class="media-image-video-section">
+            <div class="media-image">
+              <img
+                src="https://image.tmdb.org/t/p/original{{ info.poster_path }}"
+              />
+            </div>
+            <div class="youtube-container">
+              <youtube-player
+                videoId="{{ info.youtube_trailer }}"
+                suggestedQuality="highres"
+                [height]="250"
+                [width]="400"
+              >
+              </youtube-player>
+            </div>
+          </div>
+
+          <div class="media-sources">
+            <p><strong>Sources:</strong></p>
+            <div class="sources-link" *ngFor="let source of info.sources">
+              <a href="{{ source.link }}">{{ source.source }}</a>
+              <p>Type: {{ source.type }}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
 </div>
-
