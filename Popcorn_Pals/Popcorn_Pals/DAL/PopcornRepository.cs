@@ -117,10 +117,12 @@ namespace Popcorn_Pals.DAL
     // Follow Methods //
     public List<Follow> GetAllFollowers(int userId)
     {
+      Console.WriteLine($"Getting followers for user {userId}");
       List<Follow> Followers = _popContext.Follows
         .Where(x => x.UserId == userId)
         .Where(x => x.FollowerId != null)
         .ToList();
+      Console.WriteLine($"Found {Followers.Count} followers");
       return Followers;
     }
 
