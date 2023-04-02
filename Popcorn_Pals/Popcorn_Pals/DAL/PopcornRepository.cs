@@ -219,7 +219,7 @@ namespace Popcorn_Pals.DAL
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = "189fbabb5dmshe3d061efb217ed0p19915ejsn9277f75d8db4"
+        x_rapidapi_key = "5dfae757d8msh26442d91e335f48p1d7b4ajsn4a6d56083c3d"
 
       }).GetJsonAsync<List<Movie>>();
       apiTask.Wait();
@@ -274,7 +274,7 @@ namespace Popcorn_Pals.DAL
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
 
-        x_rapidapi_key = "4c13f6f778msh119473f4e6fc2f0p1dd729jsne6e01423ff10"
+        x_rapidapi_key = "5dfae757d8msh26442d91e335f48p1d7b4ajsn4a6d56083c3d"
 
       }).GetJsonAsync<List<Show>>();
       apiTask.Wait();
@@ -300,6 +300,22 @@ namespace Popcorn_Pals.DAL
         return null;
       }
       return favorites;
+    }
+    public async Task<bool> IsFavoritedMovie(int userId, int movieId)
+    {
+      // check if item is favorited for user in database
+      var favorite = await _popContext.Favorites
+          .SingleOrDefaultAsync(x => x.UserId == userId && x.MovieId == movieId);
+
+      return favorite != null;
+    }
+    public async Task<bool> IsFavoritedShow(int userId, int showId)
+    {
+      // check if item is favorited for user in database
+      var favorite = await _popContext.Favorites
+          .SingleOrDefaultAsync(x => x.UserId == userId && x.ShowId == showId);
+
+      return favorite != null;
     }
 
     public bool DeleteFavoriteMovieById(int userId, int mediaId)

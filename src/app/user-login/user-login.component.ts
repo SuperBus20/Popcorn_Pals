@@ -19,9 +19,9 @@ export class UserLoginComponent implements OnInit {
   static onLogout() {
     throw new Error('Method not implemented.');
   }
-  id: number = 0;
-  @Input() userName: string = '';
-  @Input() password: string = '';
+  // id: number = 0;
+  // @Input() userName: string = '';
+  // @Input() password: string = '';
 
   loginError: boolean = false;
   errorMessage: string = '';
@@ -89,14 +89,14 @@ export class UserLoginComponent implements OnInit {
   newUser(form: NgForm) {
     const name = form.form.value.userName;
     const pass = form.form.value.password;
-  
+
     if (!name || !pass) {
       this.clearForm(form);
       this.loginError = true;
       this.errorMessage = '';
       return;
     }
-  
+
     const userExists = this.users.some((x) => x.userName === name);
     if (userExists) {
       this.errorMessage = 'That username already exists.';
@@ -104,7 +104,7 @@ export class UserLoginComponent implements OnInit {
       this.clearForm(form);
       return;
     }
-  
+
     this.api.createUser({
       userName: name,
       password: pass,
@@ -113,7 +113,7 @@ export class UserLoginComponent implements OnInit {
       userPic: '',
       userBio: '',
     });
-  
+
     this.api.setUser({
       userName: name,
       password: pass,
@@ -124,7 +124,7 @@ export class UserLoginComponent implements OnInit {
     }); // passing the currently logged in user back to service so it is globally available, has to be done this way...
 
   }
-  
+
 
   ngOnInit(): void {
     this.api.getAllUsers().subscribe((x) => (this.users = x));

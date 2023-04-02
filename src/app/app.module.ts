@@ -14,6 +14,7 @@ import { SearchUserComponent } from './search-user/search-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { ApiService } from './api.service';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ApiService } from './api.service';
     UserUpdateComponent,
     SearchUserComponent,
     ViewUserComponent,
-    FavoriteComponent
+    FavoriteComponent,
+
 
 
   ],
@@ -37,6 +39,7 @@ import { ApiService } from './api.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    YouTubePlayerModule,
     FormsModule
   ],
 
