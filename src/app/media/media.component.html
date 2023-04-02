@@ -55,7 +55,7 @@
         <button class="w3-button w3-blue-grey" (click)="onPress()"> Add Review</button>
 
         <div id="comp-render" *ngIf="displayReview">
-            <app-reviews 
+            <app-review-form 
               [mediaId]="info._id"
               [selectedMovie]="selectedMovie"
               [selectedShow]="selectedShow"
@@ -63,7 +63,7 @@
               [isMovie]="isMovie"
 
             >
-            </app-reviews>
+            </app-review-form>
         </div>
       </h3>
       

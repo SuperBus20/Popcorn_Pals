@@ -7,12 +7,12 @@ import { NgForm } from '@angular/forms';
 import { IMovie, IShow } from '../Interfaces/Media';
 
 @Component({
-  selector: 'app-reviews',
-  templateUrl: './reviews.component.html',
-  styleUrls: ['./reviews.component.css']
+  selector: 'app-review-form',
+  templateUrl: './review-form.component.html',
+  styleUrls: ['./review-form.component.css']
 })
 
-export class ReviewsComponent {
+export class ReviewFormComponent {
 
   @Input() mediaId: any;
   @Input() selectedMovie: any;

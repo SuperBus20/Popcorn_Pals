@@ -98,14 +98,14 @@ export class MediaComponent {
   goToMovieReviewForm(movieId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-reviews/', movieId, userId, 
+      '/app-review-form/', movieId, userId, 
     ])
   }
 
   goToShowReviewForm(showId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-reviews/', showId, userId, 
+      '/app-review-form/', showId, userId, 
     ])
   }
 
