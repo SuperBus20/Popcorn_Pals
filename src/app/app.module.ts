@@ -15,6 +15,9 @@ import { ViewUserComponent } from './view-user/view-user.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { ApiService } from './api.service';
 import { ReviewDetailComponent } from './review-detail/review-detail.component';
+import { StarReviewComponent } from './star-review/star-review.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -30,16 +33,17 @@ import { ReviewDetailComponent } from './review-detail/review-detail.component';
     SearchUserComponent,
     ViewUserComponent,
     FavoriteComponent,
-    ReviewDetailComponent
-
-
+    ReviewDetailComponent,
+    StarReviewComponent
   ],
 
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatIconModule,
+    MatButtonModule
   ],
 
   providers: [ApiService],
