@@ -219,7 +219,7 @@ namespace Popcorn_Pals.DAL
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = "4c13f6f778msh119473f4e6fc2f0p1dd729jsne6e01423ff10"
+        x_rapidapi_key = "189fbabb5dmshe3d061efb217ed0p19915ejsn9277f75d8db4"
 
       }).GetJsonAsync<List<Movie>>();
       apiTask.Wait();

@@ -15,10 +15,10 @@ export class MediaComponent {
   // ngOnInit(): void {
   // }
 
-  @Input() movie: IMovie | null = null;
-  @Input() show: IShow | null = null;
-  loggedInUser: ILoggedInUser | null = this.api.loggedInUser;
-  @Input() index: number = 0;
+  movie: IMovie | null = null;
+  show: IShow | null = null;
+  loggedInUser: ILoggedInUser | null = null;
+
   @Output() clicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   searchString!: string;
   searchType!: string;
@@ -63,7 +63,7 @@ export class MediaComponent {
 
 
   selectId(mediaId:number, mediaType:string) {
-    if(mediaType="movie")
+    if(mediaType==="movie")
     {
       this.selectedMedia=true;
        this.api.getMovieByID(mediaId).subscribe((response) => {
@@ -71,7 +71,7 @@ export class MediaComponent {
       });
       this.selectedMedia=true;
     }
-    if(mediaType="show")
+    else if(mediaType==="show")
     {
       this.selectedMedia=true;
       this.api.getShowByID(mediaId).subscribe((response) => {
@@ -85,31 +85,7 @@ export class MediaComponent {
 
 
 
-  // selectMovieId(mediaId: number) {
-  //     this.api.getMovieByID(mediaId).subscribe((response) => {
-  //       this.selectedMovie = response;
-  //     });
-  // }
 
-  // selectShowId(mediaId: number) {
-  //     this.api.getShowByID(mediaId).subscribe((response) => {
-  //       this.selectedShow = response;
-  //     });
-  //   }
-    // this.http.get<IMovie>(this.api.popCornUri+`movie?_id=${movieId}`)
-    // .subscribe(response => {
-    //   this.selectedMedia = response;
-    // });
-    // this.selectedMedia=movieId;
-    // console.log(this.selectedMedia);
-
-
-  // favoriteMovieClicked() {
-  //   this.movie = this.movie as IMovie
-  //   this.api.selectFavoriteMovie(this.movie._id);
-  //   return this.clicked.emit(true);
-
-  // }
   favoriteShowClicked() {
     this.show = this.show as IShow;
     this.api.selectFavoriteShow(this.show._id);
