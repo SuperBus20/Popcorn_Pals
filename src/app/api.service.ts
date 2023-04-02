@@ -26,113 +26,10 @@ export class ApiService {
 
   loggedInEvent = new EventEmitter<ILoggedInUser>
 
-  setMediaTypeStuff(mediatypestuff: any) { //testing
-    this.mediatypestuff.next(this.mediatypestuff);
-  }
-
-  // Media //
-  selectFavoriteMovie(movieId: number) {
-    let userId = -1;
-    let user = this.loggedInUser as ILoggedInUser;
-    if (user) {
-      userId = user.User.userId;
-      let favorites = user.FavoriteMovies;
-      let movie = favorites.filter((x) => x._id === movieId)[0];
-      let indexNumber = favorites.indexOf(movie);
-      let length = favorites.length;
-      if (user.FavoriteMovies.some((x) => x._id === movieId)) {
-        favorites = favorites
-          .slice(0, Math.abs(indexNumber))
-          .concat(favorites.slice(-Math.abs(length - indexNumber)));
-        this.removeFavoriteMovie(userId, movieId);
-      } else {
-        this.http
-          .post<IMovie>(
-            this.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
-            {}
-          )
-          .subscribe((x) => {
-            if (x) {
-              this.setUser(user.User);
-              return this.onComponentLoad();
-            }
-          });
-      }
-    }
-  }
-
-
-  // Favorite
-  removeFavoriteMovie(userId: number, movieId: number) {
-    return this.http
-      .post<boolean>(
-        this.userURI + `DeleteFavoriteMovie/${userId}/${movieId}`,
-        {}
-      )
-      .subscribe((x) => {
-        if (x) {
-          this.setUser(this.giveCurrentUser().User);
-          return this.onComponentLoad();
-        }
-      });
-  }
-
-  selectFavoriteShow(showId: number) {
-    let userId = -1;
-    let user = this.loggedInUser as ILoggedInUser;
-    if (user) {
-      userId = user.User.userId;
-      let favorites = user.FavoriteShows;
-      let show = favorites.filter((x) => x._id === showId)[0];
-      let indexNumber = favorites.indexOf(show);
-      let length = favorites.length;
-      if (user.FavoriteMovies.some((x) => x._id === showId)) {
-        favorites = favorites
-          .slice(0, Math.abs(indexNumber))
-          .concat(favorites.slice(-Math.abs(length - indexNumber)));
-        this.removeFavoriteShow(userId, showId);
-      } else {
-        this.http
-          .post<IMovie>(this.userURI + `FavoriteShow/${showId}/${userId}`, {})
-          .subscribe((x) => {
-            if (x) {
-              this.setUser(user.User);
-              return this.onComponentLoad();
-            }
-          });
-      }
-    }
-  }
-
-  removeFavoriteShow(userId: number, showId: number) {
-    return this.http.post<boolean>(this.userURI + `DeleteFavoriteShow/${userId}/${showId}`, {})
-      .subscribe(
-        (x) => {
-          if (x) {
-            this.setUser(this.giveCurrentUser().User)
-            return this.onComponentLoad();
-          }
-        })
-  }
-
-  getLoggedInUserFavoriteMovies(user: IUser): Observable<IMovie[]> {
-    return this.http.get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
-  }
-
-  getLoggedInUserFavoriteShows(user: IUser): Observable<IShow[]> {
-    return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
-  }
-
-  getMovieByID(media_id: number) {
-    return this.http.get<IMovie>(this.popCornUri + `movie?_id=${media_id}`);
-  }
-
-  getShowByID(media_id: number) {
-    return this.http.get<IShow>(this.popCornUri + `show?_id=${media_id}`);
-  }
-
   // User //
-  createUser(user: IUser) {
+
+   // User //
+   createUser(user: IUser) {
     // api call to add the newly registered user, only used by login component
     let userName = user.userName;
     let password = user.password;
@@ -209,23 +106,123 @@ export class ApiService {
     return this.loggedInUser as ILoggedInUser;
   }
 
-  getUserByName(userToSearch:string)
-  {
+  getUserByName(userToSearch:string) {
     return this.http.get<IUser[]>(this.userURI+`SearchUserByName/${userToSearch}`);
   }
 
 
 
-  /// Review //
+  // Favorite //
+  selectFavoriteMovie(movieId: number) {
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    if (user) {
+      userId = user.User.userId;
+      let favorites = user.FavoriteMovies;
+      let movie = favorites.filter((x) => x._id === movieId)[0];
+      let indexNumber = favorites.indexOf(movie);
+      let length = favorites.length;
+      if (user.FavoriteMovies.some((x) => x._id === movieId)) {
+        favorites = favorites
+          .slice(0, Math.abs(indexNumber))
+          .concat(favorites.slice(-Math.abs(length - indexNumber)));
+        this.removeFavoriteMovie(userId, movieId);
+      } else {
+        this.http
+          .post<IMovie>(
+            this.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
+            {}
+          )
+          .subscribe((x) => {
+            if (x) {
+              this.setUser(user.User);
+              return this.onComponentLoad();
+            }
+          });
+      }
+    }
+  }
+
+  removeFavoriteMovie(userId: number, movieId: number) {
+    return this.http
+      .post<boolean>(
+        this.userURI + `DeleteFavoriteMovie/${userId}/${movieId}`,
+        {}
+      )
+      .subscribe((x) => {
+        if (x) {
+          this.setUser(this.giveCurrentUser().User);
+          return this.onComponentLoad();
+        }
+      });
+  }
+
+  selectFavoriteShow(showId: number) {
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    if (user) {
+      userId = user.User.userId;
+      let favorites = user.FavoriteShows;
+      let show = favorites.filter((x) => x._id === showId)[0];
+      let indexNumber = favorites.indexOf(show);
+      let length = favorites.length;
+      if (user.FavoriteMovies.some((x) => x._id === showId)) {
+        favorites = favorites
+          .slice(0, Math.abs(indexNumber))
+          .concat(favorites.slice(-Math.abs(length - indexNumber)));
+        this.removeFavoriteShow(userId, showId);
+      } else {
+        this.http
+          .post<IMovie>(this.userURI + `FavoriteShow/${showId}/${userId}`, {})
+          .subscribe((x) => {
+            if (x) {
+              this.setUser(user.User);
+              return this.onComponentLoad();
+            }
+          });
+      }
+    }
+  }
+
+  removeFavoriteShow(userId: number, showId: number) {
+    return this.http.post<boolean>(this.userURI + `DeleteFavoriteShow/${userId}/${showId}`, {})
+      .subscribe(
+        (x) => {
+          if (x) {
+            this.setUser(this.giveCurrentUser().User)
+            return this.onComponentLoad();
+          }
+        })
+  }
+
+  getLoggedInUserFavoriteMovies(user: IUser): Observable<IMovie[]> {
+    return this.http.get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
+  }
+
+  getLoggedInUserFavoriteShows(user: IUser): Observable<IShow[]> {
+    return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
+  }
+
+  getMovieByID(media_id: number) {
+    return this.http.get<IMovie>(this.popCornUri + `movie?_id=${media_id}`);
+  }
+
+  getShowByID(media_id: number) {
+    return this.http.get<IShow>(this.popCornUri + `show?_id=${media_id}`);
+  }
+
+
+
+  // Review //
   addMovieReview(movieReview: IUserReview) {
     let userId = movieReview.userId;
-    let mediaId = movieReview.MediaId;
+    let movieId = movieReview.MediaId;
     let review = movieReview.Review;
     let rating = movieReview.Rating;
     return this.http
       .post<IUserReview>(
         this.movieReview +
-        `AddMovieReview?userId=${userId}&mediaId=${mediaId}&review=${review}&rating=${rating}`,
+        `AddMovieReview?userId=${userId}&movieId=${movieId}&review=${review}&rating=${rating}`,
         movieReview
       )
       .subscribe(() => {
@@ -271,8 +268,16 @@ export class ApiService {
     );
   }
 
+  // getReviewId(getReviewId: IUserReview){
+  
+    
+  // }
 
+  // deleteReview(deleteReview: IUserReview){
+  //   get
+  // }
 
+  
   // Follow //
   getFollowing(userId: number) {
     return this.http.post(this.userURI + `GetFollowing?userId=${userId}`, {});

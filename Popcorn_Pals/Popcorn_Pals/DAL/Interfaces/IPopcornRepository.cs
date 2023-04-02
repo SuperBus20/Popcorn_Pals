@@ -23,7 +23,7 @@ namespace Popcorn_Pals.DAL.Interfaces
     List<UserReview> GetAllReviews();
     List<UserReview> GetReviewsByUserId(int userId);
     UserReview GetReviewByReviewId(int id);
-    UserReview DeleteReview(int id);
+    //UserReview DeleteReview(int id);
     //UserReview EditReview(int id);
 
 

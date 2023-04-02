@@ -93,30 +93,27 @@ export class MediaComponent {
       this.displayReview = true
     }
   }
-
-  // goToMovieReviewForm(movieId: any) {
-  //   this.route.navigate([
-  //     '/app-reviews/', movieId
-  //   ])
-  // }
-  // navigate(url:string) {
-
-  //   window.open(url);
-  // }
-
   
+  // Add a Review 
   goToMovieReviewForm(movieId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
       '/app-reviews/', movieId, userId, 
     ])
   }
-  navigate(url:string) {
 
+  goToShowReviewForm(showId: any) {
+    let userId = this.loggedInUser;
+    this.route.navigate([
+      '/app-reviews/', showId, userId, 
+    ])
+  }
+
+  navigate(url:string) {
     window.open(url);
   }
-  
 
+  // Add as Favorite
   favoriteShowClicked() {
     this.show = this.show as IShow;
     this.api.selectFavoriteShow(this.show._id);
@@ -144,6 +141,7 @@ export class MediaComponent {
     //       }
     // });
   }
+
   addFavoriteShow(showId: Number) {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;

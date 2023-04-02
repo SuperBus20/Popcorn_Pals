@@ -54,10 +54,10 @@ namespace Popcorn_Pals.Services
     {
         return _popcornRepository.GetAllReviews();
     }
-    public List <UserReview> GetReviewByReviewId(int reviewId)
-    {
-        return _popcornRepository.GetReviewsByUserId(reviewId);
-    }
+    // public List <UserReview> GetReviewByReviewId(int reviewId)
+    // {
+    //     return _popcornRepository.GetReviewByReviewId(reviewId);
+    // }
 
     public List <UserReview> GetReviewsByUserId(int userId)
     {
@@ -81,10 +81,11 @@ namespace Popcorn_Pals.Services
     //   return _popcornRepository.DeleteReview(reviewId);
     // }
 
-    public UserReview DeleteReview(int reviewId)
-    {
-      return _popcornRepository.DeleteReview(reviewId);
-    }
+    // public void DeleteReview(UserReview reviewtoDelete)
+    // {
+    //   UserReview reviewToDelete = GetReviewByReviewId(.FirstOrDefault(x => x._id == mediaId);
+    //   return _popcornRepository.DeleteReview(reviewId);
+    // }
 
   }
 }

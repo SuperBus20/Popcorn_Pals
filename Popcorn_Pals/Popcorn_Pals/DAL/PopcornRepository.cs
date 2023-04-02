@@ -70,12 +70,12 @@ namespace Popcorn_Pals.DAL
       return reviewToAdd;
     }
 
-    public void DeleteReview(UserReview deleteReview)
-    {
-      UserReview reviewToDelete = GetReviewByReviewId(deleteReview.Id);
-      _popContext.Reviews.Remove(reviewToDelete);
-      _popContext.SaveChanges();
-    }
+    // public void DeleteReview(UserReview deleteReview)
+    // {
+    //   UserReview reviewToDelete = GetReviewByReviewId(deleteReview.Id);
+    //   _popContext.Reviews.Remove(reviewToDelete);
+    //   _popContext.SaveChanges();
+    // }
 
     public void EditReview(UserReview reviewToUpdate)
     {
@@ -103,7 +103,6 @@ namespace Popcorn_Pals.DAL
       return _popContext.Reviews.AsNoTracking().FirstOrDefault(x => x.Id == id);
     }
 
-
     public List<UserReview> GetReviewByMediaId(int mediaId) //Old code that does work
     {
       List<UserReview> Reviews = _popContext.Reviews
@@ -111,6 +110,18 @@ namespace Popcorn_Pals.DAL
         .ToList();
       return Reviews;
     }
+
+    // public int GetReviewId (int mediaId, int userId, int ShowId)
+    // {
+    //   List<UserReview> Reviews = _popContext.Reviews
+    //   Movie
+
+    //     .Where(x => x.MediaId == mediaId)
+    //     .Where(x => x.ShowId == Show._id)
+      
+
+    //   return IdOfReview;
+    // }
 
     // public List<UserReview> GetReviewByMovieId(int movieId)
     // {

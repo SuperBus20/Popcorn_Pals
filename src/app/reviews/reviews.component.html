@@ -1,9 +1,24 @@
-<!--
-  I have no idea what I'm doinggffdsfkjds
-  <div *ngIf="selectedShow">
-  <div *ngFor="let addShowReview of selectedShow">
-    <h3>{{selectedshow>.title }}</h3> -->
-   <form #newReview="ngForm" (ngSubmit)="addMovieReview(newReview)">
+<ng-template
+  *ngIf="isMovie == true; then loadMovieReviewForm else loadShowReviewForm"
+></ng-template>
+
+<ng-template #loadMovieReviewForm>
+ <h1>Add Movie Review</h1>
+  <form #newMovieReview="ngForm" (ngSubmit)="addMovieReview(newMovieReview)">
+ 
+      <label for="reviewText">Review:</label>
+      <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
+
+      <label for="userRating">Rating:</label>
+      <input class="w3-input" type="number" id="rating" name="Rating" [(ngModel)]="Rating">
+
+      <button class="w3-button w3-blue-grey" type="submit">Submit Review</button>
+    </form>
+</ng-template>
+
+<ng-template #loadShowReviewForm>
+  <h1>Add Show Review</h1>
+    <form #newShowReview="ngForm" (ngSubmit)="addShowReview(newShowReview)">
  
       <label for="reviewText">Review:</label>
       <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
@@ -13,15 +28,5 @@
 
       <button class="w3-button w3-blue-grey" type="submit">Add My Review</button>
     </form>
-<!-- 
-    *ngIf="selectedShow"
-    <form #newReview="ngForm" (ngSubmit)="addShowReview(newReview)">
- 
-      <label for="reviewText">Review:</label>
-      <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
-
-      <label for="userRating">Rating:</label>
-      <input class="w3-input" type="int" id="rating" name="userRating" [(ngModel)]="Rating">
-
-      <button class="w3-button w3-blue-grey" type="submit">Add My Review</button>
-    </form> -->
+</ng-template>
+  

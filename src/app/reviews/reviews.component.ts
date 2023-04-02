@@ -15,6 +15,10 @@ import { IMovie, IShow } from '../Interfaces/Media';
 export class ReviewsComponent {
 
   @Input() mediaId: any;
+  @Input() selectedMovie: any;
+  @Input() selectedShow: any;
+  @Input() isMovie: any;
+  @Input() isShow: any;
 
   constructor(private Api: ApiService) { }
 
@@ -22,31 +26,30 @@ export class ReviewsComponent {
   movieId: number = -1
   movie: IMovie | any;
   show: IShow | any;
-  // isMovie: boolean = false;
-  // isShow: boolean = false;
   loggedInUser: ILoggedInUser | undefined;
   Review: string = "" ;
   Rating: number = -1 ;
   Id: number = -1;
-
-  // selectedMovie!: any;
-  // selectedShow!: any;
-  // selectedMedia: boolean = false;
+  
 
   ngOnInit(): void {
     this.userId = this.Api.loggedInUser?.User.userId
+    console.log(this.selectedMovie)
+    console.log(this.selectedShow)
+    console.log(this.isMovie)
+    console.log(this.isShow)
   }
 
   // Adding Reviews //
   addMovieReview(form: NgForm) {
-    let user = this.loggedInUser as ILoggedInUser;
-    this.userId = user.User.userId;
+    console.log("testigfdafa")
+    console.log(this.userId)
     
     let newMovieReview: IUserReview = {
       userId: this.userId,
       Review: form.form.value.Review,
       Rating: form.form.value.Rating,
-      MediaId: this.movieId,
+      MediaId: this.mediaId,
     };
 
     this.Api.addMovieReview(newMovieReview)
@@ -86,21 +89,15 @@ export class ReviewsComponent {
   // }
 
 
-  // Delete Reviews //TODO: add this schtuff
-  deleteReview(reviewId: number) {
-    this.Api.getReviewByUserId(this.userId).subscribe();
+  // Delete Reviews
+  deleteReview(Id: number) {
+    this.Api.getReviewByUserId(this.Id).subscribe();
   }
-
 
   // Get Reviews //
   getAllReviews() {
     this.Api.getAllReviews().subscribe();
   }
-
-  // getReviewByMediaId(MediaId: number)
-  // {
-  //   this.Api.getReviewByMediaId(this.MediaId).subscribe();
-  // }
 
   getReviewByUserId(userId: number) {
     this.Api.getReviewByUserId(this.userId).subscribe();
