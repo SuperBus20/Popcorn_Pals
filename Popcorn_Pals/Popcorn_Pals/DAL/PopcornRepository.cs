@@ -117,10 +117,12 @@ namespace Popcorn_Pals.DAL
     // Follow Methods //
     public List<Follow> GetAllFollowers(int userId)
     {
+      Console.WriteLine($"Getting followers for user {userId}");
       List<Follow> Followers = _popContext.Follows
         .Where(x => x.UserId == userId)
         .Where(x => x.FollowerId != null)
         .ToList();
+      Console.WriteLine($"Found {Followers.Count} followers");
       return Followers;
     }
 
@@ -131,6 +133,28 @@ namespace Popcorn_Pals.DAL
         .Where(x => x.FollowingId != null)
         .ToList();
       return Followers;
+    }
+
+    public List<User> GetFollowersAsUsers(int userId)
+    {
+      List<User> usersToReturn = new List<User>();
+      var followerIds = GetAllFollowers(userId).ToList();
+      foreach (var follower in followerIds)
+      {
+        usersToReturn.Add(GetUserById((int)follower.FollowerId));
+      }
+      return usersToReturn;
+    }
+
+    public List<User> GetFollowingAsUsers(int userId)
+    {
+      List<User> usersToReturn = new List<User>();
+      var followingIds = GetAllFollowing(userId).ToList();
+      foreach (var following in followingIds)
+      {
+        usersToReturn.Add(GetUserById((int)following.FollowingId));
+      }
+      return usersToReturn;
     }
 
     public bool IsFollowing(int userId, int id2)
@@ -185,7 +209,8 @@ namespace Popcorn_Pals.DAL
 
         return relationship;
       }
-      else {
+      else
+      {
         throw new ArgumentException("User is not being followed");
       }
     }

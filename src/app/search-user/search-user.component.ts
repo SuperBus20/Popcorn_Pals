@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { IUser } from '../Interfaces/user';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { waitForAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-search-user',
@@ -32,10 +34,14 @@ export class SearchUserComponent implements OnInit {
 
   loadUserProfile(user: IUser) {
     this.api.userToView=user;
-    this.router.navigate(['/view-user', user.userName]);
+
+    this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+    this.router.navigate(['/view-user']);
+    });
   }
   ngOnInit(): void {
     this.api.getAllUsers().subscribe(x => this.users = x)
+
 
   }
 }

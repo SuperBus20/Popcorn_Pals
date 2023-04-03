@@ -6,7 +6,7 @@ namespace Popcorn_Pals
   public class PopcornContext : DbContext
   {
 
-    public PopcornContext() 
+    public PopcornContext()
     {
 
     }

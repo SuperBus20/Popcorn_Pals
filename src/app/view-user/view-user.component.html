@@ -1,5 +1,6 @@
 <!-- Page Container -->
 <div *ngIf="user">
+
 <div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
     <!-- The Grid -->
     <div class="w3-row">
@@ -18,31 +19,30 @@
                         <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
                         {{user.userBio}}
                     </p>
+
                 </div>
-            </div>
-            <br />
+                <br />
 
-            <!-- Accordion -->
-            <br />
+                <!-- Accordion -->
+                <br />
 
-            <!-- Trigger/Open the Modal -->
-            <button onclick="document.getElementById('id_modal_followers').style.display='block'"
-                class="w3-button w3-block w3-theme-l1 w3-left-align">
-                <i class="fa fa-users w3-margin-right"></i>View Followers</button>
+                <!-- Trigger/Open the Modal -->
+                <div class="w3-button w3-block w3-theme-l1 w3-left-align">
+                    <i class="fa fa-cog fa-fw w3-margin-right"></i>Followers
+                </div>
 
-            <!-- The Modal -->
-            <div id="id_modal_followers" class="w3-modal">
-                <div class="w3-modal-content">
+                <!-- Followers Component -->
+                <div id="id_followers" class="w3-card w3-round">
                     <div class="w3-container w3-blue-grey">
-                        <span onclick="document.getElementById('id_modal_followers').style.display='none'"
-                            class="w3-button w3-display-topright">&times;</span>
-                        <!-- <app-followers><app-followers> -->
+                        <app-follow-user></app-follow-user>
                     </div>
                 </div>
+
+                <!-- End Left Column -->
             </div>
 
-            <!-- End Left Column -->
-        </div>
+            <!-- Middle Column -->
+
 
         <!-- Middle Column -->
 
@@ -71,17 +71,20 @@
                         <div class="w3-half">
                             <img src="{{user.userPic}}" style="width: 100%" alt="Media Image"
                                 class="w3-margin-bottom" />
+
                         </div>
                     </div>
+
+                    <!-- End Middle Column -->
                 </div>
 
-                <!-- End Middle Column -->
+                <!-- End Grid -->
             </div>
 
-            <!-- End Grid -->
+            <!-- End Page Container -->
         </div>
-
-        <!-- End Page Container -->
     </div>
+
     </div>
     <br />
+
