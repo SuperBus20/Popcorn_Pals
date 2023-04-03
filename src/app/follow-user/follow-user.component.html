@@ -11,7 +11,7 @@
                 class="w3-button w3-display-topright">&times;</span>
             <div *ngIf="userFollowingCount != 0">
                 <li *ngFor="let following of followingUsers">
-                    <span style="font-size: 20px;text-align: center;">{{following.userId}} </span>
+                    <span style="font-size: 20px;text-align: center;">{{following.userName}} </span>
                 </li>
             </div>
             <div *ngIf="userFollowingCount == 0">
@@ -36,7 +36,7 @@
                 class="w3-button w3-display-topright">&times;</span>
             <div *ngIf="userFollowersCount != 0">
                 <li *ngFor="let followers of userFollowers">
-                    <span style="font-size: 20px;text-align: center;">{{followers.userId}} </span>
+                    <span style="font-size: 20px;text-align: center;">{{followers.userName}} </span>
                 </li>
             </div>
             <div *ngIf="userFollowersCount == 0">

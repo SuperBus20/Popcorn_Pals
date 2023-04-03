@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApiService } from '../api.service';
 import { IUser } from '../Interfaces/user';
 import { Router } from '@angular/router';
+import { waitForAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-search-user',
@@ -28,6 +29,8 @@ export class SearchUserComponent {
 
   loadUserProfile(user: IUser) {
     this.api.userToView=user;
+    this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
     this.router.navigate(['/view-user']);
+    });
   }
 }

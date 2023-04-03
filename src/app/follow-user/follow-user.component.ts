@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { ApiService } from '../api.service';
+import { IUser } from '../Interfaces/user';
 
 @Component({
   selector: 'app-follow-user',
@@ -21,7 +22,7 @@ export class FollowUserComponent implements OnInit {
     this.userToView = this.api.userToView;
 
     this.followers();
-    this.following();
+    this.followings();
   }
 
   // Follow Profiles //
@@ -32,7 +33,7 @@ export class FollowUserComponent implements OnInit {
     });
   }
 
-  following() {
+  followings() {
     this.api.getFollowing(this.userToView.userId).subscribe((response) => {
       this.followingUsers = response;
       this.userFollowingCount = this.followingUsers.length;

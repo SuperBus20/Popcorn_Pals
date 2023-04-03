@@ -135,6 +135,28 @@ namespace Popcorn_Pals.DAL
       return Followers;
     }
 
+    public List<User> GetFollowersAsUsers(int userId)
+    {
+      List<User> usersToReturn = new List<User>();
+      var followerIds = GetAllFollowers(userId).ToList();
+      foreach (var follower in followerIds)
+      {
+        usersToReturn.Add(GetUserById((int)follower.FollowerId));
+      }
+      return usersToReturn;
+    }
+
+    public List<User> GetFollowingAsUsers(int userId)
+    {
+      List<User> usersToReturn = new List<User>();
+      var followingIds = GetAllFollowing(userId).ToList();
+      foreach (var following in followingIds)
+      {
+        usersToReturn.Add(GetUserById((int)following.FollowingId));
+      }
+      return usersToReturn;
+    }
+
     public bool IsFollowing(int userId, int id2)
     {
       List<Follow> test = GetAllFollowing(userId)
@@ -187,7 +209,8 @@ namespace Popcorn_Pals.DAL
 
         return relationship;
       }
-      else {
+      else
+      {
         throw new ArgumentException("User is not being followed");
       }
     }

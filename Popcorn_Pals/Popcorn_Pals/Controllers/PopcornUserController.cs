@@ -112,7 +112,7 @@ namespace Popcorn_Pals.Controllers
     // TODO: Add Edit Review
 
 
-// Follow Endpoints
+    // Follow Endpoints
 
     [HttpPost("FollowUser")]
     public Follow FollowUser(int userId, int userToFollow)
@@ -123,19 +123,19 @@ namespace Popcorn_Pals.Controllers
     [HttpPost("UnfollowUser")]
     public Follow UnfollowUser(int userId, int userToUnfollow)
     {
-      return _popcornRepository.UnfollowUser (userId, userToUnfollow);
+      return _popcornRepository.UnfollowUser(userId, userToUnfollow);
     }
 
     [HttpPost("GetFollowers")]
-    public List<Follow> GetFollowers(int userId)
+    public List<User> GetFollowers(int userId)
     {
-      return _popcornRepository.GetAllFollowers(userId);
+      return _popcornRepository.GetFollowersAsUsers(userId);
     }
 
     [HttpPost("GetFollowing")]
-    public List<Follow> GetFollowing(int userId)
+    public List<User> GetFollowing(int userId)
     {
-      return _popcornRepository.GetAllFollowing(userId);
+      return _popcornRepository.GetFollowingAsUsers(userId);
     }
 
     [HttpPost("IsFollowing")]
@@ -192,7 +192,11 @@ namespace Popcorn_Pals.Controllers
     {
       return _popcornRepository.SearchUserByName(userToSearch);
     }
-
+    [HttpGet("GetUserById/{userId}")]
+    public User GetUserById(int userId)
+    {
+      return _popcornRepository.GetUserById(userId);
+    }
 
   }
 }
