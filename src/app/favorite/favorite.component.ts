@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IMovie, IShow, ISource } from '../Interfaces/Media';
 import { ApiService } from '../api.service';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
-import { IUser } from '../Interfaces/user';
 
 @Component({
   selector: 'app-favorite',
@@ -12,7 +11,6 @@ import { IUser } from '../Interfaces/user';
 export class FavoriteComponent implements OnInit {
   favoriteMovies: IMovie[] = [];
   favoriteShows: IShow[] = [];
-  @Input() User: IUser | null = null;
   loggedInUser: ILoggedInUser | null = null;
   constructor(private api: ApiService) {
     this.loggedInUser = this.api.loggedInUser;
@@ -25,10 +23,9 @@ export class FavoriteComponent implements OnInit {
     //   this.api.getLoggedInUserFavoriteShows(this.loggedInUser.User).subscribe((shows)=>{
     //     this.favoriteShows = shows; });
     }
-    if (this.User) {
-      this.api.getUserFavoriteMovies(this.User).subscribe((movies) => {
-        this.favoriteMovies = movies;
-      });
-    }
+  // if(this.loggedInUser)
+  // {
+  //   this.favoriteMovies = this.loggedInUser.FavoriteMovies;
+  // }
   }
 }
