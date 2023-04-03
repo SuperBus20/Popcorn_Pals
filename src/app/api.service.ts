@@ -162,6 +162,10 @@ export class ApiService {
       });
   }
 
+  getUserById(userId: number) {
+  return this.http.get<IUser>(this.userURI + `GetUserById/${userId}`);
+  }
+
   updateProfile(userToUpdate: IUser) {
     let userId = userToUpdate.userId;
     let userName = userToUpdate.userName;
