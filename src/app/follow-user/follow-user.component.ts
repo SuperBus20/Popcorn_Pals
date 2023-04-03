@@ -13,42 +13,27 @@ export class FollowUserComponent implements OnInit {
   followingUsers: any;
   loggedInUser: ILoggedInUser | null = null;
   userToView: any;
-  isLoggedInAlsoUserToView: boolean = false;
-  profileToView: any;
   userFollowingCount: number = 0;
   userFollowersCount: number = 0;
 
   ngOnInit() {
-    this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+    this.loggedInUser = this.api.giveCurrentUser();
     this.userToView = this.api.userToView;
 
-    if (this.loggedInUser?.User.userId == this.userToView?.userId) {
-      this.isLoggedInAlsoUserToView = true;
-    }
-    this.setProfileToView();
     this.followers();
     this.following();
   }
 
-  setProfileToView() {
-    if (this.isLoggedInAlsoUserToView) {
-      this.profileToView = this.loggedInUser!.User;
-    } else !this.isLoggedInAlsoUserToView;
-    {
-      this.profileToView = this.userToView;
-    }
-  }
-
   // Follow Profiles //
   followers() {
-    this.api.getFollowers(this.profileToView!.userId).subscribe((response) => {
+    this.api.getFollowers(this.userToView.userId).subscribe((response) => {
       this.userFollowers = response;
       this.userFollowersCount = this.userFollowers.length;
     });
   }
 
   following() {
-    this.api.getFollowing(this.profileToView!.userId).subscribe((response) => {
+    this.api.getFollowing(this.userToView.userId).subscribe((response) => {
       this.followingUsers = response;
       this.userFollowingCount = this.followingUsers.length;
     });
