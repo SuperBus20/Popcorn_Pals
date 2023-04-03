@@ -1,4 +1,4 @@
-<h1>My Reviews</h1>
+<!-- <h1>My Reviews</h1>
 
 <tbody>
     <tr *ngFor="let detail of reviewstest">
@@ -8,7 +8,35 @@
         <td>{{detail.review}}</td>
         <td>{{detail.userId}}</td>
 
-       {{detail.mediaType}}
+       <!-- {{detail.mediaType}} -->
 
-    </tr>
-</tbody>
+
+
+
+
+    <h1>My Reviews</h1>
+
+    <div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col-sm-10">Review Id</th>
+                        <th scope="col-sm-10">Media Type</th>
+                        <th scope="col-sm-10">My Rating</th>
+                        <th scope="col-sm-10">My Review</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let detail of reviewstest">
+        
+                        <td>{{detail.id}}</td>
+                        <td>{{detail.mediaType}}</td>
+                        <td>{{detail.rating}}</td>
+                        <td>{{detail.review}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+

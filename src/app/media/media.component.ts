@@ -5,6 +5,7 @@ import { IMovie, IShow, ISource } from '../Interfaces/Media';
 import { HttpClient } from '@angular/common/http';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { Router } from '@angular/router';
+import { ReviewDetailComponent } from '../review-detail/review-detail.component';
 
 @Component({
   selector: 'app-media',
@@ -109,17 +110,10 @@ export class MediaComponent {
     ])
   }
 
-  goToEditShowReviewForm(showId: any) {
+  goToEditReviewForm(reviewId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-review-form/', showId, userId, 
-    ])
-  }
-
-  goToEditMovieReviewForm(movieId: any) {
-    let userId = this.loggedInUser;
-    this.route.navigate([
-      '/app-review-form/', movieId, userId, 
+      '/app-review-form/', reviewId, userId, 
     ])
   }
 
@@ -170,13 +164,7 @@ export class MediaComponent {
         console.log('Item added to database');
       });
 
-    //   .subscribe(
-    //     (x)=>{
-    //       if(x){
-    //         this.api.setUser(user.User)
-    //         return this.api.onComponentLoad()
-    //       }
-    // });
+
   }
 
   ngOnInit(): void {

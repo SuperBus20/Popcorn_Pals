@@ -6,16 +6,16 @@ import { ILoggedInUser } from './Interfaces/LoggedinUser';
 import { IUserReview } from './Interfaces/user-review';
 import { IMovie, IShow, ISource } from './Interfaces/Media';
 import { Observable, from, BehaviorSubject } from 'rxjs';
+import { ReviewDetailComponent } from './review-detail/review-detail.component';
+import { ReviewFormComponent } from './review-form/review-form.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
 
-  private mediatypestuff = new BehaviorSubject<any>({}); //testing
-  currentMediaType = this.mediatypestuff.asObservable(); //testing
-
   constructor(private http: HttpClient) { }
+
   userURI: string = 'https://localhost:7035/api/PopcornUser/';
   popCornUri: string = 'https://localhost:7035/api/Popcorn/';
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
@@ -25,8 +25,8 @@ export class ApiService {
 
   loggedInEvent = new EventEmitter<ILoggedInUser>
 
-   // User //
-   createUser(user: IUser) {
+  // User //
+  createUser(user: IUser) {
     // api call to add the newly registered user, only used by login component
     let userName = user.userName;
     let password = user.password;
@@ -103,8 +103,8 @@ export class ApiService {
     return this.loggedInUser as ILoggedInUser;
   }
 
-  getUserByName(userToSearch:string) {
-    return this.http.get<IUser[]>(this.userURI+`SearchUserByName/${userToSearch}`);
+  getUserByName(userToSearch: string) {
+    return this.http.get<IUser[]>(this.userURI + `SearchUserByName/${userToSearch}`);
   }
 
 
@@ -210,11 +210,15 @@ export class ApiService {
 
 
   // Review //
-  
-  isReviewedByUser(userId:number, mediaid: number) {
-   return this.http.get(this.userURI + `IsReviewedByUser?=${userId}&mediaid=${mediaid}`, {}).subscribe(() => { Response });
+
+  setReview(currentReview: IUserReview) {
+
   }
-  
+
+  isReviewedByUser(userId: number, mediaid: number) {
+    return this.http.get(this.userURI + `IsReviewedByUser?=${userId}&mediaid=${mediaid}`, {}).subscribe(() => { Response });
+  }
+
   addMovieReview(movieReview: IUserReview) {
     let userId = movieReview.userId;
     let movieId = movieReview.MediaId;
@@ -245,37 +249,26 @@ export class ApiService {
       .subscribe(() => { });
   }
 
-  editMovieReview(movieReview: IUserReview) {
-    let userId = movieReview.userId;
-    let movieId = movieReview.MediaId;
-    let rating = movieReview.Rating;
-    let review = movieReview.Review;
-    return this.http
-      .post<IUserReview>(
-        this.movieReview +
-        `EditMovieReview?userId=${userId}&movieId=${movieId}&review=${review}&rating=${rating}`,
-        movieReview
-      )
-      .subscribe(() => {
-        Response;
-      });
-  }
+  // getReviewId(review: IUserReview) {
+  //   IUserReview.ReviewId
+  // }
 
-  editShowReview(showReview: IUserReview) {
-    let userId = showReview.userId;
-    let showId = showReview.MediaId;
-    let review = showReview.Review;
-    let rating = showReview.Rating;
-    return this.http
-      .post<IUserReview>(
-        this.showReview +
-        `EditShowReview?userId=${userId}&movieId=${showId}&review=${review}&rating=${rating}`,
-        showReview
-      )
-      .subscribe(() => {
-        Response;
-      });
-  }
+
+
+  // editReview(reviewToEdit: IUserReview) {
+  //   this.reviewId
+  //   let rating = reviewToEdit.Rating;
+  //   let review = reviewToEdit.Review;
+  //   return this.http
+  //     .post<IUserReview>(
+  //       this.movieReview +
+  //       `EditMovieReview?reviewId=${}review=${review}&rating=${rating}`,
+  //       reviewToEdit
+  //     )
+  //     .subscribe(() => {
+  //       Response;
+  //     });
+  // }
 
   getReviewsByUserId(userId: number) {
     return this.http.get(
@@ -284,8 +277,6 @@ export class ApiService {
   }
 
 
-
-  
   // Follow //
   getFollowing(userId: number) {
     return this.http.post(this.userURI + `GetFollowing?userId=${userId}`, {});
@@ -306,8 +297,5 @@ export class ApiService {
   isFollowingUser(userId: number, userToUnfollow: number) {
     return this.http.get(this.userURI + `IsFollowing?=${userId}&id=${userToUnfollow}`, {}).subscribe(() => { Response });
   }
-
 }
-
-
 

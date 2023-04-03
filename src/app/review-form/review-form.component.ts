@@ -59,8 +59,8 @@ export class ReviewFormComponent {
   addMovieReview(form: NgForm) {
     let newMovieReview: IUserReview = {
       userId: this.userId,
-      Review: form.form.value.Review,
       Rating: this.rating,
+      Review: form.form.value.Review,
       MediaId: this.mediaId,
     };
     this.Api.addMovieReview(newMovieReview)
@@ -70,40 +70,25 @@ export class ReviewFormComponent {
   addShowReview(form: NgForm) {
     let newShowReview: IUserReview = {
       userId: this.userId,
-      Review: form.form.value.Review,
       Rating: this.rating,
+      Review: form.form.value.Review,
       MediaId: this.mediaId,
     };
-
     this.Api.addShowReview(newShowReview)
     form.resetForm();
   }
 
   // Edit Reviews //
 
-  editShowReview(form: NgForm, reviewId: number) {
-    let showReviewToEdit: IUserReview = {
-      userId: this.userId,
-      Review: form.form.value.Review,
-      Rating: this.rating,
-      MediaId: this.mediaId,
-    };
-
-    this.Api.editShowReview(showReviewToEdit)
-    form.resetForm();
-  }
-
-  editMovieReview(form: NgForm, reviewId: number) {
-    let movieReviewToEdit: IUserReview = {
-      userId: this.userId,
-      Review: form.form.value.Review,
-      Rating: this.rating,
-      MediaId: this.mediaId,
-    };
-
-    this.Api.editMovieReview(movieReviewToEdit)
-    form.resetForm();
-  }
-
+  // editReview(form: NgForm) {
+  //   let reviewToEdit: IUserReview = {
+  //     userId: this.userId,
+  //     Rating: this.rating,
+  //     Review: form.form.value.Review,
+  //     MediaId: this.mediaId,
+  //   };
+  //   this.Api.editReview(reviewToEdit)
+  //   form.resetForm();
+  // }
 
 }
