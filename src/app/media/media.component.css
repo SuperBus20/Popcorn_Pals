@@ -1,7 +1,106 @@
+
 .title:hover {
-  text-decoration: line-through;
-  pointer-events: pointer;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #8b607b;
 }
 .title{
   display: inline;
+}
+
+.modal--media {
+  padding: 2em;
+}
+
+.modal--media .form input, .modal--media .form select {
+  margin-top: 10px;
+}
+.modal--media form button {
+  background-color: #ffffff;
+  color: #607d8b;
+  margin-top: 20px;
+  padding: 10px 45px;
+  font-weight: 700;
+  text-transform: uppercase
+}
+/* Result section */
+.media-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.media-section-title h1 {
+  color: #ebfbff;
+  font-weight: 700;
+  font-size: 32px;
+}
+.media-section-title button {
+  font-weight: normal;
+  background-color: #69648b !important;
+  text-transform: uppercase;
+  padding: 10px 45px;
+}
+.media-section-title button:hover {
+  background-color:#ebfbff !important;
+  color: #3a4b53 !important;
+}
+.media-image-video-section {
+  display: flex;
+
+}
+.media-image {
+  margin-right: 10px;
+}
+.media-image img {
+  width: 330px;
+  height: auto;
+}
+.media-section strong {
+  color: #d8f8ff
+}
+.youtube-player iframe {
+  height: 100% !important;
+}
+
+.media-sources {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  align-items: center;
+}
+.media-sources p {
+  margin: 0 !important;
+}
+.sources-link {
+  display: flex;
+  flex-direction: column;
+}
+.sources-link p {
+  margin-top: 10px
+}
+.sources-link a{
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 6px;
+}
+
+/* Result lists */
+.media-result-lists {
+  background: white;
+  margin-top: 20px;
+  color: black;
+  padding: 1.5em
+}
+.media-result-lists h2 {
+  border-bottom: 1px solid black;
+}
+.media-result-lists ul {
+  list-style: none;
+  margin-top: 10px;
+  font-size: 28px;
+  padding-left: 0;
+}
+.media-result-lists ul li h5 {
+  color: #8b607b
 }

@@ -1,0 +1,15 @@
+.w3-button.w3-display-topright {
+  background: #ebfbff !important;
+  color: #3a4b53 !important;
+}
+.w3-button.w3-display-topright:hover {
+  background-color: white !important;
+}
+.w3-container {
+  padding: 2em;
+}
+
+/* Form Styles*/
+.w3-input {
+  margin-top: 10px !important;
+}

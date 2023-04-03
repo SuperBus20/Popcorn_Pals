@@ -14,7 +14,9 @@ import { SearchUserComponent } from './search-user/search-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { ApiService } from './api.service';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 import { FollowUserProfileComponent } from './follow-user-profile/follow-user-profile.component';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { FollowUserProfileComponent } from './follow-user-profile/follow-user-pr
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    YouTubePlayerModule,
     FormsModule
   ],
 

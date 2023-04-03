@@ -154,6 +154,18 @@ namespace Popcorn_Pals.Controllers
       return _popcornRepository.GetFavoriteMovies(userId);
     }
 
+    [HttpGet("isFavoritedMovie/{userId}/{movieId}")]
+    public Task<bool> IsFavoritedMovie(int userId, int movieId)
+    {
+      return _popcornRepository.IsFavoritedMovie(userId, movieId);
+    }
+
+    [HttpGet("isFavoritedShow/{userId}/{movieId}")]
+    public Task<bool> IsFavoritedShow(int userId, int movieId)
+    {
+      return _popcornRepository.IsFavoritedShow(userId, movieId);
+    }
+
     [HttpGet("GetFavoriteShows/{userId}")]
     public IEnumerable<Show> GetUserFavoriteShows(int userId)
     {
