@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
@@ -22,8 +22,8 @@ export class ViewUserComponent implements OnInit {
 
   ngOnInit() {
     this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
-    this.userName = this.route.snapshot.paramMap.get('user');
-    this.api.getUserByName(this.userName).subscribe((x) => this.userProfile = x);
+  //   this.route.paramMap.subscribe(params => {this.userName = params.get('username');
+  // console.log(params)});
   }
 
 }

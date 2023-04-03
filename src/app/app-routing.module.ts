@@ -7,7 +7,8 @@ import { ViewUserComponent } from './view-user/view-user.component';
 
 const routes: Routes = [
   { path: 'user-profile', component: UserProfileComponent },
-  { path: 'view-user/:user', component: ViewUserComponent },
+  { path: 'view-user/:username', component: ViewUserComponent },
+  { path:'view-user', component: ViewUserComponent},
   { path: 'follow-user', component: FollowUserComponent },
 ];
 

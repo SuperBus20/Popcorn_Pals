@@ -1,4 +1,5 @@
 <!-- Page Container -->
+<div *ngIf="user">
 <div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
     <!-- The Grid -->
     <div class="w3-row">
@@ -7,15 +8,15 @@
             <!-- Profile -->
             <div class="w3-card w3-round w3-white">
                 <div class="w3-container">
-                    <h4 class="w3-center">{{user!.userName}}</h4>
+                    <h4 class="w3-center">{{user.userName}}</h4>
                     <p class="w3-center">
-                        <img src="{{user?.userPic}}"  style="height: 106px; width: 106px"
+                        <img src="{{user.userPic}}"  style="height: 106px; width: 106px"
                             alt="Avatar" />
                     </p>
                     <hr />
                     <p>
                         <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
-                        {{user?.userBio}}
+                        {{user.userBio}}
                     </p>
                 </div>
             </div>
@@ -52,7 +53,7 @@
             <div class="w3-card w3-round w3-white">
               <div class="w3-container w3-padding">
                 <h6 class="w3-opacity">Favorite Media</h6>
-                <app-favorite ></app-favorite>
+                <app-favorite [user]="user" ></app-favorite>
               </div>
             </div>
           </div>
@@ -68,7 +69,7 @@
                     <p>Review Goes Here</p>
                     <div class="w3-row-padding" style="margin: 0 -16px">
                         <div class="w3-half">
-                            <img src="{{user?.userPic}}" style="width: 100%" alt="Media Image"
+                            <img src="{{user.userPic}}" style="width: 100%" alt="Media Image"
                                 class="w3-margin-bottom" />
                         </div>
                     </div>
@@ -81,5 +82,6 @@
         </div>
 
         <!-- End Page Container -->
+    </div>
     </div>
     <br />

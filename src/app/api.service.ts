@@ -211,7 +211,7 @@ export class ApiService {
 
   getUserByName(userToSearch:string)
   {
-    return this.http.get<IUser[]>(this.userURI+`SearchUserByName/${userToSearch}`);
+    return this.http.get<IUser>(this.userURI+`SearchUserByName/${userToSearch}`);
   }
 
 
