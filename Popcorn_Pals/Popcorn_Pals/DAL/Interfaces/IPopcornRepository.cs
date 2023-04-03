@@ -37,9 +37,9 @@ namespace Popcorn_Pals.DAL.Interfaces
     //Favorites Methods //
     void FavoriteMovie(int movieId, int userId);
     List<Movie> GetFavoriteMovies(int userId);
-
     Show FavoriteShow(int showId, int userId);
-
+    Task<bool> IsFavoritedMovie(int userId, int movieId);
+    Task<bool> IsFavoritedShow(int userId, int showId);
     List<Show> GetFavoriteShows(int userId);
     bool DeleteFavoriteMovieById(int userId, int mediaId);
     bool DeleteFavoriteShowById(int userId, int mediaId);
