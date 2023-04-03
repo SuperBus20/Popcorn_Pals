@@ -7,18 +7,17 @@ using System.Drawing.Text;
 using System.Text;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
+// external api call mgmt
 namespace Popcorn_Pals.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
   public class PopcornController : ControllerBase
   {
-    
-    // TODO: Have team add api key to the appsettings.json. Example of code block for this can be found in PR comment and in slack
 
     private readonly UrlConfig _config;
 
-    public PopcornController(UrlConfig config)
+    public PopcornController(UrlConfig config) //constructor injection to take in config inst.
     {
       _config = config;
     }

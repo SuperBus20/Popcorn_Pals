@@ -54,13 +54,10 @@ namespace Popcorn_Pals.DAL
       return GetUser(userName);
     }
 
-#pragma warning disable CS8600
     public User GetUserById(int id)
     {
       return _popContext.Users.AsNoTracking().FirstOrDefault(x => x.UserId == id);
     }
-#pragma warning restore CS8600
-
 
 
     // Review Methods //
@@ -105,7 +102,7 @@ namespace Popcorn_Pals.DAL
       return Reviews;
     }
 
-    public List<UserReview> GetReviewByReviewId(int id) //updated
+    public List<UserReview> GetReviewByReviewId(int id) 
     {
       List<UserReview> Reviews = _popContext.Reviews
         .Where(x => x.Id == id)
@@ -265,7 +262,7 @@ namespace Popcorn_Pals.DAL
       return null;
     }
 
-    //TODO revisit this soon
+    //TODO: revisit this soon
     ///// for some reason this is the only way i was able to get show all favorite movies to work will fix after MVP
     public static List<Show> GetShowById(int _id)
     {
@@ -302,7 +299,7 @@ namespace Popcorn_Pals.DAL
       return favorites;
     }
 
-    public bool DeleteFavoriteMovieById(int userId, int mediaId)
+    public bool DeleteFavoriteMovieById(int userId, int mediaId) //TODO: Set Favorite to nullable or replace with var and let system worry about type
     {
       Favorite favorite = _popContext.Favorites
         .Where(x => x.UserId == userId)
@@ -318,7 +315,7 @@ namespace Popcorn_Pals.DAL
       return true;
     }
 
-    public bool DeleteFavoriteShowById(int userId, int mediaId)
+    public bool DeleteFavoriteShowById(int userId, int mediaId) //TODO: Set Favorite to nullable
     {
       Favorite favorite = _popContext.Favorites
         .Where(x => x.UserId == userId)
@@ -352,8 +349,6 @@ namespace Popcorn_Pals.DAL
       _popContext.SaveChanges();
       return true;
     }
-
-
 
   }
 }

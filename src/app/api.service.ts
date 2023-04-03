@@ -7,6 +7,7 @@ import { IUserReview } from './Interfaces/user-review';
 import { IMovie, IShow, ISource } from './Interfaces/Media';
 import { Observable } from 'rxjs';
 
+// managing api calls to get data 
 @Injectable({
   providedIn: 'root',
 })

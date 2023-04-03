@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Popcorn_Pals.Models;
 
-namespace Popcorn_Pals.DAL.Interfaces
+namespace Popcorn_Pals.DAL.Interfaces //interacting w/db
 {
   public interface IPopcornRepository
   {
-    public List<User> GetUsers();
+    public List<User> GetUsers(); //TODO: remove unnessary access modifier - all are public to support inheritence
     User GetUser(string userName);
     User AddUser(string userName, string password);
     User GetUserById(int id);

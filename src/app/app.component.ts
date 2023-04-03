@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; /
 import { ApiService } from './api.service';
-import { IMovie, IShow, ISource } from './Interfaces/Media';
 import { ILoggedInUser } from './Interfaces/LoggedinUser';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-root', // instantiates app
+  templateUrl: './app.component.html', //path for angular templates
+  styleUrls: ['./app.component.css'] //paths for stylesheets
 })
-export class AppComponent {
+export class AppComponent { // establishing relationship w/ other comps
   title = 'Popcorn_Pals';
   loggedInUser: ILoggedInUser | null = null;
+  
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {

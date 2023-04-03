@@ -7,6 +7,8 @@ using Popcorn_Pals.Services.Interfaces;
 using Popcorn_Pals.DAL.Interfaces;
 using System.Net;
 
+
+// our api calls to db
 namespace Popcorn_Pals.Controllers
 {
   [Route("api/[controller]")]
@@ -16,9 +18,9 @@ namespace Popcorn_Pals.Controllers
     private readonly IPopcornService _popcornService;
     private readonly IPopcornRepository _popcornRepository;
 
-    public PopcornUserController(IPopcornService popcornService, IPopcornRepository popcornRepository)
+    public PopcornUserController(IPopcornService popcornService, IPopcornRepository popcornRepository) //dep inj. constructor
     {
-      _popcornService = popcornService;
+      _popcornService = popcornService; //assigning _serv & _repo to an instance
       _popcornRepository = popcornRepository;
     }
 
