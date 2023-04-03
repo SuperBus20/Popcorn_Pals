@@ -46,17 +46,10 @@ export class ReviewDetailComponent {
   }
 
   // Editing Review //
-  goToEditShowReviewForm(showId: any) {
+  goToEditReviewForm(mediaId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-review-form/', showId, userId, this.ReviewId 
-    ])
-  }
-
-  goToEditMovieReviewForm(movieId: any) {
-    let userId = this.loggedInUser;
-    this.route.navigate([
-      '/app-review-form/', movieId, userId, this.ReviewId 
+      '/app-review-form/', mediaId, userId, this.ReviewId 
     ])
   }
 
@@ -65,21 +58,14 @@ export class ReviewDetailComponent {
   }
 
   // Delete Reviews //
-  deleteReview(Id: number) {
-    this.Api.getReviewByUserId(this.Id).subscribe();
-  }
+  // deleteReview(Id: number) {
+  //   this.Api.getReviewByUserId(this.Id).subscribe();
+  // }
 
   // Get Reviews //
-  getAllReviews() {
-    this.Api.getAllReviews().subscribe();
-  }
 
   getReviewByUserId(userId: number) {
-    this.Api.getReviewByUserId(10).subscribe((x) => (this.reviewstest = x));
-  }
-
-  getReviewByReviewId(reviewId:number) {
-    this.Api.getReviewByReviewId(this.Id).subscribe();
+    this.Api.getReviewsByUserId(10).subscribe((x) => (this.reviewstest = x));
   }
 
 }
