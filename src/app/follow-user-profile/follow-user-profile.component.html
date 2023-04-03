@@ -37,6 +37,7 @@
                 class="w3-button w3-display-topright">&times;</span>
             <div *ngIf="userFollowersCount != 0">
                 <li *ngFor="let followers of userFollowers">
+                    <br>
                     <img *ngIf="followers.userPic" src="{{followers.userPic}}" alt="User Picture" width="50" height="50">
                     <span style="font-size: 20px;text-align: center;">~ {{followers.userName}} </span>
 
