@@ -97,11 +97,11 @@ namespace Popcorn_Pals.Controllers
       return _popcornRepository.GetReviewsByUserId(userId);
     }
 
-    [HttpGet("GetReviewByReviewId")]
-    public UserReview GetReviewByReviewId(int reviewId)
-    {
-      return _popcornRepository.GetReviewByReviewId(reviewId);
-    }
+    //[HttpGet("GetReviewByReviewId")]
+    //public UserReview GetReviewByReviewId(int reviewId)
+    //{
+    //  return _popcornRepository.GetReviewByReviewId(reviewId);
+    //}
 
 
     // [HttpPost("GetMediaTypeById")]

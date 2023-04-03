@@ -94,7 +94,7 @@ export class MediaComponent {
     }
   }
   
-  // Add Review // - Directs user to review form when viewing media
+  // Add or Edit Review // - Directs user to review form when viewing media
   goToMovieReviewForm(movieId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
@@ -109,9 +109,24 @@ export class MediaComponent {
     ])
   }
 
+  goToEditShowReviewForm(showId: any) {
+    let userId = this.loggedInUser;
+    this.route.navigate([
+      '/app-review-form/', showId, userId, 
+    ])
+  }
+
+  goToEditMovieReviewForm(movieId: any) {
+    let userId = this.loggedInUser;
+    this.route.navigate([
+      '/app-review-form/', movieId, userId, 
+    ])
+  }
+
   navigate(url:string) {
     window.open(url);
   }
+  
 
   // Add as Favorite
   favoriteShowClicked() {

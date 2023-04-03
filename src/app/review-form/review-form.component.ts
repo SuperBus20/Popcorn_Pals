@@ -6,6 +6,8 @@ import { NgForm } from '@angular/forms';
 import { IMovie, IShow } from '../Interfaces/Media';
 import { Router } from '@angular/router';
 import { StarRatingColor } from '../star-rating/star-rating.component';
+import { MediaComponent } from '../media/media.component';
+import { ReviewDetailComponent } from '../review-detail/review-detail.component';
 
 @Component({
   selector: 'app-review-form',
@@ -21,6 +23,7 @@ export class ReviewFormComponent {
   @Input() isMovie: any;
   @Input() isShow: any;
   @Input() mediaTitle: any;
+  @Input() mediaTypeResult: any;
 
   rating:number = 3;
   starCount:number = 5;
@@ -37,6 +40,7 @@ export class ReviewFormComponent {
   loggedInUser: ILoggedInUser | undefined;
   Review: string = "" ;
   Id: number = -1;
+  hasUserReviewed: boolean = false;
   
   ngOnInit(): void {
     this.userId = this.Api.loggedInUser?.User.userId
@@ -59,7 +63,6 @@ export class ReviewFormComponent {
       Rating: this.rating,
       MediaId: this.mediaId,
     };
-
     this.Api.addMovieReview(newMovieReview)
     form.resetForm();
   }
@@ -78,18 +81,29 @@ export class ReviewFormComponent {
 
   // Edit Reviews //
 
-  editShowReview(form: NgForm, showId: number, userId: number) {
-    let showReviewToEdit : IUserReview = {
+  editShowReview(form: NgForm, reviewId: number) {
+    let showReviewToEdit: IUserReview = {
       userId: this.userId,
       Review: form.form.value.Review,
-      Rating: form.form.value.Rating,
-      MediaId: this.show.Id,
+      Rating: this.rating,
+      MediaId: this.mediaId,
     };
-
-    s
 
     this.Api.editShowReview(showReviewToEdit)
     form.resetForm();
   }
+
+  editMovieReview(form: NgForm, reviewId: number) {
+    let movieReviewToEdit: IUserReview = {
+      userId: this.userId,
+      Review: form.form.value.Review,
+      Rating: this.rating,
+      MediaId: this.mediaId,
+    };
+
+    this.Api.editMovieReview(movieReviewToEdit)
+    form.resetForm();
+  }
+
 
 }

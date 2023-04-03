@@ -31,6 +31,7 @@ export class ReviewDetailComponent {
   Id: number = -1;
   isEditingReview: boolean = false;
   isDeletingReview: boolean = false;
+  ReviewId: number = 0;
   
 
   ngOnInit(): void {
@@ -48,14 +49,14 @@ export class ReviewDetailComponent {
   goToEditShowReviewForm(showId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-review-form/', showId, userId, 
+      '/app-review-form/', showId, userId, this.ReviewId 
     ])
   }
 
   goToEditMovieReviewForm(movieId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-review-form/', movieId, userId, 
+      '/app-review-form/', movieId, userId, this.ReviewId 
     ])
   }
 

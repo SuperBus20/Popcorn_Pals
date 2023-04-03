@@ -69,44 +69,72 @@ namespace Popcorn_Pals.DAL
       _popContext.SaveChanges();
       return reviewToAdd;
     }
+    // public int Id { get; set; } //Id for review aka reviewId
+    // public int UserId { get; set; }
+    // public virtual User? User { get; set; }
+    // public int? MediaId { get; set; }
+    // public virtual Movie? Movies { get; set; }
+    // public virtual Show? Shows { get; set; }
+    // public string? Review { get; set; }
+    // public int Rating { get; set; }
+    public UserReview EditReview(UserReview reviewId)
+    {
+      UserReview? editedReview = _popContext.Reviews
+      .Where(x => x.Id == reviewId.Id).FirstOrDefault();
 
-    // public void DeleteReview(UserReview deleteReview)
+      editedReview.Review = reviewId.Review;
+      editedReview.Rating = reviewId.Rating;
+
+      _popContext.Reviews.Update(editedReview);
+      _popContext.SaveChanges();
+      return editedReview;
+    }
+
+
+    // public UserReview EditMovieReview(UserReview reviewToUpdate)
     // {
-    //   UserReview reviewToDelete = GetReviewByReviewId(deleteReview.Id);
-    //   _popContext.Reviews.Remove(reviewToDelete);
+    //   _popContext.Reviews.Update(reviewToUpdate);
     //   _popContext.SaveChanges();
+    //   return reviewToUpdate;
     // }
 
-    public int GetReviewId(int mediaId, int userId, bool mediaType)
-    {
-      if (mediaType == true)
-      { 
-        int movieReviewId = _popContext.Reviews.Where(x => x.UserId == userId && x.MovieId == mediaId)
-        .Select(x => x.Id).FirstOrDefault();
+    // public UserReview EditShowReview(int reviewToUpdate)
+    // {
+    //   _popContext.Reviews.Update();
+    //   _popContext.SaveChanges();
+    //   return reviewToUpdate;
+    // }
 
+    public void DeleteReview(UserReview reviewId)
+    {
+      UserReview reviewToDelete = reviewId;
+      _popContext.Reviews.Remove(reviewId);
+      _popContext.SaveChanges();
+    }
+
+    public int GetReviewId(int mediaId, int userId, string mediaType)
+    {
+      if (mediaType == "movie") {
+        int movieReviewId = _popContext.Reviews.Include(x => x.Movies).Where(x => x.Movies._id == mediaId && x.UserId == userId).Select(x => x.Id).FirstOrDefault();
         return movieReviewId;
-        
+      }
+      else if (mediaType == "show") {
+        int showReviewId = _popContext.Reviews.Include(x => x.Movies).Where(x => x.Shows._id == mediaId && x.UserId == userId).Select(x => x.Id).FirstOrDefault();
+        return showReviewId;
       }
       else {
-        int showReviewId = _popContext.Reviews.Where(x => x.UserId == userId && x.Show._id == mediaId)
-        .Select(x => x.Id).FirstOrDefault();
-
-        return showReviewId;
+        return 0; //if this is 0, user doesn't have a review for selected media
       }
     }
 
 
-    // public void EditReview(UserReview reviewToUpdate)
-    // {
-    //   UserReview reviewToEdit = GetReviewByReviewId(reviewToUpdate.Id);
-    //   _popContext.Reviews.Update(reviewToEdit);
-    //   _popContext.SaveChanges();
-    // }
-
-    public List<UserReview> GetAllReviews()
+    public bool hasUserReviewed (int mediaId, int userId, string mediaType) 
     {
-      List<UserReview> Reviews = _popContext.Reviews.ToList();
-      return Reviews;
+      int reviewId = GetReviewId(mediaId, userId, mediaType);
+      if (reviewId > 0) {
+        return false;
+      }
+      return true;
     }
 
     public List<UserReview> GetReviewsByUserId(int userId)
@@ -117,47 +145,7 @@ namespace Popcorn_Pals.DAL
       return Reviews;
     }
 
-    public UserReview GetReviewByReviewId(int id)
-    {
-      return _popContext.Reviews.AsNoTracking().FirstOrDefault(x => x.Id == id);
-    }
 
-    public List<UserReview> GetReviewByMediaId(int mediaId) //Old code that does work
-    {
-      List<UserReview> Reviews = _popContext.Reviews
-        .Where(x => x.MediaId == mediaId)
-        .ToList();
-      return Reviews;
-    }
-
-    public bool movieReviewedByUser(int userId, int mediaId)
-    {
-      List <UserReview> test = GetReviewsByUserId(userId)
-        .Where(x => x.UserId == userId && x.MediaId == mediaId)
-        .Where(x => x.MovieId == mediaId)
-        .ToList();
-
-      return test.Count > 0; // >0 = true/MovieIsReviewed
-    }
-
-    public bool showReviewedByUser(int userId, int mediaId)
-    {
-      List <UserReview> test = GetReviewsByUserId(userId)
-        .Where(x => x.UserId == userId && x.MediaId == mediaId)
-        .ToList();
-
-      return test.Count > 0; // >0 = true/ShowIsReviewed
-    }
-
-    // public int GetReviewId (int mediaId, int userId, int ShowId)
-    // {
-    //   List<UserReview> Reviews = _popContext.Reviews
-    //     .Where(x => x.MediaId == mediaId)
-    //     .Where(x => x.Show._id == null)
-    //     .Where()
-
-    //   return IdOfReview;
-    // }
 
     // Follow Methods //
     public List<Follow> GetAllFollowers(int userId)

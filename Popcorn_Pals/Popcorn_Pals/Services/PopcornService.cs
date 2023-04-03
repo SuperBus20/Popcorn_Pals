@@ -26,7 +26,7 @@ namespace Popcorn_Pals.Services
       {
         UserId = userId,
         MediaId = movieToReview._id,
-        Movie= movieToReview,
+        Movies= movieToReview,
         Review = review,
         Rating = rating
       };
@@ -41,7 +41,7 @@ namespace Popcorn_Pals.Services
       {
         UserId = userId,
         MediaId = showToReview._id,
-        Show = showToReview,
+        Shows = showToReview,
         Review = review,
         Rating = rating
       };

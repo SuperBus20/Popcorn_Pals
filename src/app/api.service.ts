@@ -209,7 +209,6 @@ export class ApiService {
   }
 
 
-
   // Review //
   
   isReviewedByUser(userId:number, mediaid: number) {
@@ -235,8 +234,8 @@ export class ApiService {
   addShowReview(showReview: IUserReview) {
     let userId = showReview.userId;
     let mediaId = showReview.MediaId;
-    let review = showReview.Review;
     let rating = showReview.Rating;
+    let review = showReview.Review;
     return this.http
       .post<IUserReview>(
         this.showReview +
@@ -249,8 +248,8 @@ export class ApiService {
   editMovieReview(movieReview: IUserReview) {
     let userId = movieReview.userId;
     let movieId = movieReview.MediaId;
-    let review = movieReview.Review;
     let rating = movieReview.Rating;
+    let review = movieReview.Review;
     return this.http
       .post<IUserReview>(
         this.movieReview +
@@ -262,27 +261,25 @@ export class ApiService {
       });
   }
 
-  getAllReviews() {
-    return this.http.get<IUserReview>(
-      this.userURI + `GetAllReviews`
-    );
+  editShowReview(showReview: IUserReview) {
+    let userId = showReview.userId;
+    let showId = showReview.MediaId;
+    let review = showReview.Review;
+    let rating = showReview.Rating;
+    return this.http
+      .post<IUserReview>(
+        this.showReview +
+        `EditShowReview?userId=${userId}&movieId=${showId}&review=${review}&rating=${rating}`,
+        showReview
+      )
+      .subscribe(() => {
+        Response;
+      });
   }
 
-  getReviewByMediaId(mediaId: number) {
-    return this.http.get<IUserReview>(
-      this.userURI + `GetReviewByMediaId?mediaId=${mediaId}`
-    );
-  }
-
-  getReviewByUserId(userId: number) {
+  getReviewsByUserId(userId: number) {
     return this.http.get(
-      this.userURI + `GetReviewsByUserId?userId=10`
-    );
-  }
-
-  getReviewByReviewId(id: number) {
-    return this.http.get<IUserReview>(
-      this.userURI + `GetReviewByReviewId?id=${id}`
+      this.userURI + `GetReviewsByUserId?${userId}`
     );
   }
 
