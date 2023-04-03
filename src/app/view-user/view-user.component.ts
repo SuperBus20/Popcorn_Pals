@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { IUser } from '../Interfaces/user';
@@ -10,10 +11,13 @@ import { SearchUserComponent } from '../search-user/search-user.component';
   styleUrls: ['./view-user.component.css']
 })
 export class ViewUserComponent {
-  constructor(private api: ApiService) { }
-  
+  constructor(private api: ApiService, private router:Router) {
+    this.user= this.router.getCurrentNavigation()?.extras.state?.['data'];
+   }
+
+
   loggedInUser: ILoggedInUser | null = null;
-  user = this.api.userToView
+  @Output() user: IUser | null=null;
   userProfile: any;
   userToFollow: any;
   follower: any;
@@ -21,7 +25,7 @@ export class ViewUserComponent {
   ngOnInit() {
     this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
   }
-  
+
 }
 
 
