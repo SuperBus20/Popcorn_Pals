@@ -11,8 +11,9 @@ namespace Popcorn_Pals.Services.Interfaces
    
     UserReview AddMovieReview(int userId, int movieId, string review, int rating);
     UserReview AddShowReview(int userId, int showId, string review, int rating);
+    
     //UserReview GetReviewByReviewId(int reviewId);
-    List <UserReview> GetAllReviews();
+    //List <UserReview> GetAllReviews();
     
     // List <UserReview> GetReviewsByUserId(int userId);
     // UserReview EditReview(string review, int rating);

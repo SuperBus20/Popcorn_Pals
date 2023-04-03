@@ -50,13 +50,9 @@ namespace Popcorn_Pals.Services
       return reviewToAdd;
     }
 
-    public List <UserReview> GetAllReviews()
-    {
-        return _popcornRepository.GetAllReviews();
-    }
-    // public List <UserReview> GetReviewByReviewId(int reviewId)
+    // public List <UserReview> GetAllReviews()
     // {
-    //     return _popcornRepository.GetReviewByReviewId(reviewId);
+    //     return _popcornRepository.GetAllReviews();
     // }
 
     public List <UserReview> GetReviewsByUserId(int userId)

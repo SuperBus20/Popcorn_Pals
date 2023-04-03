@@ -69,14 +69,7 @@ namespace Popcorn_Pals.DAL
       _popContext.SaveChanges();
       return reviewToAdd;
     }
-    // public int Id { get; set; } //Id for review aka reviewId
-    // public int UserId { get; set; }
-    // public virtual User? User { get; set; }
-    // public int? MediaId { get; set; }
-    // public virtual Movie? Movies { get; set; }
-    // public virtual Show? Shows { get; set; }
-    // public string? Review { get; set; }
-    // public int Rating { get; set; }
+
     public UserReview EditReview(UserReview reviewId)
     {
       UserReview? editedReview = _popContext.Reviews
@@ -90,25 +83,13 @@ namespace Popcorn_Pals.DAL
       return editedReview;
     }
 
-
-    // public UserReview EditMovieReview(UserReview reviewToUpdate)
-    // {
-    //   _popContext.Reviews.Update(reviewToUpdate);
-    //   _popContext.SaveChanges();
-    //   return reviewToUpdate;
-    // }
-
-    // public UserReview EditShowReview(int reviewToUpdate)
-    // {
-    //   _popContext.Reviews.Update();
-    //   _popContext.SaveChanges();
-    //   return reviewToUpdate;
-    // }
-
     public void DeleteReview(UserReview reviewId)
     {
+      UserReview? deleteReview = _popContext.Reviews
+      .Where(x => x.Id == reviewId.Id).FirstOrDefault();
+
       UserReview reviewToDelete = reviewId;
-      _popContext.Reviews.Remove(reviewId);
+      _popContext.Reviews.Remove(deleteReview);
       _popContext.SaveChanges();
     }
 
@@ -127,7 +108,6 @@ namespace Popcorn_Pals.DAL
       }
     }
 
-
     public bool hasUserReviewed (int mediaId, int userId, string mediaType) 
     {
       int reviewId = GetReviewId(mediaId, userId, mediaType);
@@ -143,6 +123,20 @@ namespace Popcorn_Pals.DAL
         .Where(x => x.UserId == userId)
         .ToList();
       return Reviews;
+    }
+
+    public List<UserReview> GetReviewsOfFollowing (int userId)
+    {
+      List<Follow> usersIFollow = GetAllFollowing(userId);
+
+      foreach (var follower in usersIFollow) {
+        List<UserReview> usersIFollowReviews = _popContext.Reviews
+        .Where(x => x.UserId == follower.UserId)
+        .ToList();
+
+        return usersIFollowReviews;
+      }
+      return null;
     }
 
 

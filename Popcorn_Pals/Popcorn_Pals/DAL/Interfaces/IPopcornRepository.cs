@@ -8,7 +8,8 @@ namespace Popcorn_Pals.DAL.Interfaces
 {
   public interface IPopcornRepository
   {
-    public List<User> GetUsers();
+    // User Methods //
+    List<User> GetUsers();
     User? GetUser(string userName);
     User AddUser(string userName, string password);
     User GetUserById(int id);
@@ -17,17 +18,15 @@ namespace Popcorn_Pals.DAL.Interfaces
 
 
     // Review Methods //
-
     UserReview AddMovieReview(UserReview reviewToAdd);
     UserReview AddShowReview(UserReview reviewToAdd);
-    //bool hasUserReviewed(int mediaId, int userId);
-    List<UserReview> GetAllReviews();
+    UserReview EditReview(UserReview reviewId);
+    void DeleteReview(UserReview reviewId);
+    int GetReviewId(int mediaId, int userId, string mediaType);
+    bool hasUserReviewed(int mediaId, int userId, string mediaType);
     List<UserReview> GetReviewsByUserId(int userId);
-    //UserReview GetReviewByReviewId(int id);
-    //UserReview DeleteReview(int id);
-    //UserReview EditReview(int id);
-
-
+    List<UserReview> GetReviewsOfFollowing(int userId);
+  
 
  // Follow Methods //
     Follow FollowUser(int user, int profile);
