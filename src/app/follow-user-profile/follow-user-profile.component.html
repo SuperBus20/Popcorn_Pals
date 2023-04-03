@@ -11,12 +11,13 @@
                 class="w3-button w3-display-topright">&times;</span>
             <div *ngIf="userFollowingCount != 0">
                 <li *ngFor="let following of followingUsers">
-                    <span style="font-size: 20px;text-align: center;">{{following.followingId}} </span>
+                    <img *ngIf="following.userPic" src="{{following.userPic}}" alt="User Picture" width="50" height="50">
+                    <span style="font-size: 20px;text-align: center;">~ {{following.userName}} </span>
                 </li>
             </div>
             <div *ngIf="userFollowingCount == 0">
                 <div>
-                    <span style="font-size: 20px;text-align: center;"><br> No one is following you</span>
+                    <span style="font-size: 20px;text-align: center;"><br> You are not following anyone</span>
                 </div>
             </div>
         </div>
@@ -36,12 +37,14 @@
                 class="w3-button w3-display-topright">&times;</span>
             <div *ngIf="userFollowersCount != 0">
                 <li *ngFor="let followers of userFollowers">
-                    <span style="font-size: 20px;text-align: center;">{{followers.followerId}} </span>
+                    <img *ngIf="followers.userPic" src="{{followers.userPic}}" alt="User Picture" width="50" height="50">
+                    <span style="font-size: 20px;text-align: center;">~ {{followers.userName}} </span>
+
                 </li>
             </div>
             <div *ngIf="userFollowersCount == 0">
                 <div>
-                    <span style="font-size: 20px;text-align: center;"><br> You are not following anyone</span>
+                    <span style="font-size: 20px;text-align: center;"><br> No one is following you</span>
                 </div>
             </div>
         </div>
