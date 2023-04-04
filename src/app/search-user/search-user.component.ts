@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { IUser } from '../Interfaces/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Router } from '@angular/router';
+
 import { waitForAsync } from '@angular/core/testing';
 
 @Component({
