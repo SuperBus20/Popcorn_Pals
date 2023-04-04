@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
+import { IUser } from '../Interfaces/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-follow-user-profile',
@@ -8,7 +10,7 @@ import { ILoggedInUser } from '../Interfaces/LoggedinUser';
   styleUrls: ['./follow-user-profile.component.css']
 })
 export class FollowUserProfileComponent implements OnInit{
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, private router: Router) {}
   userFollowers: any;
   followingUsers: any;
   loggedInUser: ILoggedInUser | null = null;
@@ -19,6 +21,14 @@ export class FollowUserProfileComponent implements OnInit{
     this.loggedInUser = this.api.giveCurrentUser();
     this.followers();
     this.following();
+  }
+
+  loadUserProfile(user: IUser) {
+    this.api.userToView = user;
+
+    this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/view-user']);
+    });
   }
 
   followers() {
