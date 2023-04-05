@@ -116,7 +116,7 @@ export class MediaComponent {
 
 
 //MOVIE STUFF
-  addFavoriteMovie(movieId: Number) {
+  addFavoriteMovie(movieId: number) {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
@@ -138,18 +138,18 @@ export class MediaComponent {
     this.api.removeFavoriteMovie(userId, movieId);
   }
 //SHOW STUFF
-  addFavoriteShow(showId: Number) {
+  addFavoriteShow(showId: number) {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
     this.isFavorite = true;
     this.http
       .post<IShow>(
-        this.api.userURI + `FavoriteShow?showId=${showId}&userId=${userId}`,
+        this.api.userURI + `FavoriteShow/${showId}/${userId}`,
         {}
       )
       .subscribe((response) => {
-        console.log('Item added to database');
+        console.log('show added to database');
       });
   }
 

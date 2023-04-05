@@ -27,6 +27,7 @@ export class FavoriteComponent implements OnInit {
     if(this.user)
     {
       this.api.getUserFavoriteMovies(this.user).subscribe((movies)=>{this.favoriteMovies = movies;  });
+      this.api.getUserFavoriteShows(this.user).subscribe((shows)=>{this.favoriteShows = shows;  });
     }
 
   }
