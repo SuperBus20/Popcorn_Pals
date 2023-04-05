@@ -90,14 +90,15 @@ export class ApiService {
         user
       )
       .subscribe((x) => {
-        return this.loggedInUser = {
+         this.loggedInUser = {
           User: x,
           UserReview: [],
           FavoriteMovies: [],
           FavoriteShows: [],
         };
-        // this.onComponentLoad();
+        this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
       });
+
   }
 
   getUser(user: IUser) {
