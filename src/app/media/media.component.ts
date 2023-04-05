@@ -121,12 +121,7 @@ export class MediaComponent {
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
     this.isFavorite = true;
-    this.http
-      .post<IMovie>(
-        this.api.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
-        {}
-      )
-      .subscribe((response) => {
+      this.api.addFavoriteMovie(userId,movieId).subscribe((response) => {
         console.log('Item added to database');
       });
   }
@@ -143,11 +138,7 @@ export class MediaComponent {
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
     this.isFavorite = true;
-    this.http
-      .post<IShow>(
-        this.api.userURI + `FavoriteShow/${showId}/${userId}`,
-        {}
-      )
+    this.api.addFavoriteShow(userId,showId)
       .subscribe((response) => {
         console.log('show added to database');
       });
@@ -168,7 +159,7 @@ export class MediaComponent {
     this.api.loggedInEvent.subscribe(
       (x) => {this.loggedInUser = x as ILoggedInUser
         this.api.getUserFavoriteMovies(x.User).subscribe((movies)=>this.favoriteMovies=movies)
-        // this.api.getUserFavoriteShows(x.User).subscribe((shows)=>this.favoriteShows=shows)
+        this.api.getUserFavoriteShows(x.User).subscribe((shows)=>this.favoriteShows=shows)
         }
     );
   }
