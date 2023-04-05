@@ -16,13 +16,17 @@ export class UserProfileComponent implements OnInit {
   userProfile: any;
   userToFollow: any;
   follower: any;
-  
+  user:IUser | null = null;
+
   constructor(private api: ApiService) {
     // this.loggedInUser = this.api.loggedInUser;
   }
 
   ngOnInit() {
-    this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+    // this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+    this.api.loggedInEvent.subscribe(
+      (x) => {this.loggedInUser = x as ILoggedInUser
+        this.user=x.User;});
   }
 
   userName: string = "";

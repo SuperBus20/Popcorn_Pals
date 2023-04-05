@@ -11,21 +11,22 @@ import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 export class FavoriteComponent implements OnInit {
   favoriteMovies: IMovie[] = [];
   favoriteShows: IShow[] = [];
-  loggedInUser: ILoggedInUser | null = null;
+  // loggedInUser: ILoggedInUser | null = null;
   @Input() user: any;
+  @Input() loggedInUser: ILoggedInUser | null = null;
   constructor(private api: ApiService) {
     this.loggedInUser = this.api.loggedInUser;
   }
 
   ngOnInit(): void {
-    if(this.loggedInUser){
+    // if(this.loggedInUser){
 
-      // this.api.getUserFavoriteMovies(this.loggedInUser.User).subscribe(
-      //   (movies)=>{this.favoriteMovies = movies;
-      //   this.api.getUserFavoriteShows(this.loggedInUser?.User).subscribe(
-      //     (shows)=>this.favoriteShows = shows )  });
+    //   this.api.getUserFavoriteMovies(this.loggedInUser.User).subscribe(
+    //     (movies)=>{this.favoriteMovies = movies;
+    //     this.api.getUserFavoriteShows(this.loggedInUser.User).subscribe(
+    //       (shows)=>this.favoriteShows = shows )  });
 
-    }
+    // }
     if(this.user)
     {
       this.api.getUserFavoriteMovies(this.user).subscribe(
