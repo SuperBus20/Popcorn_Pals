@@ -110,41 +110,9 @@ namespace Popcorn_Pals.Controllers
       return _popcornRepository.GetReviewsByUserId(userId);
     }
 
-    //[HttpGet("GetReviewByReviewId")]
-    //public UserReview GetReviewByReviewId(int reviewId)
-    //{
-    //  return _popcornRepository.GetReviewByReviewId(reviewId);
-    //}
 
 
-    // [HttpPost("GetMediaTypeById")]
-    // public UserReview GetMediaTypeById(int userId, int mediaId)
-    // {
-    //   return _popcornRepository.GetMediaTypeById(userId, mediaId);
-    // }
-
-    // [HttpPost("GetReviewByMovieId")]
-    // public List<UserReview> GetReviewByMovieId(int movieId)
-    // {
-    //   return _popcornRepository.GetReviewByMovieId(movieId);
-    // }
-    
-    // [HttpPost("GetReviewByShowId")]
-    // public List<UserReview> GetReviewByShowId(int showId)
-    // {
-    //   return _popcornRepository.GetReviewByShowId(showId);
-    // }
-
-    // [HttpPost("GetAllReviews")]
-    // public List<UserReview> GetAllReviews()
-    // {
-    //   return _popcornService.GetAllReviews();
-    // }
-
-    // TODO: Add Edit Review
-
-
-    // Follow Endpoints
+    // Follow Endpoints //
 
     [HttpPost("FollowUser")]
     public Follow FollowUser(int userId, int userToFollow)

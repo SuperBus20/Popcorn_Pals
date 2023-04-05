@@ -55,7 +55,8 @@ namespace Popcorn_Pals.DAL
     }
 
 
-    // Review Methods //
+
+     // Review Methods //
     public UserReview AddMovieReview(UserReview reviewToAdd)
     {
       _popContext.Reviews.Add(reviewToAdd);
@@ -70,27 +71,13 @@ namespace Popcorn_Pals.DAL
       return reviewToAdd;
     }
 
-    public UserReview EditReview(UserReview reviewId)
+    public bool hasUserReviewed (int mediaId, int userId, string mediaType) 
     {
-      UserReview? editedReview = _popContext.Reviews
-      .Where(x => x.Id == reviewId.Id).FirstOrDefault();
-
-      editedReview.Review = reviewId.Review;
-      editedReview.Rating = reviewId.Rating;
-
-      _popContext.Reviews.Update(editedReview);
-      _popContext.SaveChanges();
-      return editedReview;
-    }
-
-    public void DeleteReview(UserReview reviewId)
-    {
-      UserReview? deleteReview = _popContext.Reviews
-      .Where(x => x.Id == reviewId.Id).FirstOrDefault();
-
-      UserReview reviewToDelete = reviewId;
-      _popContext.Reviews.Remove(deleteReview);
-      _popContext.SaveChanges();
+      int reviewId = GetReviewId(mediaId, userId, mediaType);
+      if (reviewId > 0) {
+        return true;
+      }
+      return false;
     }
 
     public int GetReviewId(int mediaId, int userId, string mediaType)
@@ -108,15 +95,6 @@ namespace Popcorn_Pals.DAL
       }
     }
 
-    public bool hasUserReviewed (int mediaId, int userId, string mediaType) 
-    {
-      int reviewId = GetReviewId(mediaId, userId, mediaType);
-      if (reviewId > 0) {
-        return false;
-      }
-      return true;
-    }
-
     public List<UserReview> GetReviewsByUserId(int userId)
     {
       List<UserReview> Reviews = _popContext.Reviews
@@ -125,20 +103,42 @@ namespace Popcorn_Pals.DAL
       return Reviews;
     }
 
-    public List<UserReview> GetReviewsOfFollowing (int userId)
+    public void DeleteReview(UserReview reviewId)
     {
-      List<Follow> usersIFollow = GetAllFollowing(userId);
+      UserReview? deleteReview = _popContext.Reviews
+      .Where(x => x.Id == reviewId.Id).FirstOrDefault();
 
-      foreach (var follower in usersIFollow) {
-        List<UserReview> usersIFollowReviews = _popContext.Reviews
-        .Where(x => x.UserId == follower.UserId)
-        .ToList();
-
-        return usersIFollowReviews;
-      }
-      return null;
+      UserReview reviewToDelete = reviewId;
+      _popContext.Reviews.Remove(deleteReview);
+      _popContext.SaveChanges();
     }
 
+    // public UserReview EditReview(UserReview reviewId)
+    // {
+    //   UserReview? editedReview = _popContext.Reviews
+    //   .Where(x => x.Id == reviewId.Id).FirstOrDefault();
+
+    //   editedReview.Review = reviewId.Review;
+    //   editedReview.Rating = reviewId.Rating;
+
+    //   _popContext.Reviews.Update(editedReview);
+    //   _popContext.SaveChanges();
+    //   return editedReview;
+    // }
+
+    // public List<UserReview> GetReviewsOfFollowing (int userId)
+    // {
+    //   List<Follow> usersIFollow = GetAllFollowing(userId);
+
+    //   foreach (var follower in usersIFollow) {
+    //     List<UserReview> usersIFollowReviews = _popContext.Reviews
+    //     .Where(x => x.UserId == follower.UserId)
+    //     .ToList();
+
+    //     return usersIFollowReviews;
+    //   }
+    //   return null;
+    // }
 
 
     // Follow Methods //

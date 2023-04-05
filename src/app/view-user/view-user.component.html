@@ -1,90 +1,89 @@
 <!-- Page Container -->
 <div *ngIf="user">
 
-<div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
-    <!-- The Grid -->
-    <div class="w3-row">
-        <!-- Left Column -->
-        <div class="w3-col m3">
-            <!-- Profile -->
-            <div class="w3-card w3-round w3-white">
-                <div class="w3-container">
-                    <h4 class="w3-center">{{user.userName}}</h4>
-                    <p class="w3-center">
-                        <img src="{{user.userPic}}"  style="height: 106px; width: 106px"
-                            alt="Avatar" />
-                    </p>
-                    <hr />
-                    <p>
-                        <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
-                        {{user.userBio}}
-                    </p>
-
+    <div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
+        <!-- The Grid -->
+        <div class="w3-row">
+            <!-- Left Column -->
+            <div class="w3-col m3">
+                <!-- Profile -->
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container">
+                        <h4 class="w3-center">{{user.userName}}</h4>
+                        <p class="w3-center view-user-pic">
+                            <img src="{{user.userPic}}" style="height: 106px; width: 106px" alt="Avatar" />
+                        </p>
+                        <hr />
+                        <p>
+                            <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
+                            {{user.userBio}}
+                        </p>
+  
+                    </div>
                 </div>
                 <br />
-
+  
                 <!-- Accordion -->
                 <br />
-
+  
                 <!-- Trigger/Open the Modal -->
                 <div class="w3-button w3-block w3-theme-l1 w3-left-align">
                     <i class="fa fa-cog fa-fw w3-margin-right"></i>Followers
                 </div>
-
+  
                 <!-- Followers Component -->
                 <div id="id_followers" class="w3-card w3-round">
                     <div class="w3-container w3-blue-grey">
-                        <app-follow-user></app-follow-user>
+                        <app-follow-user> </app-follow-user>
                     </div>
                 </div>
-
+  
                 <!-- End Left Column -->
             </div>
-
+  
             <!-- Middle Column -->
-
-
-        <!-- Middle Column -->
-
-          <!-- Middle Column -->
-      <div class="w3-col m7">
-        <div class="w3-row-padding">
-          <div class="w3-col m12">
-            <div class="w3-card w3-round w3-white">
-              <div class="w3-container w3-padding">
-                <h6 class="w3-opacity">Favorite Media</h6>
-                <app-favorite [user]="user" ></app-favorite>
-              </div>
-            </div>
-          </div>
-        </div>
-
-            <div class="w3-container w3-card w3-blue-grey w3-round w3-margin">
-                <div class="w3-container w3-card w3-white w3-round w3-margin">
-                    <br />
-                    <span class="w3-right w3-opacity">Rating Goes Here/5</span>
-                    <h4>Show/Movie Title</h4>
-                    <br />
-                    <hr class="w3-clear" />
-                    <p>Review Goes Here</p>
-                    <div class="w3-row-padding" style="margin: 0 -16px">
-                        <div class="w3-half">
-                            <img src="{{user.userPic}}" style="width: 100%" alt="Media Image"
-                                class="w3-margin-bottom" />
-
+  
+  
+            <!-- Middle Column -->
+  
+            <!-- Middle Column -->
+            <div class="w3-col m7">
+                <div class="w3-row-padding">
+                    <div class="w3-col m12">
+                        <div class="w3-card w3-round w3-white">
+                            <div class="w3-container w3-padding">
+                                <h6 class="w3-opacity">Favorite Media</h6>
+                                <app-favorite>[user]="user"></app-favorite>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- End Middle Column -->
                 </div>
-
-                <!-- End Grid -->
+  
+                <div class="w3-container w3-card w3-blue-grey w3-round w3-margin">
+                    <div class="w3-container w3-card w3-white w3-round w3-margin">
+                        <br />
+                        <span class="w3-right w3-opacity">Rating Goes Here/5</span>
+                        <h4>Show/Movie Title</h4>
+                        <br />
+                        <hr class="w3-clear" />
+                        <p>Review Goes Here</p>
+                        <div class="w3-row-padding" style="margin: 0 -16px">
+                            <div class="w3-half">
+                                <img src="{{user.userPic}}" style="width: 100%" alt="Media Image"
+                                    class="w3-margin-bottom" />
+  
+                            </div>
+                        </div>
+  
+                        <!-- End Middle Column -->
+                    </div>
+  
+                    <!-- End Grid -->
+                </div>
+  
+                <!-- End Page Container -->
             </div>
-
-            <!-- End Page Container -->
         </div>
-    </div>
-
+  
     </div>
     <br />
-

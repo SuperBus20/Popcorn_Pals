@@ -48,8 +48,8 @@ import { FollowUserProfileComponent } from './follow-user-profile/follow-user-pr
     FormsModule,
     MatIconModule,
     MatButtonModule,
-    YouTubePlayerModule,
-    FormsModule
+    FormsModule,
+    YouTubePlayerModule
   ],
 
   providers: [ApiService],

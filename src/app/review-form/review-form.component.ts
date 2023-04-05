@@ -37,7 +37,7 @@ export class ReviewFormComponent {
   movieId: number = -1
   movie: IMovie | any;
   show: IShow | any;
-  loggedInUser: ILoggedInUser | undefined;
+  loggedInUser: ILoggedInUser | null = null;
   Review: string = "" ;
   Id: number = -1;
   hasUserReviewed: boolean = false;
@@ -57,6 +57,7 @@ export class ReviewFormComponent {
 
   // Add Reviews //
   addMovieReview(form: NgForm) {
+    // this.isReviewed = true;
     let newMovieReview: IUserReview = {
       userId: this.userId,
       Rating: this.rating,
@@ -68,6 +69,7 @@ export class ReviewFormComponent {
   }
 
   addShowReview(form: NgForm) {
+    // this.isReviewed = true;
     let newShowReview: IUserReview = {
       userId: this.userId,
       Rating: this.rating,
@@ -78,17 +80,64 @@ export class ReviewFormComponent {
     form.resetForm();
   }
 
-  // Edit Reviews //
+  hasReviewed(mediaId: number, userId: number, mediaType:string) {
 
-  // editReview(form: NgForm) {
-  //   let reviewToEdit: IUserReview = {
-  //     userId: this.userId,
-  //     Rating: this.rating,
-  //     Review: form.form.value.Review,
-  //     MediaId: this.mediaId,
-  //   };
-  //   this.Api.editReview(reviewToEdit)
-  //   form.resetForm();
-  // }
+  }
+  
+  deleteReview(reviewId: number) {
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    userId = user.User.userId;
+    this.Api.deleteReview(reviewId);
+  }
+
+
+  getReviewId(mediaId: number, userId: number, mediaType: string) {
+
+  }
 
 }
+
+
+
+// public bool hasUserReviewed (int mediaId, int userId, string mediaType) 
+// {
+//   int reviewId = GetReviewId(mediaId, userId, mediaType);
+//   if (reviewId > 0) {
+//     return true;
+//   }
+//   return false;
+// }
+
+// public int GetReviewId(int mediaId, int userId, string mediaType)
+// {
+//   if (mediaType == "movie") {
+//     int movieReviewId = _popContext.Reviews.Include(x => x.Movies).Where(x => x.Movies._id == mediaId && x.UserId == userId).Select(x => x.Id).FirstOrDefault();
+//     return movieReviewId;
+//   }
+//   else if (mediaType == "show") {
+//     int showReviewId = _popContext.Reviews.Include(x => x.Movies).Where(x => x.Shows._id == mediaId && x.UserId == userId).Select(x => x.Id).FirstOrDefault();
+//     return showReviewId;
+//   }
+//   else {
+//     return 0; //if this is 0, user doesn't have a review for selected media
+//   }
+// }
+
+// public List<UserReview> GetReviewsByUserId(int userId)
+// {
+//   List<UserReview> Reviews = _popContext.Reviews
+//     .Where(x => x.UserId == userId)
+//     .ToList();
+//   return Reviews;
+// }
+
+// public void DeleteReview(UserReview reviewId)
+// {
+//   UserReview? deleteReview = _popContext.Reviews
+//   .Where(x => x.Id == reviewId.Id).FirstOrDefault();
+
+//   UserReview reviewToDelete = reviewId;
+//   _popContext.Reviews.Remove(deleteReview);
+//   _popContext.SaveChanges();
+// }

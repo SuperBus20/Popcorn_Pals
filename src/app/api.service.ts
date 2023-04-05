@@ -22,7 +22,6 @@ export class ApiService {
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
   
   @Output() loggedInUser: ILoggedInUser | null = null;
-  loggedInUser: ILoggedInUser | null = null;
   userToView: IUser | null = null;
 
   loggedInEvent = new EventEmitter<ILoggedInUser>
@@ -65,7 +64,6 @@ export class ApiService {
 
       });
   }
-
 
   updateProfile(userToUpdate: IUser) {
     let userId = this.loggedInUser;
@@ -228,20 +226,15 @@ export class ApiService {
 
 
   // Reviews //
-
-  isReviewedByUser(userId: number, mediaid: number) {
-    return this.http.get(this.userURI + `IsReviewedByUser?=${userId}&mediaid=${mediaid}`, {}).subscribe(() => { Response });
-  }
-
-  addMovieReview(movieReview: IUserReview) {
+   addMovieReview(movieReview: IUserReview) {
     let userId = movieReview.userId;
-    let movieId = movieReview.MediaId;
+    let mediaId = movieReview.MediaId;
     let review = movieReview.Review;
     let rating = movieReview.Rating;
     return this.http
       .post<IUserReview>(
         this.movieReview +
-        `AddMovieReview?userId=${userId}&movieId=${movieId}&review=${review}&rating=${rating}`,
+        `AddMovieReview?userId=${userId}&mediaId=${mediaId}&review=${review}&rating=${rating}`,
         movieReview
       )
       .subscribe(() => {
@@ -252,8 +245,8 @@ export class ApiService {
   addShowReview(showReview: IUserReview) {
     let userId = showReview.userId;
     let mediaId = showReview.MediaId;
-    let rating = showReview.Rating;
     let review = showReview.Review;
+    let rating = showReview.Rating;
     return this.http
       .post<IUserReview>(
         this.showReview +
@@ -261,12 +254,6 @@ export class ApiService {
         showReview
       )
       .subscribe(() => { });
-  }
-
-  getReviewByMediaId(mediaId: number) {
-    return this.http.get<IUserReview>(
-      this.userURI + `GetReviewByMediaId?mediaId=${mediaId}`
-    );
   }
 
   getReviewByUserId(userId: number) {
@@ -280,6 +267,11 @@ export class ApiService {
       this.userURI + `GetReviewByReviewId?id=${id}`
     );
   }
+
+
+  deleteReview(userId: number, reviewId: number) {
+    return this.http.post<boolean>(this.userURI + `DeleteReview/${userId}/${reviewId}`, {}).subscribe(() => { Response });
+  } 
 
 
   // Follow //

@@ -20,12 +20,10 @@ namespace Popcorn_Pals.DAL.Interfaces
     // Review Methods //
     UserReview AddMovieReview(UserReview reviewToAdd);
     UserReview AddShowReview(UserReview reviewToAdd);
-    UserReview EditReview(UserReview reviewId);
     void DeleteReview(UserReview reviewId);
     int GetReviewId(int mediaId, int userId, string mediaType);
     bool hasUserReviewed(int mediaId, int userId, string mediaType);
     List<UserReview> GetReviewsByUserId(int userId);
-    List<UserReview> GetReviewsOfFollowing(int userId);
   
 
     // Follow Methods //
@@ -47,5 +45,6 @@ namespace Popcorn_Pals.DAL.Interfaces
     List<Show> GetFavoriteShows(int userId);
     bool DeleteFavoriteMovieById(int userId, int mediaId);
     bool DeleteFavoriteShowById(int userId, int mediaId);
+    
   }
 }

@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApiService } from '../api.service';
 import { NgForm } from '@angular/forms';
 import { IMovie, IShow, ISource } from '../Interfaces/Media';
 import { HttpClient } from '@angular/common/http';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
-import { Router } from '@angular/router';
-import { ReviewDetailComponent } from '../review-detail/review-detail.component';
 import { NgModule } from '@angular/core';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { Router } from '@angular/router';
+import { ReviewDetailComponent } from '../review-detail/review-detail.component';
 
 @Component({
   selector: 'app-media',
@@ -39,6 +39,7 @@ export class MediaComponent {
   favoriteMovies: IMovie[] = [];
   isFavorite: boolean = false;
 
+  
   searchMedia(form: NgForm) {
     this.searchString = form.value.searchString;
     this.searchType = form.value.searchType;
@@ -77,8 +78,7 @@ export class MediaComponent {
        this.api.getMovieByID(mediaId).subscribe((response) => {
         this.selectedMovie = response;
       });
-      this.api.isFavoritedMovie(this.selectedMovie._id).subscribe((x) => {this.isFavorite=x
-      });
+      this.checkFavoriteMovie(mediaId);
     }
     else if(mediaType==="show")
     {
@@ -87,7 +87,77 @@ export class MediaComponent {
       this.api.getShowByID(mediaId).subscribe((response) => {
         this.selectedShow = response;
       });
+      this.checkFavoriteShow(mediaId);
     }
+  }
+
+  // Favorites 
+  checkFavoriteMovie(mediaId: number) {
+    // check if the item is in the favorites array
+    const index = this.favoriteMovies.findIndex((x) => x._id === mediaId);
+    if (index !== -1) {
+      this.isFavorite = true;
+    } else {
+      this.isFavorite = false;
+    }
+    return mediaId;
+  }
+
+  checkFavoriteShow(mediaId: number) {
+    // check if the item is in the favorites array
+    const index = this.favoriteShows.findIndex((x) => x._id === mediaId);
+    if (index !== -1) {
+      this.isFavorite = true;
+    } else {
+      this.isFavorite = false;
+    }
+    return mediaId;
+  }
+
+  addFavoriteMovie(movieId: number) {
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    userId = user.User.userId;
+    this.isFavorite = true;
+    this.http
+      .post<IMovie>(
+        this.api.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
+        {}
+      )
+      .subscribe((response) => {
+        console.log('Item added to database');
+      });
+  }
+  
+  removeFavoriteMovie(movieId: number) {
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    userId = user.User.userId;
+    this.isFavorite = false;
+    this.api.removeFavoriteMovie(userId, movieId);
+  }
+
+  addFavoriteShow(showId: number) {
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    userId = user.User.userId;
+    this.isFavorite = true;
+    this.http
+      .post<IShow>(
+        this.api.userURI + `FavoriteShow/${showId}/${userId}`,
+        {}
+      )
+      .subscribe((response) => {
+        console.log('show added to database');
+      });
+  }
+
+  removeFavoriteShow(showId: number) {
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    userId = user.User.userId;
+    this.isFavorite = false;
+    this.api.removeFavoriteShow(userId, showId);
   }
 
   onPress() {
@@ -126,55 +196,13 @@ export class MediaComponent {
   navigate(url:string) {
     window.open(url);
   }
-  
-  // Add as Favorite
-  favoriteShowClicked() {
-    this.show = this.show as IShow;
-    this.api.selectFavoriteShow(this.show._id);
-    return this.clicked.emit(true);
-  }
-
-  addFavoriteMovie(movieId: Number) {
-    let userId = -1;
-    let user = this.loggedInUser as ILoggedInUser;
-    userId = user.User.userId;
-    this.http
-      .post<IMovie>(
-        this.api.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
-        {}
-      )
-      .subscribe((response) => {
-        console.log('Item added to database');
-      });
-  }
-  
-  addFavoriteShow(showId: Number) {
-    let userId = -1;
-    let user = this.loggedInUser as ILoggedInUser;
-    userId = user.User.userId;
-    this.http
-      .post<IShow>(
-        this.api.userURI + `FavoriteShow?showId=${showId}&userId=${userId}`,
-        {}
-      )
-      .subscribe((response) => {
-        console.log('Item added to database');
-      });
-  }
-
-  removeFavoriteShow(showId: number) {
-    let userId = -1;
-    let user = this.loggedInUser as ILoggedInUser;
-    userId = user.User.userId;
-    this.api.removeFavoriteShow(userId, showId);
-  }
-
-
-
 
   ngOnInit(): void {
     this.api.loggedInEvent.subscribe(
-      (x) => (this.loggedInUser = x as ILoggedInUser)
+      (x) => {this.loggedInUser = x as ILoggedInUser
+        this.api.getUserFavoriteMovies(x.User).subscribe((movies)=>this.favoriteMovies=movies)
+        // this.api.getUserFavoriteShows(x.User).subscribe((shows)=>this.favoriteShows=shows)
+        }
     );
   }
 }
