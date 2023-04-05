@@ -138,7 +138,7 @@ namespace Popcorn_Pals.Controllers
       return _popcornRepository.GetFollowingAsUsers(userId);
     }
 
-    [HttpPost("IsFollowing")]
+    [HttpGet("IsFollowing/{userId}/{id}")]
     public bool IsFollowing(int userId, int id)
     {
       return _popcornRepository.IsFollowing(userId, id);

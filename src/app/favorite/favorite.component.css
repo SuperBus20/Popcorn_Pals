@@ -1,0 +1,35 @@
+.favorite-lists {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex: 1 50%;
+  justify-content: space-between;
+  align-content: stretch;
+  flex-wrap: wrap;
+}
+.favorite-lists li{
+  width: 49%;
+  margin-top: 10px;
+}
+.favorite-lists h3 {
+  color: white;
+  text-transform: uppercase;
+  font-size: 21px;
+  text-align: center;
+  width: 100%;
+  background: black;
+  margin: 0;
+}
+.favorite-lists img {
+  width: 100%;
+  height: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .favorite-lists {
+    flex-direction: column;
+  }
+  .favorite-lists li {
+    width: 100%;
+  }
+}

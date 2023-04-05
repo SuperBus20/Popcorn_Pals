@@ -1,0 +1,49 @@
+.search-user-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .search-user-form label {
+    width: 25%;
+  }
+  .search-user-form input {
+    width: 100%;
+  }
+  .search-user-info {
+    background-color: white;
+    padding: 1em;
+    color: black;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .search-user-info-inner {
+    display: flex;
+    align-items: center;
+  }
+  .search-user-info-inner .search-user-name {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .search-user-info-inner .search-user-name p {
+    margin-top: 15px;
+  }
+  .search-user-info img {
+    border-radius: 50%;
+  }
+  .search-user-info button {
+    border: 0 !important;
+    color: white !important;
+    font-weight: normal;
+    background-color: #69648b;
+    text-transform: uppercase;
+    padding: 10px 45px;
+  }
+  .search-user-info button:hover {
+    background-color: #a89eed;
+    cursor: pointer;
+  }
+  

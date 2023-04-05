@@ -6,20 +6,20 @@ import { AppComponent } from './app.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { ReviewFormComponent } from './review-form/review-form.component';
 import { MediaComponent } from './media/media.component';
-import { FollowUserComponent } from './follow-user/follow-user.component';
+import { FollowUserComponent } from './follow-view-user/follow-view-user.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import { ApiService } from './api.service';
-import { ReviewDetailComponent } from './review-detail/review-detail.component';
-import { StarRatingComponent } from './star-rating/star-rating.component';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { FollowUserProfileComponent } from './follow-user-profile/follow-user-profile.component';
+import { HomeComponent } from './home/home.component';
+import { ReviewDetailComponent } from './review-detail/review-detail.component';
+import { StarRatingComponent } from './star-rating/star-rating.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -27,10 +27,8 @@ import { FollowUserProfileComponent } from './follow-user-profile/follow-user-pr
     AppComponent,
     UserLoginComponent,
     UserProfileComponent,
-    ReviewFormComponent,
     MediaComponent,
     UserProfileComponent,
-    ReviewFormComponent,
     FollowUserComponent,
     UserUpdateComponent,
     SearchUserComponent,
@@ -38,7 +36,8 @@ import { FollowUserProfileComponent } from './follow-user-profile/follow-user-pr
     FavoriteComponent,
     ReviewDetailComponent,
     StarRatingComponent,
-    FollowUserProfileComponent
+    FollowUserProfileComponent,
+    HomeComponent
   ],
 
   imports: [
@@ -49,7 +48,9 @@ import { FollowUserProfileComponent } from './follow-user-profile/follow-user-pr
     MatIconModule,
     MatButtonModule,
     FormsModule,
-    YouTubePlayerModule
+    YouTubePlayerModule,
+    MatIconModule,
+    MatButtonModule
   ],
 
   providers: [ApiService],

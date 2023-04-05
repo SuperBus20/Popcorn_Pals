@@ -1,6 +1,5 @@
 <!-- Page Container -->
 <div *ngIf="user">
-
     <div class="w3-container w3-content" style="max-width: 1400px; margin-top: 80px">
         <!-- The Grid -->
         <div class="w3-row">
@@ -18,7 +17,7 @@
                             <i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>
                             {{user.userBio}}
                         </p>
-  
+
                     </div>
                 </div>
                 <br />
@@ -42,10 +41,10 @@
             </div>
   
             <!-- Middle Column -->
-  
-  
+
+
             <!-- Middle Column -->
-  
+
             <!-- Middle Column -->
             <div class="w3-col m7">
                 <div class="w3-row-padding">
@@ -53,12 +52,11 @@
                         <div class="w3-card w3-round w3-white">
                             <div class="w3-container w3-padding">
                                 <h6 class="w3-opacity">Favorite Media</h6>
-                                <app-favorite>[user]="user"></app-favorite>
+                                <app-favorite [user]="user"></app-favorite>
                             </div>
                         </div>
                     </div>
                 </div>
-  
                 <div class="w3-container w3-card w3-blue-grey w3-round w3-margin">
                     <div class="w3-container w3-card w3-white w3-round w3-margin">
                         <br />
@@ -71,19 +69,20 @@
                             <div class="w3-half">
                                 <img src="{{user.userPic}}" style="width: 100%" alt="Media Image"
                                     class="w3-margin-bottom" />
-  
+
                             </div>
                         </div>
-  
+
                         <!-- End Middle Column -->
                     </div>
-  
+
                     <!-- End Grid -->
                 </div>
-  
+
                 <!-- End Page Container -->
             </div>
         </div>
-  
+
     </div>
     <br />
+

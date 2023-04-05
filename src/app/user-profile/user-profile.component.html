@@ -10,7 +10,7 @@
         <div class="w3-card w3-round w3-white">
           <div class="w3-container">
             <h4 class="w3-center">{{ loggedInUser.User.userName }}</h4>
-            <p class="w3-center">
+            <p class="w3-center user-profile-pic">
               <img src="{{ loggedInUser.User.userPic }}" class="w3-circle" style="height: 106px; width: 106px"
                 alt="Avatar" />
             </p>
@@ -71,7 +71,7 @@
             <div class="w3-card w3-round w3-white">
               <div class="w3-container w3-padding">
                 <h6 class="w3-opacity">Favorite Media</h6>
-                <app-favorite></app-favorite>
+                <app-favorite [user]="user"></app-favorite>
               </div>
             </div>
           </div>
