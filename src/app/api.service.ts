@@ -20,6 +20,8 @@ export class ApiService {
   popCornUri: string = 'https://localhost:7035/api/Popcorn/';
   movieReview: string = 'https://localhost:7035/api/PopcornUser/';
   showReview: string = 'https://localhost:7035/api/PopcornUser/';
+  
+  @Output() loggedInUser: ILoggedInUser | null = null;
   loggedInUser: ILoggedInUser | null = null;
   userToView: IUser | null = null;
 
@@ -64,6 +66,7 @@ export class ApiService {
       });
   }
 
+
   updateProfile(userToUpdate: IUser) {
     let userId = this.loggedInUser;
     let userName = userToUpdate.userName;
@@ -80,6 +83,10 @@ export class ApiService {
       .subscribe(() => { });
   }
 
+  getUserById(userId: number) {
+    return this.http.get<IUser>(this.userURI + `GetUserById/${userId}`);
+  }
+  
   setUser(currentUser: IUser) {
     // sets the currently logged in user in this service so that its globally available to all components, also only used by login component
     this.getUser(currentUser);
@@ -192,11 +199,21 @@ export class ApiService {
         })
   }
 
-  getLoggedInUserFavoriteMovies(user: IUser): Observable<IMovie[]> {
+  getUserFavoriteMovies(user: IUser): Observable<IMovie[]> {
     return this.http.get<IMovie[]>(this.userURI + `GetFavoriteMovies/${user.userId}`)
   }
 
-  getLoggedInUserFavoriteShows(user: IUser): Observable<IShow[]> {
+  isFavoritedMovie(movieId: number): Observable<boolean> {
+    let userId=this.loggedInUser?.User.userId;
+    return this.http.get<boolean>(this.userURI + `isFavoritedMovie/${userId}/${movieId}`)
+  }
+
+  isFavoritedShow(showId: number): Observable<boolean> {
+    let userId=this.loggedInUser?.User.userId;
+    return this.http.get<boolean>(this.userURI + `isFavoritedShow/${userId}/${showId}`)
+  }
+
+  getUserFavoriteShows(user: IUser): Observable<IShow[]> {
     return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
   }
 
@@ -209,11 +226,8 @@ export class ApiService {
   }
 
 
-  // Review //
 
-  setReview(currentReview: IUserReview) {
-
-  }
+  // Reviews //
 
   isReviewedByUser(userId: number, mediaid: number) {
     return this.http.get(this.userURI + `IsReviewedByUser?=${userId}&mediaid=${mediaid}`, {}).subscribe(() => { Response });
@@ -249,30 +263,21 @@ export class ApiService {
       .subscribe(() => { });
   }
 
-  // getReviewId(review: IUserReview) {
-  //   IUserReview.ReviewId
-  // }
+  getReviewByMediaId(mediaId: number) {
+    return this.http.get<IUserReview>(
+      this.userURI + `GetReviewByMediaId?mediaId=${mediaId}`
+    );
+  }
 
+  getReviewByUserId(userId: number) {
+    return this.http.get<IUserReview>(
+      this.userURI + `GetReviewByUserId?userId=${userId}`
+    );
+  }
 
-
-  // editReview(reviewToEdit: IUserReview) {
-  //   this.reviewId
-  //   let rating = reviewToEdit.Rating;
-  //   let review = reviewToEdit.Review;
-  //   return this.http
-  //     .post<IUserReview>(
-  //       this.movieReview +
-  //       `EditMovieReview?reviewId=${}review=${review}&rating=${rating}`,
-  //       reviewToEdit
-  //     )
-  //     .subscribe(() => {
-  //       Response;
-  //     });
-  // }
-
-  getReviewsByUserId(userId: number) {
-    return this.http.get(
-      this.userURI + `GetReviewsByUserId?${userId}`
+  getReviewByReviewId(id: number) {
+    return this.http.get<IUserReview>(
+      this.userURI + `GetReviewByReviewId?id=${id}`
     );
   }
 
@@ -297,5 +302,5 @@ export class ApiService {
   isFollowingUser(userId: number, userToUnfollow: number) {
     return this.http.get(this.userURI + `IsFollowing?=${userId}&id=${userToUnfollow}`, {}).subscribe(() => { Response });
   }
-}
 
+}

@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 import { Router } from '@angular/router';
 import { ReviewDetailComponent } from '../review-detail/review-detail.component';
+import { NgModule } from '@angular/core';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @Component({
   selector: 'app-media',
@@ -34,13 +36,14 @@ export class MediaComponent {
   selectedMovie!: any;
   selectedShow!: any;
   selectedMedia: boolean = false;
+  favoriteMovies: IMovie[] = [];
+  isFavorite: boolean = false;
 
-  //MediaId: number = 1; //testing?
   searchMedia(form: NgForm) {
     this.searchString = form.value.searchString;
     this.searchType = form.value.searchType;
 
-    if ((this.searchType == 'movie')) {
+    if ((this.searchType === 'movie')) {
       this.isMovie = true;
       this.isShow = false;
       this.http
@@ -51,7 +54,7 @@ export class MediaComponent {
           this.movieResults = response;
         });
     }
-    if ((this.searchType == 'show')) {
+    else if ((this.searchType === 'show')) {
       this.isShow = true;
       this.isMovie = false;
       this.http
@@ -63,24 +66,27 @@ export class MediaComponent {
         });
     }
     this.selectedMedia=false;
+    form.resetForm();
   }
 
   selectId(mediaId:number, mediaType:string) {
     if(mediaType==="movie")
     {
+      this.selectedShow=null;
       this.selectedMedia=true;
        this.api.getMovieByID(mediaId).subscribe((response) => {
         this.selectedMovie = response;
       });
-      this.selectedMedia=true;
+      this.api.isFavoritedMovie(this.selectedMovie._id).subscribe((x) => {this.isFavorite=x
+      });
     }
     else if(mediaType==="show")
     {
+      this.selectedMovie=null;
       this.selectedMedia=true;
       this.api.getShowByID(mediaId).subscribe((response) => {
         this.selectedShow = response;
       });
-      this.selectedMedia=true;
     }
   }
 
@@ -121,7 +127,6 @@ export class MediaComponent {
     window.open(url);
   }
   
-
   // Add as Favorite
   favoriteShowClicked() {
     this.show = this.show as IShow;
@@ -141,16 +146,8 @@ export class MediaComponent {
       .subscribe((response) => {
         console.log('Item added to database');
       });
-
-    //   .subscribe(
-    //     (x)=>{
-    //       if(x){
-    //         this.api.setUser(user.User)
-    //         return this.api.onComponentLoad()
-    //       }
-    // });
   }
-
+  
   addFavoriteShow(showId: Number) {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
@@ -163,9 +160,17 @@ export class MediaComponent {
       .subscribe((response) => {
         console.log('Item added to database');
       });
-
-
   }
+
+  removeFavoriteShow(showId: number) {
+    let userId = -1;
+    let user = this.loggedInUser as ILoggedInUser;
+    userId = user.User.userId;
+    this.api.removeFavoriteShow(userId, showId);
+  }
+
+
+
 
   ngOnInit(): void {
     this.api.loggedInEvent.subscribe(

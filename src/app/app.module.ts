@@ -18,6 +18,9 @@ import { ReviewDetailComponent } from './review-detail/review-detail.component';
 import { StarRatingComponent } from './star-rating/star-rating.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import { YouTubePlayerModule } from '@angular/youtube-player';
+import { FollowUserProfileComponent } from './follow-user-profile/follow-user-profile.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import {MatButtonModule} from '@angular/material/button';
     ViewUserComponent,
     FavoriteComponent,
     ReviewDetailComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    FollowUserProfileComponent
   ],
 
   imports: [
@@ -43,7 +47,9 @@ import {MatButtonModule} from '@angular/material/button';
     HttpClientModule,
     FormsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    YouTubePlayerModule,
+    FormsModule
   ],
 
   providers: [ApiService],

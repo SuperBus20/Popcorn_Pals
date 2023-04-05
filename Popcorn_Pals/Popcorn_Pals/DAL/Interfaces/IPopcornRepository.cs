@@ -28,11 +28,13 @@ namespace Popcorn_Pals.DAL.Interfaces
     List<UserReview> GetReviewsOfFollowing(int userId);
   
 
- // Follow Methods //
+    // Follow Methods //
     Follow FollowUser(int user, int profile);
     Follow UnfollowUser(int user, int profile);
     List<Follow> GetAllFollowers(int userId);
     List<Follow> GetAllFollowing(int userId);
+    List<User> GetFollowersAsUsers(int userId);
+    List<User> GetFollowingAsUsers(int userId);
     bool IsFollowing(int userId, int id2);
 
 
@@ -40,6 +42,8 @@ namespace Popcorn_Pals.DAL.Interfaces
     void FavoriteMovie(int movieId, int userId);
     List<Movie> GetFavoriteMovies(int userId);
     Show FavoriteShow(int showId, int userId);
+    Task<bool> IsFavoritedMovie(int userId, int movieId);
+    Task<bool> IsFavoritedShow(int userId, int showId);
     List<Show> GetFavoriteShows(int userId);
     bool DeleteFavoriteMovieById(int userId, int mediaId);
     bool DeleteFavoriteShowById(int userId, int mediaId);

@@ -38,7 +38,7 @@ namespace Popcorn_Pals.Controllers
     [HttpGet("Login")]
     public User Login(string userName, string password)
     {
-      User user = _popcornRepository.GetUser(userName);
+      User? user = _popcornRepository.GetUser(userName);
       if (user == null || user.Password != password)
       {
         return null;
@@ -77,7 +77,20 @@ namespace Popcorn_Pals.Controllers
       }
     }
 
-    // Review Endpoints
+    [HttpGet("SearchUserByName/{userToSearch}")]
+    public List<User> SearchUserByName(string userToSearch)
+    {
+      return _popcornRepository.SearchUserByName(userToSearch);
+    }
+
+    [HttpGet("GetUserById/{userId}")]
+    public User GetUserById(int userId)
+    {
+      return _popcornRepository.GetUserById(userId);
+    }
+
+
+    // Review Endpoints //
 
     [HttpPost("AddMovieReview")]
     public UserReview AddMovieReview(int userId, int movieId, string review, int rating)
@@ -131,7 +144,7 @@ namespace Popcorn_Pals.Controllers
     // TODO: Add Edit Review
 
 
-// Follow Endpoints
+    // Follow Endpoints
 
     [HttpPost("FollowUser")]
     public Follow FollowUser(int userId, int userToFollow)
@@ -142,19 +155,19 @@ namespace Popcorn_Pals.Controllers
     [HttpPost("UnfollowUser")]
     public Follow UnfollowUser(int userId, int userToUnfollow)
     {
-      return _popcornRepository.UnfollowUser (userId, userToUnfollow);
+      return _popcornRepository.UnfollowUser(userId, userToUnfollow);
     }
 
-    [HttpGet("GetFollowers")]
-    public List<Follow> GetFollowers(int userId)
+    [HttpPost("GetFollowers")]
+    public List<User> GetFollowers(int userId)
     {
-      return _popcornRepository.GetAllFollowers(userId);
+      return _popcornRepository.GetFollowersAsUsers(userId);
     }
 
     [HttpPost("GetFollowing")]
-    public List<Follow> GetFollowing(int userId)
+    public List<User> GetFollowing(int userId)
     {
-      return _popcornRepository.GetAllFollowing(userId);
+      return _popcornRepository.GetFollowingAsUsers(userId);
     }
 
     [HttpPost("IsFollowing")]
@@ -164,13 +177,25 @@ namespace Popcorn_Pals.Controllers
     }
 
 
-    // Favorites
+    // Favorites //
 
     [HttpGet("GetFavoriteMovies/{userId}")]
     public IEnumerable<Movie> GetUserFavoriteMovies(int userId)
     {
 
       return _popcornRepository.GetFavoriteMovies(userId);
+    }
+
+    [HttpGet("isFavoritedMovie/{userId}/{movieId}")]
+    public Task<bool> IsFavoritedMovie(int userId, int movieId)
+    {
+      return _popcornRepository.IsFavoritedMovie(userId, movieId);
+    }
+
+    [HttpGet("isFavoritedShow/{userId}/{movieId}")]
+    public Task<bool> IsFavoritedShow(int userId, int movieId)
+    {
+      return _popcornRepository.IsFavoritedShow(userId, movieId);
     }
 
     [HttpGet("GetFavoriteShows/{userId}")]
@@ -187,6 +212,7 @@ namespace Popcorn_Pals.Controllers
       // return
       _popcornRepository.FavoriteMovie(movieId, userId);
     }
+
     [HttpPost("DeleteFavoriteMovie/{userId}/{movieId}")]
     public bool DeleteFavoriteMovie(int userId, int movieId)
     {
@@ -204,14 +230,6 @@ namespace Popcorn_Pals.Controllers
     {
       return _popcornRepository.FavoriteShow(showId, userId);
     }
-
-
-    [HttpGet("SearchUserByName/{userToSearch}")]
-    public List<User> SearchUserByName(string userToSearch)
-    {
-      return _popcornRepository.SearchUserByName(userToSearch);
-    }
-
 
   }
 }
