@@ -289,7 +289,7 @@ export class ApiService {
   }
 
   isFollowingUser(userId: number, userToUnfollow: number) {
-    return this.http.get<boolean>(`${this.userURI}IsFollowing/${userId}/${userToUnfollow}`);
+    return this.http.get(`${this.userURI}IsFollowing/${userId}/${userToUnfollow}`);
   }
   
 

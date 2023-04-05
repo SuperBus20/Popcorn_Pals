@@ -71,7 +71,7 @@ export class FollowUserComponent implements OnInit {
 
   isFollowing(id: number) {
     this.api.isFollowingUser(this.loggedInUser!.User.userId, id).subscribe(response => {
-      this.amIFollowing = response;
+      this.amIFollowing = <boolean>response;
     });
   }
   
