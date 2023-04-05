@@ -32,6 +32,7 @@ export class MediaComponent {
   selectedShow!: any;
   selectedMedia: boolean = false;
   favoriteMovies: IMovie[] = [];
+  favoriteShows: IShow[] = [];
   isFavorite: boolean = false;
 
 
@@ -76,8 +77,7 @@ export class MediaComponent {
        this.api.getMovieByID(mediaId).subscribe((response) => {
         this.selectedMovie = response;
       });
-      this.api.isFavoritedMovie(this.selectedMovie._id).subscribe((x) => {this.isFavorite=x
-      });
+      this.checkFavoriteMovie(mediaId);
     }
     else if(mediaType==="show")
     {
@@ -86,51 +86,41 @@ export class MediaComponent {
       this.api.getShowByID(mediaId).subscribe((response) => {
         this.selectedShow = response;
       });
+      this.checkFavoriteShow(mediaId);
     }
   }
 
 
-  // checkFavorite(mediaId: number) {
-  //   // check if the item is in the favorites array
-  //   const index = this.favoriteMovies.findIndex((x) => x._id === mediaId);
-  //   if (index !== -1) {
-  //     this.isFavorite = true;
-  //   } else {
-  //     this.isFavorite = false;
-  //   }
-  //   return mediaId;
-  // }
+  checkFavoriteMovie(mediaId: number) {
+    // check if the item is in the favorites array
+    const index = this.favoriteMovies.findIndex((x) => x._id === mediaId);
+    if (index !== -1) {
+      this.isFavorite = true;
+    } else {
+      this.isFavorite = false;
+    }
+    return mediaId;
+  }
+  checkFavoriteShow(mediaId: number) {
+    // check if the item is in the favorites array
+    const index = this.favoriteShows.findIndex((x) => x._id === mediaId);
+    if (index !== -1) {
+      this.isFavorite = true;
+    } else {
+      this.isFavorite = false;
+    }
+    return mediaId;
+  }
 
-    // addFavoriteMovie(movieId: number) {
-  //   let userId = -1;
-  //   let user = this.loggedInUser as ILoggedInUser;
-  //   userId = user.User.userId;
-  //   const index = this.favoriteMovies.findIndex((x) => x._id === movieId);
-  //   if (this.loggedInUser) {
-  //     this.favoriteMovies = this.loggedInUser.FavoriteMovies;
-  //   }
-  //   if (index !== -1) {
-  //     this.api.removeFavoriteMovie(userId, movieId);
-  //   } else {
-  //     this.http
-  //       .post<IMovie>(
-  //         this.api.userURI +
-  //           `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
-  //         {}
-  //       )
-  //       .subscribe((response) => {
-  //         console.log('Item added to database');
-  //       });
-  //   }
-  //   this.api.onComponentLoad();
-  // }
+
 
 
 //MOVIE STUFF
-  addFavoriteMovie(movieId: Number) {
+  addFavoriteMovie(movieId: number) {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
+    this.isFavorite = true;
     this.http
       .post<IMovie>(
         this.api.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
@@ -144,20 +134,22 @@ export class MediaComponent {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
+    this.isFavorite = false;
     this.api.removeFavoriteMovie(userId, movieId);
   }
 //SHOW STUFF
-  addFavoriteShow(showId: Number) {
+  addFavoriteShow(showId: number) {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
+    this.isFavorite = true;
     this.http
       .post<IShow>(
-        this.api.userURI + `FavoriteShow?showId=${showId}&userId=${userId}`,
+        this.api.userURI + `FavoriteShow/${showId}/${userId}`,
         {}
       )
       .subscribe((response) => {
-        console.log('Item added to database');
+        console.log('show added to database');
       });
   }
 
@@ -165,6 +157,7 @@ export class MediaComponent {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
+    this.isFavorite = false;
     this.api.removeFavoriteShow(userId, showId);
   }
 
@@ -173,7 +166,10 @@ export class MediaComponent {
 
   ngOnInit(): void {
     this.api.loggedInEvent.subscribe(
-      (x) => (this.loggedInUser = x as ILoggedInUser)
+      (x) => {this.loggedInUser = x as ILoggedInUser
+        this.api.getUserFavoriteMovies(x.User).subscribe((movies)=>this.favoriteMovies=movies)
+        // this.api.getUserFavoriteShows(x.User).subscribe((shows)=>this.favoriteShows=shows)
+        }
     );
   }
 }
