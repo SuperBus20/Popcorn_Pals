@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IUser } from '../Interfaces/user';
 import { IUserReview } from '../Interfaces/user-review';
 import { ApiService } from '../api.service';
@@ -12,7 +12,7 @@ import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 
 export class UserProfileComponent implements OnInit {
 
-  loggedInUser: ILoggedInUser | null = null;
+  @Input() loggedInUser: ILoggedInUser | null = null;
   userProfile: any;
   userToFollow: any;
   follower: any;
@@ -23,10 +23,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
-    this.api.loggedInEvent.subscribe(
-      (x) => {this.loggedInUser = x as ILoggedInUser
-        this.user=x.User;});
+    this.api.loggedInEvent.subscribe((x) => this.loggedInUser = x);
+    // this.api.loggedInEvent.subscribe(
+    //   (x) => {this.loggedInUser = x as ILoggedInUser
+    //     this.user=x.User;});
   }
 
   userName: string = "";
@@ -39,25 +39,6 @@ export class UserProfileComponent implements OnInit {
     this.api.getUser(User);
 
   }
-
-  // Profile Mgmt // //TODO: Do we need this?
-
-  // TODO: Figure out where this logic should live - in user profile or in another component specifically for managing data related to a user profile
-  // updateProfile(form: NgForm) {
-  //   let newUser: IUser = {
-  //     userName: form.value.userName,
-  //     password: form.value.userPassword,
-  //     UserRating: this.userRating.disable,
-  //     UserPic: form.value.userPic,
-  //     UserBio: form.value.userBio,
-  //   }
-
-  //   this.users.updateProfile(form).subscribe(
-  //     () => { });
-
-  //   form.resetForm();
-  // }
-
 
 }
 
