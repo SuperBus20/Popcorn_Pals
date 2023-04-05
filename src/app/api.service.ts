@@ -5,7 +5,7 @@ import { IUser } from './Interfaces/user';
 import { ILoggedInUser } from './Interfaces/LoggedinUser';
 import { IUserReview } from './Interfaces/user-review';
 import { IMovie, IShow, ISource } from './Interfaces/Media';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,12 +19,36 @@ export class ApiService {
 
   @Output() loggedInUser: ILoggedInUser | null = null;
   userToView: IUser | null = null;
+  private _refreshNeeded$ = new Subject<void>();
+  get refreshNeeded$() {
+    return this._refreshNeeded$;
+  }
 
   loggedInEvent = new EventEmitter<ILoggedInUser>
 
   // Media //
 
+addFavoriteMovie(userId: number, movieId: number) {
+  return this.http
+  .post<IMovie>( this.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
+    {}).pipe(
+      tap(() =>  {
+        this._refreshNeeded$.next();
+      })
+    );
+}
 
+
+addFavoriteShow(userId: number, showId: number) {
+  return this.http.post<IShow>(
+    this.userURI + `FavoriteShow/${showId}/${userId}`,
+    {}).pipe(
+      tap(() =>  {
+        this._refreshNeeded$.next();
+      })
+    );
+
+}
 
 
   // Favorite
@@ -240,6 +264,6 @@ export class ApiService {
   isFollowingUser(userId: number, userToUnfollow: number) {
     return this.http.get(`${this.userURI}IsFollowing/${userId}/${userToUnfollow}`);
   }
-  
+
 
 }
