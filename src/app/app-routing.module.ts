@@ -12,11 +12,7 @@ const routes: Routes = [
   { path: 'view-user/:username', component: ViewUserComponent },
   { path:'view-user', component: ViewUserComponent},
   { path: 'follow-user', component: FollowUserComponent },
-  { path: 'app-reviews/:movieId', component: ReviewFormComponent },
-  { path: 'app-reviews/:showId', component: ReviewFormComponent },
-  { path: 'app-review-detail/:movieId', component: ReviewDetailComponent },
-  { path: 'app-review-detail/:showId', component: ReviewDetailComponent },
-  { path: 'app-review-detail/', component: ReviewDetailComponent }
+  { path: 'app-review-detail', component: ReviewDetailComponent }
 ];
 
 @NgModule({

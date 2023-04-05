@@ -78,6 +78,19 @@
           </div>
         </div>
 
+        <button class="w3-button w3-blue-grey" (click)="onPress()">Add My Review</button>
+        <div id="comp-render" *ngIf="displayReview">
+            <app-review-form 
+              [mediaId]="info._id"
+              [selectedMovie]="selectedMovie"
+              [selectedShow]="selectedShow"
+              [isShow]="isShow"
+              [isMovie]="isMovie"
+              [mediaTitle]="info.title"
+            >
+            </app-review-form>
+        </div>
+
         <div>
           <p>{{ info.overview }}</p>
           <p><strong>Genre:</strong> {{ info.genres }}</p>
@@ -120,7 +133,7 @@
             <button
               *ngIf="!isFavorite"
               class="w3-button w3-blue-grey"
-              (click)="addFavoriteShow(info._id)"
+              (click)="addFavoriteMovie(info._id)"
             >
               add to favorites
             </button>
@@ -133,7 +146,7 @@
             </button>
           </div>
         </div>
-        
+
         <button class="w3-button w3-blue-grey" (click)="onPress()">Add My Review</button>
         <div id="comp-render" *ngIf="displayReview">
             <app-review-form 
@@ -146,8 +159,7 @@
             >
             </app-review-form>
         </div>
-
-
+      
 
         <div>
           <p>{{ info.overview }}</p>

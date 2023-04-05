@@ -53,7 +53,7 @@
                 <div class="w3-container w3-blue-grey">
                   <span onclick="document.getElementById('id_update').style.display='none'"
                     class="w3-button w3-display-topright">&times;</span>
-                  <app-user-update></app-user-update>
+                  <app-user-update ></app-user-update>
                 </div>
               </div>
             </div>
@@ -81,11 +81,11 @@
           <!-- <app-review-form></app-review-form> -->
           <div class="w3-container w3-card w3-white w3-round w3-margin">
             <br />
-            <span class="w3-right w3-opacity">Rating Goes Here/5</span>
             <h4>Show/Movie Title</h4>
             <br />
             <hr class="w3-clear" />
-            <p>Review Goes Here</p>
+            <p>Reviews</p>
+            <app-review-detail [user]="loggedInUser"></app-review-detail>
             <div class="w3-row-padding" style="margin: 0 -16px">
               <div class="w3-half">
                 <img src="{{ loggedInUser.User.userPic }}" style="width: 100%" alt="Media Image"

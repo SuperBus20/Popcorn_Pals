@@ -16,8 +16,8 @@ import { ReviewDetailComponent } from '../review-detail/review-detail.component'
 })
 export class MediaComponent {
   displayReview: boolean = false;
-  constructor(private api: ApiService, private http: HttpClient, 
-    private route: Router) {}
+  constructor(private api: ApiService, private http: HttpClient,
+    private route: Router) { }
   // ngOnInit(): void {
   // }
 
@@ -39,7 +39,17 @@ export class MediaComponent {
   favoriteMovies: IMovie[] = [];
   isFavorite: boolean = false;
 
-  
+
+  ngOnInit(): void {
+    this.api.loggedInEvent.subscribe(
+      (x) => {
+        this.loggedInUser = x as ILoggedInUser
+        this.api.getUserFavoriteMovies(x.User).subscribe((movies) => this.favoriteMovies = movies)
+        // this.api.getUserFavoriteShows(x.User).subscribe((shows)=>this.favoriteShows=shows)
+      }
+    );
+  }
+
   searchMedia(form: NgForm) {
     this.searchString = form.value.searchString;
     this.searchType = form.value.searchType;
@@ -66,7 +76,7 @@ export class MediaComponent {
           this.showResults = response;
         });
     }
-    this.selectedMedia=false;
+    this.selectedMedia = false;
     form.resetForm();
   }
 
@@ -78,7 +88,8 @@ export class MediaComponent {
        this.api.getMovieByID(mediaId).subscribe((response) => {
         this.selectedMovie = response;
       });
-      this.checkFavoriteMovie(mediaId);
+      this.api.isFavoritedMovie(this.selectedMovie._id).subscribe((x) => {this.isFavorite=x
+      });
     }
     else if(mediaType==="show")
     {
@@ -87,38 +98,15 @@ export class MediaComponent {
       this.api.getShowByID(mediaId).subscribe((response) => {
         this.selectedShow = response;
       });
-      this.checkFavoriteShow(mediaId);
     }
   }
 
   // Favorites 
-  checkFavoriteMovie(mediaId: number) {
-    // check if the item is in the favorites array
-    const index = this.favoriteMovies.findIndex((x) => x._id === mediaId);
-    if (index !== -1) {
-      this.isFavorite = true;
-    } else {
-      this.isFavorite = false;
-    }
-    return mediaId;
-  }
-
-  checkFavoriteShow(mediaId: number) {
-    // check if the item is in the favorites array
-    const index = this.favoriteShows.findIndex((x) => x._id === mediaId);
-    if (index !== -1) {
-      this.isFavorite = true;
-    } else {
-      this.isFavorite = false;
-    }
-    return mediaId;
-  }
-
-  addFavoriteMovie(movieId: number) {
+  //MOVIE STUFF
+  addFavoriteMovie(movieId: Number) {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
-    this.isFavorite = true;
     this.http
       .post<IMovie>(
         this.api.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
@@ -128,27 +116,24 @@ export class MediaComponent {
         console.log('Item added to database');
       });
   }
-  
   removeFavoriteMovie(movieId: number) {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
-    this.isFavorite = false;
     this.api.removeFavoriteMovie(userId, movieId);
   }
-
-  addFavoriteShow(showId: number) {
+  //SHOW STUFF
+  addFavoriteShow(showId: Number) {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
-    this.isFavorite = true;
     this.http
       .post<IShow>(
-        this.api.userURI + `FavoriteShow/${showId}/${userId}`,
+        this.api.userURI + `FavoriteShow?showId=${showId}&userId=${userId}`,
         {}
       )
       .subscribe((response) => {
-        console.log('show added to database');
+        console.log('Item added to database');
       });
   }
 
@@ -156,53 +141,43 @@ export class MediaComponent {
     let userId = -1;
     let user = this.loggedInUser as ILoggedInUser;
     userId = user.User.userId;
-    this.isFavorite = false;
     this.api.removeFavoriteShow(userId, showId);
   }
 
+
+  // Add or Edit Review // - Directs user to review form when viewing media
   onPress() {
-    if(this.displayReview == true)
-    {
+    if (this.displayReview == true) {
       this.displayReview = false
     }
-    else
-    {
+    else {
       this.displayReview = true
     }
   }
   
-  // Add or Edit Review // - Directs user to review form when viewing media
   goToMovieReviewForm(movieId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-review-form/', movieId, userId, 
+      '/app-review-form/', movieId, userId,
     ])
   }
 
   goToShowReviewForm(showId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-review-form/', showId, userId, 
+      '/app-review-form/', showId, userId,
     ])
   }
 
   goToEditReviewForm(reviewId: any) {
     let userId = this.loggedInUser;
     this.route.navigate([
-      '/app-review-form/', reviewId, userId, 
+      '/app-review-form/', reviewId, userId,
     ])
   }
 
-  navigate(url:string) {
+  navigate(url: string) {
     window.open(url);
   }
 
-  ngOnInit(): void {
-    this.api.loggedInEvent.subscribe(
-      (x) => {this.loggedInUser = x as ILoggedInUser
-        this.api.getUserFavoriteMovies(x.User).subscribe((movies)=>this.favoriteMovies=movies)
-        // this.api.getUserFavoriteShows(x.User).subscribe((shows)=>this.favoriteShows=shows)
-        }
-    );
-  }
 }

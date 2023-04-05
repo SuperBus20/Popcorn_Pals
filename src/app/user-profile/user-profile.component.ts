@@ -35,24 +35,5 @@ export class UserProfileComponent implements OnInit {
     this.api.getUser(User);
   }
 
-  // Profile Mgmt // //TODO: Do we need this?
-
-  // TODO: Figure out where this logic should live - in user profile or in another component specifically for managing data related to a user profile
-  // updateProfile(form: NgForm) {
-  //   let newUser: IUser = {
-  //     userName: form.value.userName,
-  //     password: form.value.userPassword,
-  //     UserRating: this.userRating.disable,
-  //     UserPic: form.value.userPic,
-  //     UserBio: form.value.userBio,
-  //   }
-
-  //   this.users.updateProfile(form).subscribe(
-  //     () => { });
-
-  //   form.resetForm();
-  // }
-
-
 }
 

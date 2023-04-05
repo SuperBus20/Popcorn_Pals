@@ -5,7 +5,7 @@ import { IUser } from './Interfaces/user';
 import { ILoggedInUser } from './Interfaces/LoggedinUser';
 import { IUserReview } from './Interfaces/user-review';
 import { IMovie, IShow, ISource } from './Interfaces/Media';
-import { Observable, from, BehaviorSubject } from 'rxjs';
+import { Observable, from, BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ReviewDetailComponent } from './review-detail/review-detail.component';
 import { ReviewFormComponent } from './review-form/review-form.component';
 
@@ -109,7 +109,7 @@ export class ApiService {
   }
 
   getUserByName(userToSearch: string) {
-    return this.http.get<IUser[]>(this.userURI + `SearchUserByName/${userToSearch}`);
+    return this.http.get<IUser>(this.userURI + `SearchUserByName/${userToSearch}`);
   }
 
 
@@ -256,23 +256,27 @@ export class ApiService {
       .subscribe(() => { });
   }
 
-  getReviewByUserId(userId: number) {
-    return this.http.get<IUserReview>(
-      this.userURI + `GetReviewByUserId?userId=${userId}`
+  async getReviewsByUserId(userId: number) {
+   const review = await this.http.get<IUserReview[]>(
+      this.userURI + `GetReviewsByUserId?userId=${userId}`
     );
+
+    return (review);
   }
 
-  getReviewByReviewId(id: number) {
-    return this.http.get<IUserReview>(
-      this.userURI + `GetReviewByReviewId?id=${id}`
-    );
+  getReviewId(mediaId: number) {
+
   }
 
-
-  deleteReview(userId: number, reviewId: number) {
-    return this.http.post<boolean>(this.userURI + `DeleteReview/${userId}/${reviewId}`, {}).subscribe(() => { Response });
-  } 
-
+  // deleteReview(userId: number, reviewId: number) {
+  //   return this.http.post<IUserReview>(this.userURI + `DeleteReview/${userId}/${reviewId}`, {}).subscribe(
+  //     (x) => {
+  //       if (x) {
+  //         this.setUser(this.giveCurrentUser().User)
+  //         return this.onComponentLoad();
+  //       }
+  //     })
+  // } 
 
   // Follow //
   getFollowing(userId: number) {
