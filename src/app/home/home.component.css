@@ -1,0 +1,20 @@
+.welcome-page {
+  background: #ffffffbd;
+  color: black;
+  max-width: 900px;
+  margin: 0 auto;
+  color: black;
+  margin: 300px auto;
+  text-align: center;
+  padding: 50px 35px;
+  -webkit-box-shadow: 3px 2px 23px -6px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 2px 23px -6px rgba(0,0,0,0.75);
+  box-shadow: 3px 2px 23px -6px rgba(0,0,0,0.75);
+}
+.welcome-page h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 80px;
+}
+.welcome-page p {
+  font-size: 30px
+}
