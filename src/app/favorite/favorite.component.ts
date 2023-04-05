@@ -11,7 +11,6 @@ import { ILoggedInUser } from '../Interfaces/LoggedinUser';
 export class FavoriteComponent implements OnInit {
   favoriteMovies: IMovie[] = [];
   favoriteShows: IShow[] = [];
-  // loggedInUser: ILoggedInUser | null = null;
   @Input() user: any;
   @Input() loggedInUser: ILoggedInUser | null = null;
   constructor(private api: ApiService) {
@@ -30,9 +29,9 @@ export class FavoriteComponent implements OnInit {
     if(this.user)
     {
       this.api.getUserFavoriteMovies(this.user).subscribe(
-        (movies)=>{this.favoriteMovies = movies;
+        (movies)=>{this.favoriteMovies = movies.filter(x => x !== null);
         this.api.getUserFavoriteShows(this.user).subscribe(
-          (shows)=>this.favoriteShows = shows )  });
+          (shows)=>this.favoriteShows = shows.filter(x => x!==null) )  });
 
     }
 
