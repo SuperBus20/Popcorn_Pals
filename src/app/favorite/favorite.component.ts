@@ -19,15 +19,20 @@ export class FavoriteComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.loggedInUser){
-    this.api.getUserFavoriteMovies(this.loggedInUser.User).subscribe((movies)=>{
-      this.favoriteMovies = movies;  });
-    //   this.api.getLoggedInUserFavoriteShows(this.loggedInUser.User).subscribe((shows)=>{
-    //     this.favoriteShows = shows; });
+
+      // this.api.getUserFavoriteMovies(this.loggedInUser.User).subscribe(
+      //   (movies)=>{this.favoriteMovies = movies;
+      //   this.api.getUserFavoriteShows(this.loggedInUser?.User).subscribe(
+      //     (shows)=>this.favoriteShows = shows )  });
+
     }
     if(this.user)
     {
-      this.api.getUserFavoriteMovies(this.user).subscribe((movies)=>{this.favoriteMovies = movies;  });
-      this.api.getUserFavoriteShows(this.user).subscribe((shows)=>{this.favoriteShows = shows;  });
+      this.api.getUserFavoriteMovies(this.user).subscribe(
+        (movies)=>{this.favoriteMovies = movies;
+        this.api.getUserFavoriteShows(this.user).subscribe(
+          (shows)=>this.favoriteShows = shows )  });
+
     }
 
   }
