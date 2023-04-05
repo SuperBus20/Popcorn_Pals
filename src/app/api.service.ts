@@ -23,35 +23,8 @@ export class ApiService {
   loggedInEvent = new EventEmitter<ILoggedInUser>
 
   // Media //
-  selectFavoriteMovie(movieId: number) {
-    let userId = -1;
-    let user = this.loggedInUser as ILoggedInUser;
-    if (user) {
-      userId = user.User.userId;
-      let favorites = user.FavoriteMovies;
-      let movie = favorites.filter((x) => x._id === movieId)[0];
-      let indexNumber = favorites.indexOf(movie);
-      let length = favorites.length;
-      if (user.FavoriteMovies.some((x) => x._id === movieId)) {
-        favorites = favorites
-          .slice(0, Math.abs(indexNumber))
-          .concat(favorites.slice(-Math.abs(length - indexNumber)));
-        this.removeFavoriteMovie(userId, movieId);
-      } else {
-        this.http
-          .post<IMovie>(
-            this.userURI + `FavoriteMovie?movieId=${movieId}&userId=${userId}`,
-            {}
-          )
-          .subscribe((x) => {
-            if (x) {
-              this.setUser(user.User);
-              return this.onComponentLoad();
-            }
-          });
-      }
-    }
-  }
+
+
 
 
   // Favorite
@@ -69,32 +42,7 @@ export class ApiService {
       });
   }
 
-  selectFavoriteShow(showId: number) {
-    let userId = -1;
-    let user = this.loggedInUser as ILoggedInUser;
-    if (user) {
-      userId = user.User.userId;
-      let favorites = user.FavoriteShows;
-      let show = favorites.filter((x) => x._id === showId)[0];
-      let indexNumber = favorites.indexOf(show);
-      let length = favorites.length;
-      if (user.FavoriteMovies.some((x) => x._id === showId)) {
-        favorites = favorites
-          .slice(0, Math.abs(indexNumber))
-          .concat(favorites.slice(-Math.abs(length - indexNumber)));
-        this.removeFavoriteShow(userId, showId);
-      } else {
-        this.http
-          .post<IMovie>(this.userURI + `FavoriteShow/${showId}/${userId}`, {})
-          .subscribe((x) => {
-            if (x) {
-              this.setUser(user.User);
-              return this.onComponentLoad();
-            }
-          });
-      }
-    }
-  }
+
 
   removeFavoriteShow(userId: number, showId: number) {
     return this.http.post<boolean>(this.userURI + `DeleteFavoriteShow/${userId}/${showId}`, {})
@@ -142,14 +90,15 @@ export class ApiService {
         user
       )
       .subscribe((x) => {
-        return this.loggedInUser = {
+         this.loggedInUser = {
           User: x,
           UserReview: [],
           FavoriteMovies: [],
           FavoriteShows: [],
         };
-        // this.onComponentLoad();
+        this.loggedInEvent.emit(this.giveCurrentUser() as ILoggedInUser);
       });
+
   }
 
   getUser(user: IUser) {

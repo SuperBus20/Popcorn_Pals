@@ -244,7 +244,7 @@ namespace Popcorn_Pals.DAL
       var apiTask = apiUri.WithHeaders(new
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
-        x_rapidapi_key = "634f8df5e0msh43dc45e0a646f76p1b935cjsn51058510ae34"
+        x_rapidapi_key = "d04e61d3bcmsh2be3fe21a36df9ap1784f8jsna6285dd79692"
 
       }).GetJsonAsync<List<Movie>>();
       apiTask.Wait();
@@ -262,7 +262,7 @@ namespace Popcorn_Pals.DAL
     {
       List<Movie> favorites = _popContext.Favorites
         .Where(x => x.UserId == userId)
-        .Select(x => GetMovie((int)x.MovieId))
+        .Select(x => GetMovie(x.MovieId??0))
         .ToList();
       if (favorites == null)
       {
@@ -299,7 +299,7 @@ namespace Popcorn_Pals.DAL
       {
         x_rapidapi_host = "streamlinewatch-streaming-guide.p.rapidapi.com",
 
-        x_rapidapi_key = "634f8df5e0msh43dc45e0a646f76p1b935cjsn51058510ae34"
+        x_rapidapi_key = "d04e61d3bcmsh2be3fe21a36df9ap1784f8jsna6285dd79692"
 
       }).GetJsonAsync<List<Show>>();
       apiTask.Wait();
@@ -318,7 +318,7 @@ namespace Popcorn_Pals.DAL
     {
       List<Show> favorites = _popContext.Favorites
         .Where(x => x.UserId == userId)
-        .Select(x => GetShow((int)x.ShowId))
+        .Select(x => GetShow(x.ShowId??0))
         .ToList();
       if (favorites == null)
       {

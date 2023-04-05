@@ -122,7 +122,7 @@ export class UserLoginComponent implements OnInit {
       userPic: '',
       userBio: '',
     }); // passing the currently logged in user back to service so it is globally available, has to be done this way...
-
+    this.router.navigate(['/user-profile']);
   }
 
 

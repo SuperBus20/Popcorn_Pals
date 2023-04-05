@@ -16,6 +16,7 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import { ApiService } from './api.service';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { FollowUserProfileComponent } from './follow-user-profile/follow-user-profile.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { FollowUserProfileComponent } from './follow-user-profile/follow-user-pr
     SearchUserComponent,
     ViewUserComponent,
     FavoriteComponent,
-    FollowUserProfileComponent
+    FollowUserProfileComponent,
+    HomeComponent
 
 
   ],
