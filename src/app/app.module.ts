@@ -8,7 +8,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { MediaComponent } from './media/media.component';
-import { FollowUserComponent } from './follow-user/follow-user.component';
+import { FollowUserComponent } from './follow-view-user/follow-view-user.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { SearchUserComponent } from './search-user/search-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';

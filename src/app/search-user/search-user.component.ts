@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { IUser } from '../Interfaces/user';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { waitForAsync } from '@angular/core/testing';
 
 @Component({
@@ -11,15 +10,15 @@ import { waitForAsync } from '@angular/core/testing';
   styleUrls: ['./search-user.component.css'],
 })
 export class SearchUserComponent implements OnInit {
-  public users: IUser[]|null = null;
-  public searchName: string=''
+  public users: IUser[] | null = null;
+  public searchName: string = '';
   public userToView!: IUser;
 
   constructor(
-     private api: ApiService
-    , private router: Router
-    , private route:ActivatedRoute)
-    {}
+    private api: ApiService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   searchUsers() {
     this.api.getUserByName(this.searchName).subscribe(
@@ -33,15 +32,13 @@ export class SearchUserComponent implements OnInit {
   }
 
   loadUserProfile(user: IUser) {
-    this.api.userToView=user;
+    this.api.userToView = user;
 
     this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-    this.router.navigate(['/view-user']);
+      this.router.navigate(['/view-user']);
     });
   }
   ngOnInit(): void {
-    this.api.getAllUsers().subscribe(x => this.users = x)
-
-
+    this.api.getAllUsers().subscribe((x) => (this.users = x));
   }
 }
