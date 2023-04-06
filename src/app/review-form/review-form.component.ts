@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { IMovie, IShow } from '../Interfaces/Media';
 import { Router } from '@angular/router';
 import { StarRatingColor } from '../star-rating/star-rating.component';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { MediaComponent } from '../media/media.component';
 import { ReviewDetailComponent } from '../review-detail/review-detail.component';
 
@@ -60,8 +61,8 @@ export class ReviewFormComponent {
     // this.isReviewed = true;
     let newMovieReview: IUserReview = {
       userId: this.userId,
-      Rating: this.rating,
-      Review: form.form.value.Review,
+      rating: this.rating,
+      review: form.form.value.Review,
       MediaId: this.mediaId,
     };
     this.Api.addMovieReview(newMovieReview)
@@ -72,8 +73,8 @@ export class ReviewFormComponent {
     // this.isReviewed = true;
     let newShowReview: IUserReview = {
       userId: this.userId,
-      Rating: this.rating,
-      Review: form.form.value.Review,
+      rating: this.rating,
+      review: form.form.value.review,
       MediaId: this.mediaId,
     };
     this.Api.addShowReview(newShowReview)

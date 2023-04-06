@@ -27,7 +27,7 @@ export class ReviewDetailComponent {
 
   userId: any;
   movieId: number = -1
-  movie: IMovie | any;
+  movie: IMovie[] = [];
   show: IShow | any;
   Review: string = "" ;
   Rating: number = -1 ;
@@ -35,25 +35,17 @@ export class ReviewDetailComponent {
   isEditingReview: boolean = false;
   isDeletingReview: boolean = false;
   ReviewId: number = 0;
-  userReviews!: Observable<IUserReview[]>;
-  
+  userReviews!: IUserReview[];
 
   ngOnInit(): void {
-    this.getUserReviews(this.user?.User?.userId);
+    
+    if (this.user){
+      this.getUserReviews(this.user.User.userId);
+    }
     console.log(this.user);
-    // console.log(this.loggedInUser?.User);
     console.log(this.userReviews);
-  
-    debugger;
-
-    // console.log(this.selectedMovie)
-    // console.log(this.selectedShow)
-    // console.log(this.isMovie)
-    // console.log(this.isShow)
-    // console.log(this.reviewstest)
   }
 
-    // Edit Review //
 
   // getReviewId(number: mediaId, number: userId, string: mediaType)
   //   {
@@ -84,9 +76,12 @@ export class ReviewDetailComponent {
   // Get User Reviews //
  getUserReviews(userId: number | undefined) {
     if (userId != undefined) {
-      const reviews$ = this.Api.getReviewsByUserId(userId);
-      // this.userReviews = lastValueFrom(reviews$); //TODO: HALPME
+      this.Api.getReviewsByUserId(userId).subscribe((x) => {this.userReviews = x 
+      x.forEach(r => this.movie = 
+        this.Api.getMovieByID(r.MediaId))
+      });
     }
+
   }
 
 

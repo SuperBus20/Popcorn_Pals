@@ -1,22 +1,8 @@
 
-    <h1>My Reviews</h1>
-    <div>
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col-sm-10">Rating</th>
-                        <th scope="col-sm-10">Review</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- <tr *ngFor="let review of userReviews"> //TODO: HALPME-->
-                        <td>{{Rating}}</td>
-                        <td>{{Review}}</td>
-                    <!-- </tr> -->
-                </tbody>
-            </table>
-        </div>
-    </div>
+<li *ngFor="let review of userReviews">
+    <td>{{review.rating}}</td>
+    <td>{{review.review}}</td>
+    
+    <td *ngFor="let m of movie"> {{m.poster_path}}</td>
 
-
+</li>

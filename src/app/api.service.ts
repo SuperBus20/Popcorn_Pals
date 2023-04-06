@@ -75,7 +75,7 @@ export class ApiService {
     return this.http.get<IShow[]>(this.userURI + `GetFavoriteShows/${user.userId}`)
   }
 
-  getMovieByID(media_id: number) {
+  getMovieByID(media_id: number){
     return this.http.get<IMovie>(this.popCornUri + `movie?_id=${media_id}`);
   }
 
@@ -176,8 +176,8 @@ export class ApiService {
    addMovieReview(movieReview: IUserReview) {
     let userId = movieReview.userId;
     let mediaId = movieReview.MediaId;
-    let review = movieReview.Review;
-    let rating = movieReview.Rating;
+    let review = movieReview.review;
+    let rating = movieReview.rating;
     return this.http
       .post<IUserReview>(
         this.movieReview +
@@ -192,8 +192,8 @@ export class ApiService {
   addShowReview(showReview: IUserReview) {
     let userId = showReview.userId;
     let mediaId = showReview.MediaId;
-    let review = showReview.Review;
-    let rating = showReview.Rating;
+    let review = showReview.review;
+    let rating = showReview.rating;
     return this.http
       .post<IUserReview>(
         this.showReview +
@@ -203,12 +203,10 @@ export class ApiService {
       .subscribe(() => { });
   }
 
-  async getReviewsByUserId(userId: number) {
-   const review = await this.http.get<IUserReview[]>(
+  getReviewsByUserId(userId: number) {
+      return this.http.get<IUserReview[]>(
       this.userURI + `GetReviewsByUserId?userId=${userId}`
     );
-
-    return (review);
   }
 
   getReviewId(mediaId: number) {

@@ -1,21 +1,21 @@
-<ng-template
+<!-- <ng-template
   *ngIf="isMovie == true; then loadMovieReviewForm else loadShowReviewForm"
-></ng-template>
+></ng-template> -->
 
-<ng-template #loadMovieReviewForm>
+<!-- <ng-template #loadMovieReviewForm>
  <h1>Add Movie Review</h1>
   <form #newMovieReview="ngForm" (ngSubmit)="addMovieReview(newMovieReview)">
  
-      <label for="reviewText">Review:</label>
-      <app-star-rating [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></app-star-rating>
+      <label for="reviewText">Review:</label> -->
+      <!-- <app-star-rating [rating]="rating"  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></app-star-rating> -->
       
-      <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required>
+      <!-- <input class="w3-input" type="text" id="review" name="Review" [(ngModel)]="Review" required> -->
 
-      <button class="w3-button w3-blue-grey" type="submit">Submit Review</button>
+      <!-- <button class="w3-button w3-blue-grey" type="submit">Submit Review</button>
     </form>
-</ng-template>
+</ng-template> -->
 
-<ng-template #loadShowReviewForm>
+<!-- <ng-template #loadShowReviewForm>
   <h1>Add Show Review</h1>
     <form #newShowReview="ngForm" (ngSubmit)="addShowReview(newShowReview)">
  
@@ -27,7 +27,7 @@
 
       <button class="w3-button w3-blue-grey" type="submit">Submit Review</button>
     </form>
-</ng-template>
+</ng-template> -->
 
 <!-- <ng-template #editReview>
   <h1>Edit Review</h1>

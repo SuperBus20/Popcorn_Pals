@@ -20,9 +20,9 @@ namespace Popcorn_Pals.DAL.Interfaces
     // Review Methods //
     UserReview AddMovieReview(UserReview reviewToAdd);
     UserReview AddShowReview(UserReview reviewToAdd);
-    void DeleteReview(UserReview reviewId);
-    int GetReviewId(int mediaId, int userId, string mediaType);
-    bool hasUserReviewed(int mediaId, int userId, string mediaType);
+    // void DeleteReview(UserReview reviewId);
+    // int GetReviewId(int mediaId, int userId, string mediaType);
+    // bool hasUserReviewed(int mediaId, int userId, string mediaType);
     List<UserReview> GetReviewsByUserId(int userId);
   
 

@@ -172,16 +172,4 @@ export class MediaComponent {
     this.isFavorite = false;
     this.api.removeFavoriteShow(userId, showId);
   }
-
-
-
-
-  ngOnInit(): void {
-    this.api.loggedInEvent.subscribe(
-      (x) => {this.loggedInUser = x as ILoggedInUser
-        this.api.getUserFavoriteMovies(x.User).subscribe((movies)=>this.favoriteMovies=movies)
-        // this.api.getUserFavoriteShows(x.User).subscribe((shows)=>this.favoriteShows=shows)
-        }
-    );
-  }
 }

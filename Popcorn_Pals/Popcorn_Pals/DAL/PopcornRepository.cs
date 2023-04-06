@@ -71,29 +71,29 @@ namespace Popcorn_Pals.DAL
       return reviewToAdd;
     }
 
-    public bool hasUserReviewed (int mediaId, int userId, string mediaType) 
-    {
-      int reviewId = GetReviewId(mediaId, userId, mediaType);
-      if (reviewId > 0) {
-        return true;
-      }
-      return false;
-    }
+    // public bool hasUserReviewed (int mediaId, int userId, string mediaType) 
+    // {
+    //   int reviewId = GetReviewId(mediaId, userId, mediaType);
+    //   if (reviewId > 0) {
+    //     return true;
+    //   }
+    //   return false;
+    // }
 
-    public int GetReviewId(int mediaId, int userId, string mediaType)
-    {
-      if (mediaType == "movie") {
-        int movieReviewId = _popContext.Reviews.Include(x => x.Movies).Where(x => x.Movies._id == mediaId && x.UserId == userId).Select(x => x.Id).FirstOrDefault();
-        return movieReviewId;
-      }
-      else if (mediaType == "show") {
-        int showReviewId = _popContext.Reviews.Include(x => x.Movies).Where(x => x.Shows._id == mediaId && x.UserId == userId).Select(x => x.Id).FirstOrDefault();
-        return showReviewId;
-      }
-      else {
-        return 0; //if this is 0, user doesn't have a review for selected media
-      }
-    }
+    // public int GetReviewId(int mediaId, int userId, string mediaType)
+    // {
+    //   if (mediaType == "movie") {
+    //     int movieReviewId = _popContext.Reviews.Include(x => x.Movies).Where(x => x.Movies._id == mediaId && x.UserId == userId).Select(x => x.Id).FirstOrDefault();
+    //     return movieReviewId;
+    //   }
+    //   else if (mediaType == "show") {
+    //     int showReviewId = _popContext.Reviews.Include(x => x.Movies).Where(x => x.Shows._id == mediaId && x.UserId == userId).Select(x => x.Id).FirstOrDefault();
+    //     return showReviewId;
+    //   }
+    //   else {
+    //     return 0; //if this is 0, user doesn't have a review for selected media
+    //   }
+    // }
 
     public List<UserReview> GetReviewsByUserId(int userId)
     {
@@ -103,15 +103,15 @@ namespace Popcorn_Pals.DAL
       return Reviews;
     }
 
-    public void DeleteReview(UserReview reviewId)
-    {
-      UserReview? deleteReview = _popContext.Reviews
-      .Where(x => x.Id == reviewId.Id).FirstOrDefault();
+    // public void DeleteReview(UserReview reviewId)
+    // {
+    //   UserReview? deleteReview = _popContext.Reviews
+    //   .Where(x => x.Id == reviewId.Id).FirstOrDefault();
 
-      UserReview reviewToDelete = reviewId;
-      _popContext.Reviews.Remove(deleteReview);
-      _popContext.SaveChanges();
-    }
+    //   UserReview reviewToDelete = reviewId;
+    //   _popContext.Reviews.Remove(deleteReview);
+    //   _popContext.SaveChanges();
+    // }
 
     // public UserReview EditReview(UserReview reviewId)
     // {
