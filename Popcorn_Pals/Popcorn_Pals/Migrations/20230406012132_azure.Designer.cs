@@ -12,8 +12,8 @@ using Popcorn_Pals;
 namespace Popcorn_Pals.Migrations
 {
     [DbContext(typeof(PopcornContext))]
-    [Migration("20230325212614_modify-movie-to-nullable-youtube-trailer")]
-    partial class modifymovietonullableyoutubetrailer
+    [Migration("20230406012132_azure")]
+    partial class azure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,30 @@ namespace Popcorn_Pals.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Popcorn_Pals.Models.Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShowId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Favorites");
+                });
 
             modelBuilder.Entity("Popcorn_Pals.Models.Follow", b =>
                 {
@@ -58,7 +82,6 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("poster_path")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("release_date")
@@ -91,7 +114,6 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("poster_path")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("title")
@@ -99,7 +121,6 @@ namespace Popcorn_Pals.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("youtube_trailer")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("_id");
@@ -190,6 +211,17 @@ namespace Popcorn_Pals.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("Popcorn_Pals.Models.Favorite", b =>
+                {
+                    b.HasOne("Popcorn_Pals.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Popcorn_Pals.Models.Follow", b =>

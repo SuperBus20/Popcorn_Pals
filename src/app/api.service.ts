@@ -12,10 +12,10 @@ import { Observable, Subject, tap } from 'rxjs';
 })
 export class ApiService {
   constructor(private http: HttpClient) { }
-  userURI: string = 'https://localhost:7035/api/PopcornUser/';
-  popCornUri: string = 'https://localhost:7035/api/Popcorn/';
-  movieReview: string = 'https://localhost:7035/api/PopcornUser/';
-  showReview: string = 'https://localhost:7035/api/PopcornUser/';
+  userURI: string = 'https://popcornpals-jhd.azurewebsites.net/api/PopcornUser/';
+  popCornUri: string = 'https://popcornpals-jhd.azurewebsites.net/api/Popcorn/';
+  movieReview: string = 'https://popcornpals-jhd.azurewebsites.net/api/PopcornUser/';
+  showReview: string = 'https://popcornpals-jhd.azurewebsites.net/api/PopcornUser/';
 
   @Output() loggedInUser: ILoggedInUser | null = null;
   userToView: IUser | null = null;

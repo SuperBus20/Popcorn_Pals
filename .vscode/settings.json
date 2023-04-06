@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
         "unfollow"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/c5d835fe-1542-49c5-ac62-614c256e6a67/resourceGroups/gc_ah_2022/providers/Microsoft.Web/sites/PopcornPalsAngular",
+    "appService.deploySubpath": "dist\\popcorn-pals"
 }
