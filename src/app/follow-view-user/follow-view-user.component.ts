@@ -36,6 +36,17 @@ export class FollowUserComponent implements OnInit {
     this.followings();
     this.isFollowing(this.userToView.userId);
     console.log(this.amIFollowing)
+
+
+    this.api.refreshNeeded$.subscribe(() => {
+    this.loggedInUser = this.api.giveCurrentUser();
+    this.userToView = this.api.userToView;
+
+    this.followers();
+    this.followings();
+    this.isFollowing(this.userToView.userId);
+    console.log(this.amIFollowing)
+    });
   }
 
   loadUserProfile(user: IUser) {
@@ -74,5 +85,5 @@ export class FollowUserComponent implements OnInit {
       this.amIFollowing = <boolean>response;
     });
   }
-  
+
 }

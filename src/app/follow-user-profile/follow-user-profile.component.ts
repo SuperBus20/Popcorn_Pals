@@ -21,6 +21,10 @@ export class FollowUserProfileComponent implements OnInit{
     this.loggedInUser = this.api.giveCurrentUser();
     this.followers();
     this.following();
+    this.api.refreshNeeded$.subscribe(() => {
+      this.followers();
+      this.following();
+    });
   }
 
   loadUserProfile(user: IUser) {
@@ -37,7 +41,7 @@ export class FollowUserProfileComponent implements OnInit{
       this.userFollowersCount = this.userFollowers.length;
     });
   }
-  
+
   following() {
     this.api.getFollowing(this.loggedInUser!.User.userId).subscribe((response) => {
       this.followingUsers = response;

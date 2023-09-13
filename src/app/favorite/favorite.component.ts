@@ -26,6 +26,18 @@ export class FavoriteComponent implements OnInit {
     //       (shows)=>this.favoriteShows = shows )  });
 
     // }
+    if (this.user) {
+
+        this.api.getUserFavoriteMovies(this.user).subscribe((movies) => {
+          this.favoriteMovies = movies.filter((x) => x !== null);
+          this.api
+            .getUserFavoriteShows(this.user)
+            .subscribe(
+              (shows) => (this.favoriteShows = shows.filter((x) => x !== null))
+            );
+        });
+
+    }
 
     if (this.user) {
       this.api.refreshNeeded$.subscribe(() => {

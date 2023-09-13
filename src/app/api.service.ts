@@ -254,11 +254,19 @@ addFavoriteShow(userId: number, showId: number) {
   }
 
   followUser(userId: number, userToFollow: number) {
-    return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`, {}).subscribe(() => { Response });
+    return this.http.post(this.userURI + `FollowUser?userId=${userId}&userToFollow=${userToFollow}`, {}).pipe(
+      tap(() =>  {
+        this._refreshNeeded$.next();
+      })
+    ).subscribe(() => { Response });
   }
 
   unfollowUser(userId: number, userToUnfollow: number) {
-    return this.http.post(this.userURI + `UnfollowUser?userId=${userId}&userToUnfollow=${userToUnfollow}`, {}).subscribe(() => { Response });
+    return this.http.post(this.userURI + `UnfollowUser?userId=${userId}&userToUnfollow=${userToUnfollow}`, {}).pipe(
+      tap(() =>  {
+        this._refreshNeeded$.next();
+      })
+    ).subscribe(() => { Response });
   }
 
   isFollowingUser(userId: number, userToUnfollow: number) {
